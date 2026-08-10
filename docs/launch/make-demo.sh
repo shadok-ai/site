@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
-# Cut the raw take into shots and build the GIF.
+# Cut the raw take into shots and build the hero assets: a VP9 WebM, an H.264
+# MP4 fallback, a poster still, and the Open Graph card.
+#
+# This replaced make-gif.sh. The GIF of the same 39 s edit weighed 5.29 MB and
+# was 99.7% of the page — it put mobile LCP in Google's "poor" band on an
+# ordinary 4G connection. Video carries the same footage at a tenth of the
+# weight, can be paused (an animated GIF cannot, which is a WCAG 2.2.2 failure),
+# and hands the browser a cheap poster to paint immediately.
 #
 # A single wide shot reads as a screen recording. Punching in on the question,
 # the agent list, the diff and the icons is what makes it read as a demo — the
@@ -22,10 +29,10 @@ set -euo pipefail
 export LC_ALL=C
 
 RAW="${1:-$(ls -t docs/launch/raw/*.webm | head -1)}"
-OUT="${2:-demo.gif}"
-# H must be even: libx264 in yuv420p refuses odd dimensions, and reports it only
-# as "nothing was written into output file".
-W=${GIF_W:-720}; H=${GIF_H:-450}; FPS=${GIF_FPS:-7}
+OUTDIR="${2:-.}"
+# Dimensions must be even: libx264 in yuv420p refuses odd ones, and reports it
+# only as "nothing was written into output file".
+W=${DEMO_W:-960}; H=${DEMO_H:-600}; FPS=${DEMO_FPS:-24}
 IW=1280
 
 TMP="$(mktemp -d)"
@@ -61,7 +68,7 @@ move () {
   N=$((N + 1))
   ffmpeg -v error -y -ss "$ss" -t "$dur" -i "$RAW" \
     -vf "fps=${FPS},zoompan=z='${zx}':x='${xx}':y='${yx}':d=1:s=${W}x${H}:fps=${FPS}" \
-    -c:v libx264 -crf 14 -pix_fmt yuv420p "$TMP/$(printf %02d "$N").mp4"
+    -c:v libx264 -crf 12 -pix_fmt yuv420p "$TMP/$(printf %02d "$N").mp4"
   printf "file '%s'\n" "$TMP/$(printf %02d "$N").mp4" >> "$TMP/list.txt"
 }
 
@@ -81,10 +88,34 @@ move  33.9   0.9   "$ICONS"   "$WIDE"     # pull back out
 move  34.8   5.2   "$WIDE"    "$WIDE"     # the raw TUI, live
 
 ffmpeg -v error -y -f concat -safe 0 -i "$TMP/list.txt" -c copy "$TMP/all.mp4"
-ffmpeg -v error -y -i "$TMP/all.mp4" -vf "fps=${FPS},palettegen=stats_mode=diff" "$TMP/pal.png"
-ffmpeg -v error -y -i "$TMP/all.mp4" -i "$TMP/pal.png" \
-  -lavfi "fps=${FPS}[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle" \
-  -loop 0 "$OUT"
 
-printf 'built %s — %s, %ss\n' "$OUT" "$(ls -lh "$OUT" | awk '{print $5}')" \
-  "$(ffprobe -v error -show_entries format=duration -of default=nk=1:nw=1 "$OUT")"
+# VP9 for everyone modern; H.264 for Safari versions that still refuse VP9 in
+# <video>, and for anything embedding the file outside a browser.
+# -row-mt and -cpu-used keep a two-pass-quality result within one pass.
+ffmpeg -v error -y -i "$TMP/all.mp4" \
+  -c:v libvpx-vp9 -crf "${DEMO_CRF_VP9:-38}" -b:v 0 -row-mt 1 -cpu-used 2 \
+  -pix_fmt yuv420p -an "$OUTDIR/demo.webm"
+
+# faststart moves the moov atom to the front, so playback can start before the
+# whole file has arrived.
+ffmpeg -v error -y -i "$TMP/all.mp4" \
+  -c:v libx264 -crf "${DEMO_CRF_H264:-28}" -preset slow -profile:v main \
+  -pix_fmt yuv420p -movflags +faststart -an "$OUTDIR/demo.mp4"
+
+# The poster is what the browser paints while the video is still arriving, so
+# it must be the frame the video opens on — anything else flashes on play. It is
+# also the LCP element on mobile, which is the whole point of the exercise, so
+# it stays small.
+# cwebp rather than ffmpeg: the ffmpeg here is built without libwebp, and its
+# only complaint is "Unknown encoder". `brew install webp` if it is missing.
+ffmpeg -v error -y -i "$TMP/all.mp4" -frames:v 1 "$TMP/poster.png"
+cwebp -quiet -q 82 "$TMP/poster.png" -o "$OUTDIR/demo-poster.webp"
+
+# The Open Graph card is built from the same frame, at the ratio the social
+# crawlers actually render (1.91:1), by a separate script that draws the
+# wordmark and the headline around it.
+node "$(dirname "$0")/make-og-card.mjs" "$OUTDIR/demo-poster.webp" "$OUTDIR/og-card.jpg"
+
+for f in demo.webm demo.mp4 demo-poster.webp og-card.jpg; do
+  printf '%-20s %s\n' "$f" "$(ls -lh "$OUTDIR/$f" | awk '{print $5}')"
+done

@@ -5,10 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>shadok-ai — many Claude Codes, one cockpit</title>
 <meta name="description" content="A cockpit that drives multiple real Claude Code sessions in parallel, on the subscription you already pay for. Answer them from Telegram, put them on a schedule, and drive them with your team. And it wrote itself.">
-<meta property="og:title" content="shadok-ai">
-<meta property="og:description" content="Many Claude Codes. One cockpit. And it wrote itself.">
-<meta property="og:image" content="/demo.gif">
+
+<!-- SHARE CARD — the whole first impression of every link posted to X, Slack,
+     Discord, Reddit or LinkedIn, seen with no page around it.
+     Two rules it has to keep:
+       · og:image must be ABSOLUTE. Some crawlers resolve a relative path,
+         plenty do not, and the ones that do not show a grey rectangle.
+       · og:image must be a small STATIC image. It used to point at the 5.29 MB
+         demo GIF: over X's 5 MB ceiling, and X does not animate card images
+         anyway, so the one reason to send a GIF did not exist.
+     Every absolute URL on this page starts with the origin below. If the site
+     is deployed somewhere else, these are the lines to change — DEPLOY.md says
+     so too, and `node docs/launch/check-meta.mjs <url>` checks the deployed
+     page rather than this source. -->
+<link rel="canonical" href="https://shadok-ai.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="shadok-ai">
+<meta property="og:url" content="https://shadok-ai.vercel.app/">
+<meta property="og:title" content="shadok-ai — many Claude Codes, one cockpit">
+<meta property="og:description" content="Run real Claude Code sessions side by side, each in its own git worktree, on the Claude subscription you already pay for. And it wrote itself.">
+<meta property="og:image" content="https://shadok-ai.vercel.app/og-card.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="shadok-ai — many Claude Codes, one cockpit — next to a screenshot of the cockpit, where one agent is asking a multiple-choice question">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="shadok-ai — many Claude Codes, one cockpit">
+<meta name="twitter:description" content="Run real Claude Code sessions side by side, each in its own git worktree, on the Claude subscription you already pay for. And it wrote itself.">
+<meta name="twitter:image" content="https://shadok-ai.vercel.app/og-card.jpg">
+<meta name="twitter:image:alt" content="shadok-ai — many Claude Codes, one cockpit — next to a screenshot of the cockpit, where one agent is asking a multiple-choice question">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
   /* Night flight. The screen is the only real light source on the page: it
      glows amber onto the surface behind it, and a slow indigo drift sits far
@@ -88,9 +115,11 @@
   .mark b { color: var(--amber); font-weight: 400; }
 
   /* ---- the claim: given room, and given scale ---- */
-  .hero { padding: clamp(5rem, 11.5vw, 9rem) 0 0; }
+  /* Tightened from 9rem: the fold on a 1512x860 laptop has to carry the claim,
+     the command and the top of the demo, and it did not. */
+  .hero { padding: clamp(3.25rem, 6vw, 4rem) 0 0; }
   .over {
-    margin: 0 0 clamp(1.5rem, 3.5vw, 2.5rem);
+    margin: 0 0 clamp(1.4rem, 3vw, 2rem);
     font-family: var(--mono); font-size: .76rem; letter-spacing: .26em;
     text-transform: uppercase; color: var(--slate);
   }
@@ -100,7 +129,7 @@
        "Codes." stranded on its own line kills the opening. 7.2rem is the
        measured ceiling for that line inside a 63rem column. */
     font-size: clamp(2.7rem, 10vw, 7.2rem);
-    line-height: .95; letter-spacing: -.048em;
+    line-height: .93; letter-spacing: -.048em;
   }
   h1 .dim { color: #656B80; }
   h1 .lit {
@@ -108,14 +137,14 @@
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .sub {
-    margin: clamp(2rem, 4.5vw, 3rem) 0 0; max-width: 40rem;
+    margin: clamp(1.75rem, 3.6vw, 2.25rem) 0 0; max-width: 40rem;
     font-size: clamp(1.08rem, 2.2vw, 1.3rem); color: var(--slate);
   }
   .sub b { color: var(--bone); font-weight: 500; }
 
   /* ---- the screen, lighting the page ---- */
   .screen {
-    position: relative; margin: clamp(3.5rem, 8vw, 6rem) 0 0;
+    position: relative; margin: clamp(1.75rem, 3.5vw, 2.1rem) 0 0;
     border-radius: 12px; padding: 1px;
     background: linear-gradient(160deg, #333A4C 0%, #171A24 45%, #2A2233 100%);
   }
@@ -124,11 +153,28 @@
     background: radial-gradient(60% 60% at 50% 60%, rgba(245,165,36,.30), transparent 70%);
     filter: blur(46px); z-index: -1;
   }
-  .screen img { display: block; width: 100%; height: auto; border-radius: 11px; background: #0A0C10; }
+  .screen video {
+    display: block; width: 100%; height: auto; border-radius: 11px;
+    /* The poster is a still of the first frame, so the box is the right colour
+       before it arrives and nothing shifts when it does. */
+    background: #0A0C10;
+  }
+  /* WCAG 2.2.2: motion that starts on its own and runs past five seconds needs
+     a way to stop it. Kept out of the frame's content — the cockpit's own
+     chrome is at the top, so the bottom right is the empty corner. */
+  .motion {
+    position: absolute; right: .8rem; bottom: .8rem; z-index: 1;
+    border: 1px solid #2C3242; border-radius: 7px;
+    background: rgba(8,9,13,.78); backdrop-filter: blur(6px);
+    color: var(--slate); cursor: pointer;
+    font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
+    text-transform: uppercase; padding: .42rem .7rem;
+  }
+  .motion:hover { color: var(--bone); border-color: #3C4356; }
 
   /* ---- the command ---- */
   .run {
-    margin: clamp(2.5rem, 5vw, 3.25rem) 0 0;
+    margin: clamp(2rem, 4vw, 2.5rem) 0 0;
     display: flex; align-items: stretch; max-width: 33rem;
     border: 1px solid #262B38; border-radius: 10px; overflow: hidden;
     background: rgba(18,20,28,.72); backdrop-filter: blur(6px);
@@ -146,7 +192,7 @@
   }
   .copy:hover { color: var(--bone); background: rgba(255,255,255,.04); }
   .copy[data-done] { color: var(--amber); }
-  .req { margin: 1rem 0 0; color: var(--slate); font-size: .92rem; }
+  .req { margin: .85rem 0 0; color: var(--slate); font-size: .92rem; }
   .req code { color: var(--bone); font-family: var(--mono); font-size: .88em; }
 
   /* ---- what it does when you are not looking ---- */
@@ -192,10 +238,15 @@
   a:hover { color: var(--bone); }
   :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 3px; }
 
-  footer {
-    margin: clamp(5rem, 11vw, 8rem) 0 0; border-top: 1px solid #1B1F2A;
-    padding: 1.6rem 0 4.5rem;
-    font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; color: #666D7E;
+  /* footer.wrap, not footer — same trap as the header: .wrap sets the padding
+     shorthand and a class beats an element selector, so written as `footer`
+     this padding is silently dropped. */
+  footer.wrap {
+    margin: clamp(5rem, 11vw, 8rem) auto 0; border-top: 1px solid #1B1F2A;
+    padding: 1.6rem var(--gutter) 4.5rem;
+    /* #666D7E measured 3.84:1 on the void — under the 4.5:1 AA floor for text
+       this size. */
+    font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; color: #7A8193;
   }
 
   @media (prefers-reduced-motion: reduce) { .sky { animation: none; } }
@@ -225,16 +276,35 @@
     each in its own git worktree. When one of them has a question, you answer it with
     a click.</p>
 
-    <div class="screen">
-      <img src="/demo.gif" width="720" height="450" loading="eager"
-           alt="The shadok-ai cockpit: several agents working on the same repository at once, one asking a question that is answered with a click, the code it wrote in the diff panel, and the raw terminal behind it">
-    </div>
-
+    <!-- The command comes before the demo: on a 1512x860 laptop the demo used
+         to start 36 px below the fold and this line 717 px below it, so the
+         first screen carried no product and nothing to act on. -->
     <div class="run">
       <code><i>$</i> npx shadok-ai</code>
       <button class="copy" type="button" data-cmd="npx shadok-ai">Copy</button>
     </div>
     <p class="req">Node 20 or newer, and a <code>claude</code> CLI you are already signed in to. No API key.</p>
+
+    <!-- A video, not the GIF it replaced. Same 39 s edit: 5.29 MB became
+         1.1 MB, the poster gives the browser something to paint at once
+         instead of after the whole file lands, and an animated GIF cannot be
+         paused by anything — CSS, prefers-reduced-motion or the visitor —
+         which is a WCAG 2.2.2 failure on its own.
+         The sources are attached only when this scrolls into view (see the
+         script below), so a visitor who never reaches it pays nothing. -->
+    <div class="screen">
+      <video id="demo" class="demo" width="960" height="600" poster="/demo-poster.webp"
+             muted loop playsinline preload="none" disablepictureinpicture
+             aria-label="The shadok-ai cockpit: several agents working on the same repository at once, one asking a question that is answered with a click, the code it wrote in the diff panel, and the raw terminal behind it"></video>
+      <button class="motion" id="motion" type="button" aria-label="Pause the demo" hidden>Pause</button>
+      <noscript>
+        <video width="960" height="600" poster="/demo-poster.webp" controls muted loop playsinline preload="none"
+               aria-label="The shadok-ai cockpit, with several agents working at once">
+          <source src="/demo.webm" type="video/webm">
+          <source src="/demo.mp4" type="video/mp4">
+        </video>
+      </noscript>
+    </div>
   </section>
 
   <h2 class="eyebrow">It does not stop at one</h2>
@@ -326,13 +396,16 @@
   <p class="aside">All of it is in the open, if you feel like checking:
   <a href="https://github.com/shadok-ai/shadok-ai">see for yourself</a>.</p>
 
-  <footer>
-    <a href="https://github.com/shadok-ai/shadok-ai">github.com/shadok-ai/shadok-ai</a>
-    &nbsp;·&nbsp; AGPL-3.0 &nbsp;·&nbsp;
-    <a href="https://github.com/shadok-ai/site">this page has its own repository</a>,
-    written the same way
-  </footer>
 </main>
+
+<!-- Outside <main> on purpose: nested inside it, this is a section footer and
+     screen readers lose the "jump to the page footer" landmark. -->
+<footer class="wrap">
+  <a href="https://github.com/shadok-ai/shadok-ai">github.com/shadok-ai/shadok-ai</a>
+  &nbsp;·&nbsp; AGPL-3.0 &nbsp;·&nbsp;
+  <a href="https://github.com/shadok-ai/site">this page has its own repository</a>,
+  written the same way
+</footer>
 
 <script>
   // The one request this page makes to anything outside itself. It is
@@ -349,6 +422,66 @@
       }
     })
     .catch(() => {});
+
+  // The demo weighs 1.1 MB — a tenth of the GIF it replaced, but still by far
+  // the heaviest thing here. So it is not fetched until it is on screen: the
+  // <video> ships with a poster and no sources, and the sources are attached
+  // the first time it comes into view. A visitor who reads the headline and
+  // leaves pays for the poster alone.
+  (function () {
+    const video = document.getElementById("demo");
+    const button = document.getElementById("motion");
+    if (!video) return;
+
+    const still = matchMedia("(prefers-reduced-motion: reduce)");
+    let loaded = false;
+
+    function attach() {
+      if (loaded) return;
+      loaded = true;
+      for (const [src, type] of [["/demo.webm", "video/webm"], ["/demo.mp4", "video/mp4"]]) {
+        const s = document.createElement("source");
+        s.src = src;
+        s.type = type;
+        video.appendChild(s);
+      }
+      video.load();
+    }
+
+    function label() {
+      const playing = !video.paused && !video.ended;
+      button.textContent = playing ? "Pause" : "Play";
+      button.setAttribute("aria-label", playing ? "Pause the demo" : "Play the demo");
+    }
+
+    button.hidden = false;
+    label();
+    button.addEventListener("click", () => {
+      attach();
+      // play() rejects when the browser refuses autoplay; a click is a gesture,
+      // so this one is allowed — but never let a rejection reach the console.
+      if (video.paused) video.play().catch(() => {});
+      else video.pause();
+      label();
+    });
+    video.addEventListener("play", label);
+    video.addEventListener("pause", label);
+
+    // Someone who asked their system for less motion gets the poster and the
+    // button, and nothing moves until they say so.
+    if (still.matches) return;
+
+    if (!("IntersectionObserver" in window)) { attach(); return; }
+    const seen = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        attach();
+        video.play().catch(() => {});
+        seen.disconnect();
+      }
+    }, { rootMargin: "200px" });
+    seen.observe(video);
+  })();
 
   document.querySelector(".copy").addEventListener("click", async (e) => {
     const b = e.currentTarget;
