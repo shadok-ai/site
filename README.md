@@ -28,10 +28,15 @@ call fails.
 Generated, not hand-made, and regenerating it is one command once the cockpit is
 staged: `docs/launch/README.md` has the procedure.
 
-It weighs 1.1 MB and is attached only when it scrolls into view, so the page
-lands in well under 50 KB. It used to be a 5.29 MB GIF — 99.7% of the page, and
-a mobile LCP of 4.4 s on a 10 Mbps connection, which is inside Google's "poor"
-band. Measured after the change: **176 ms**.
+It weighs 1.1 MB, and nothing waits for it: the page paints from 58 KB of HTML
+and poster, and the video's sources are attached only once it is on screen — so
+a visitor who reads the headline and leaves never pays for it. On a laptop the
+hero is on screen at once, so there it does download; on a phone, and for anyone
+who bounces from the fold, it does not.
+
+It used to be a 5.29 MB GIF — 99.7% of the page, and a mobile LCP of 4.6 s on a
+10 Mbps connection, inside Google's "poor" band. Measured the same way after the
+change: **208 ms**.
 
 It goes stale quietly. The cockpit's UI moves, and the hero keeps showing the
 version it was shot against — check it against a running instance before any
