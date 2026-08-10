@@ -86,7 +86,7 @@ with `PLAYWRIGHT_FROM`.
 ## 5. Check the share card against the deployed page
 
 ````bash
-node docs/launch/check-meta.mjs https://shadok-ai.vercel.app/
+node docs/launch/check-meta.mjs https://shadok-ai-site.vercel.app/
 ````
 
 Reads the **served** page, not this source, then fetches what it claims: the

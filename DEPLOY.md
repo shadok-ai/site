@@ -2,68 +2,60 @@
 
 There is no build step. Whatever is at the root of this repository is the site.
 
-## What is actually true right now
+## Where it lives
 
-Written down because none of it was, and the last person to deploy left no trace
-in the repository — `.vercel/` is git-ignored, so a local link is invisible here
-by design.
+**https://shadok-ai-site.vercel.app** — a Vercel project connected to this
+repository through the Vercel GitHub App, which is installed on the `shadok-ai`
+organisation. Every push to `main` is a production deploy; every branch gets a
+preview URL.
 
-- **The site is not online.** `https://site-sigma-lyart-46.vercel.app` — still
-  the repository's `homepage` on GitHub — answers `DEPLOYMENT_NOT_FOUND`. That
-  URL belonged to a Vercel project linked to the *previous* `shadok-ai/site`
-  repository, which was deleted and recreated to purge a file from its history.
-  A Vercel project follows a repository by id, so the recreation broke the link
-  and took the deployment with it.
-- **The Vercel GitHub App is installed on the `shadok-ai` organisation.** So
-  connecting this repository is a few clicks, not an install.
-- **The Vercel CLI on this machine is signed out.** `vercel whoami` returns
-  *"The specified token is not valid"*. Only a human can fix that:
-  `npx vercel@latest login`.
+Written down because none of it was: `.vercel/` is git-ignored, so a local link
+leaves no trace here by design, and nothing else in the repository named the
+host.
 
-## The one thing to decide first: the production URL
+### The absolute URLs have to name that host
 
-The page carries six absolute URLs — `canonical`, `og:url`, `og:image`,
-`twitter:image`, and the two `:alt`s reference the same card. They all read
+The page carries four absolute URLs — `canonical`, `og:url`, `og:image` and
+`twitter:image` — and they all read `https://shadok-ai-site.vercel.app`. They
+are absolute because a relative `og:image` shows a grey rectangle in half the
+places a launch link gets pasted, and being absolute means naming the host that
+actually serves the page.
 
-```
-https://shadok-ai.vercel.app
-```
+**Move the site and those four lines move with it.** They sit together under the
+`SHARE CARD` comment at the top of `index.html`, and `check-meta.mjs` below
+fails loudly when they name a host other than the one answering.
 
-They are absolute because a relative `og:image` shows a grey rectangle in half
-the places a launch link gets pasted. Absolute means they have to name the host
-that actually serves the page.
+If a custom domain is ever added, point them at the domain, not at the
+`.vercel.app` alias: the alias keeps working, but a crawler that follows the
+card back to a second hostname sees two pages where there is one.
 
-**So name the Vercel project `shadok-ai`**, not `site` — a project's production
-alias is `<project>.vercel.app`, and `site.vercel.app` is not available anyway.
-If the site ends up somewhere else (a custom domain, a different alias), change
-those six lines in `index.html`; they sit together under the `SHARE CARD`
-comment at the top, and `docs/launch/check-meta.mjs` fails loudly when they name
-a host other than the one serving the page.
+### A previous deployment died here — how, so it does not happen twice
 
-## Connect it to git (the way it should run)
+`https://site-sigma-lyart-46.vercel.app` was this page's URL until early
+August 2026 and now answers `DEPLOYMENT_NOT_FOUND`. Its Vercel project was
+linked to the *previous* `shadok-ai/site` repository, which was deleted and
+recreated to purge a file from its history. **A Vercel project follows a
+repository by id**, not by name — so the recreation silently broke the link and
+took the deployment with it, while GitHub went on advertising the dead URL as
+the repository's homepage. Recreate this repository again and the same thing
+happens again.
 
-1. Vercel → **Add New… → Project** → import `shadok-ai/site`.
-2. Name the project **`shadok-ai`**.
-3. Framework preset: **Other**. Build command: **none**. Output directory:
-   **`.`** (the repository root). There is nothing to build.
-4. Deploy. From then on every push to `main` is a production deploy and every
-   branch gets a preview URL.
+## Deploying by hand
 
-## Or deploy by hand
+Only needed to look at something before it is the site — pushing to `main` is
+the normal path.
 
 ```bash
-npx vercel@latest login          # human, once
+npx vercel@latest login          # human, once; the CLI signs itself out
 npx vercel@latest link           # writes .vercel/ (git-ignored)
+npx vercel@latest deploy         # preview URL
 npx vercel@latest deploy --prod
 ```
-
-`vercel deploy` without `--prod` gives a preview URL, which is the right way to
-look at a change before it is the site.
 
 ## After any deploy
 
 ```bash
-node docs/launch/check-meta.mjs https://shadok-ai.vercel.app/
+node docs/launch/check-meta.mjs https://shadok-ai-site.vercel.app/
 ```
 
 It reads the **served** page and then fetches what the page claims, so it
@@ -75,7 +67,7 @@ Then set the repository's homepage to the real URL, so GitHub stops advertising
 a dead one:
 
 ```bash
-gh repo edit shadok-ai/site --homepage https://shadok-ai.vercel.app
+gh repo edit shadok-ai/site --homepage https://shadok-ai-site.vercel.app
 ```
 
 ## What gets served
