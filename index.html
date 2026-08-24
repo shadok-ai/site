@@ -250,6 +250,62 @@
   }
 
   @media (prefers-reduced-motion: reduce) { .sky { animation: none; } }
+
+  /* ── The name, explained ──────────────────────────────────────────────────
+     The project is named after Les Shadoks and until now the page never said so.
+     Worth a stop at the end because the cartoon's joke and this product's
+     argument are the SAME joke: the Shadoks pumped relentlessly and to no
+     effect, which is exactly what an agent woken hourly to report that nothing
+     happened is doing. The prose carries it; the drawing arrives afterwards as
+     the illustration of a point already made.
+
+     ON THE DRAWING'S RIGHTS, since nobody should have to re-derive this.
+     Les Shadoks is Jacques Rouxel's work, he died in 2004, France protects for
+     70 years after, so it is in copyright until 2074 with INA and AAA Production
+     holding rights — the signature is in the image itself. It is here on the
+     site owner's explicit instruction, after that was put to them: a considered
+     risk, not a licence. Credited below the plate and linked to ina.fr, which is
+     the difference between a credit and a lift, not a substitute for permission.
+
+     It is SELF-HOSTED, and that part is not about rights. This page makes
+     exactly one request to anything outside itself (the star count, below). A
+     hotlink to Fandom's CDN would quietly make it two, would show them every
+     visitor here, and would break the day they rename the path.
+
+     It is a .webp DESPITE its source URL ending in .jpg — that CDN negotiates
+     the format, so the bytes that arrive are RIFF/WEBP. Served as .jpg, Vercel
+     declared image/jpeg over WebP bytes and the browser drew the alt text
+     instead of the picture. Check the magic bytes, never the URL.
+
+     The art is line work on pure white and this page is near-black, so it is
+     framed as a plate: a white card with real padding, and the white reads as
+     the paper it was drawn on rather than as a hole burnt in the page. */
+  /* Small on purpose. It arrives after the argument has already been made, so
+     it is an illustration of a point the reader has taken rather than the thing
+     carrying it -- and a plate of white on a near-black page earns its size. */
+  .plate {
+    margin: 2.25rem 0 0; background: #fff; border-radius: 8px;
+    padding: clamp(.6rem, 2vw, 1rem); max-width: 19rem;
+  }
+  .plate img { display: block; width: 100%; height: auto; }
+  /* Deliberately tiny, and aligned to the plate rather than the text column, so
+     it reads as the caption of the picture and not as another paragraph. It
+     keeps --slate rather than going dimmer still: a credit that cannot be read
+     is not a credit, and this one is doing real work. --slate on --void is about
+     6:1, which clears AA at this size. */
+  /* Scoped .cap .credit (0,2,0), NOT .credit (0,1,0). `.cap p` above is (0,1,1)
+     and was winning: it sets font-size, max-width, margin and color on every <p>
+     in a .cap, so two rounds of shrinking this caption changed absolutely
+     nothing on screen and the credit went on rendering at ~18px. The same trap
+     eats .aside's top margin inside a .cap, hence the rule below it. */
+  .cap .credit {
+    margin: .7rem 0 0; max-width: 19rem;
+    font-family: var(--mono); font-size: .52rem; line-height: 1.6;
+    letter-spacing: .02em; color: var(--slate);
+  }
+  .cap .credit a { color: var(--slate); }
+  .cap .aside { margin: clamp(2rem, 4vw, 2.5rem) 0 0; }
+
 </style>
 </head>
 <body>
@@ -399,6 +455,33 @@
   </ul>
   <p class="aside">All of it is in the open, if you feel like checking:
   <a href="https://github.com/shadok-ai/shadok-ai">see for yourself</a>.</p>
+
+
+  <h2 class="eyebrow">Why it is called that</h2>
+  <section class="cap">
+    <h3>Les Shadoks pumped.</h3>
+    <p>They were French cartoon birds drawn in 1968, and the entire joke was that
+    they pumped — relentlessly, exhaustingly, and for no result anyone could ever
+    identify. One of their mottos: <em>the more it fails, the more likely it is to
+    work.</em></p>
+    <p style="margin-top:1.1rem">An agent woken every hour to report that nothing
+    happened is pumping. You pay a model call to be told there was nothing to do,
+    and it will tell you that <b>twenty-three more times today</b>. This is the
+    tool that lets it stop: the check runs without the model, so a quiet hour
+    costs nothing at all.</p>
+    <p class="aside">Nowhere on this page said any of that until today. That was an
+    oversight, not restraint.</p>
+
+    <figure class="plate">
+      <img src="/shadoks-rouxel.webp" width="800" height="600" loading="lazy" decoding="async"
+           alt="Two Shadoks, round orange and yellow birds on thin legs, working
+                a see-saw lever mounted on a small wheeled platform. Signed Rouxel.">
+    </figure>
+    <p class="credit">Les Shadoks (1968) — drawn by Jacques Rouxel, produced by
+    AAA for the ORTF. Reproduced here to explain the name; all rights remain with
+    the rightsholders. The series is at
+    <a href="https://www.ina.fr/">ina.fr</a>.</p>
+  </section>
 
 </main>
 
