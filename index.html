@@ -288,10 +288,15 @@
     padding: clamp(.6rem, 2vw, 1rem); max-width: 19rem;
   }
   .plate img { display: block; width: 100%; height: auto; }
+  /* Deliberately tiny, and aligned to the plate rather than the text column, so
+     it reads as the caption of the picture and not as another paragraph. It
+     keeps --slate rather than going dimmer still: a credit that cannot be read
+     is not a credit, and this one is doing real work. --slate on --void is about
+     6:1, which clears AA at this size. */
   .credit {
-    margin: .8rem 0 0; max-width: 30rem;
-    font-family: var(--mono); font-size: .68rem; line-height: 1.6;
-    letter-spacing: .06em; color: var(--slate);
+    margin: .7rem 0 0; max-width: 19rem;
+    font-family: var(--mono); font-size: .58rem; line-height: 1.55;
+    letter-spacing: .03em; color: var(--slate);
   }
   .credit a { color: var(--slate); }
 
