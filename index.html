@@ -252,77 +252,49 @@
   @media (prefers-reduced-motion: reduce) { .sky { animation: none; } }
 
   /* ── The name, explained ──────────────────────────────────────────────────
-     The project is named after Les Shadoks, and until now the page never said
-     so. Worth a stop at the end because the cartoon's joke and this product's
+     The project is named after Les Shadoks and until now the page never said so.
+     Worth a stop at the end because the cartoon's joke and this product's
      argument are the SAME joke: the Shadoks pumped relentlessly and to no
      effect, which is exactly what an agent woken hourly to report that nothing
-     happened is doing. So the drawing has to carry the argument, not decorate
-     it — two pumps, one working for nothing, one still.
+     happened is doing. The prose carries it; the drawing arrives afterwards as
+     the illustration of a point already made.
 
-     The art is original ON PURPOSE and this is not a stylistic preference.
-     Les Shadoks is Jacques Rouxel's work, he died in 2004, and France protects
-     for 70 years after — it is in copyright until 2074 and INA enforces it. A
-     real frame on the product page of a project being launched publicly is a
-     takedown notice, not a homage. A pump is a generic object; the ACTION is
-     what carries the joke anyway, never the character design. */
-  /* The drawing is line art on pure white, and this page is near-black. Rather
-     than fight that, it is framed as a plate: a white card with real padding, so
-     the white reads as the paper it is drawn on instead of as a glare. */
+     ON THE DRAWING'S RIGHTS, since nobody should have to re-derive this.
+     Les Shadoks is Jacques Rouxel's work, he died in 2004, France protects for
+     70 years after, so it is in copyright until 2074 with INA and AAA Production
+     holding rights — the signature is in the image itself. It is here on the
+     site owner's explicit instruction, after that was put to them: a considered
+     risk, not a licence. Credited below the plate and linked to ina.fr, which is
+     the difference between a credit and a lift, not a substitute for permission.
+
+     It is SELF-HOSTED, and that part is not about rights. This page makes
+     exactly one request to anything outside itself (the star count, below). A
+     hotlink to Fandom's CDN would quietly make it two, would show them every
+     visitor here, and would break the day they rename the path.
+
+     It is a .webp DESPITE its source URL ending in .jpg — that CDN negotiates
+     the format, so the bytes that arrive are RIFF/WEBP. Served as .jpg, Vercel
+     declared image/jpeg over WebP bytes and the browser drew the alt text
+     instead of the picture. Check the magic bytes, never the URL.
+
+     The art is line work on pure white and this page is near-black, so it is
+     framed as a plate: a white card with real padding, and the white reads as
+     the paper it was drawn on rather than as a hole burnt in the page. */
+  /* Small on purpose. It arrives after the argument has already been made, so
+     it is an illustration of a point the reader has taken rather than the thing
+     carrying it -- and a plate of white on a near-black page earns its size. */
   .plate {
-    margin: 0 0 2.25rem; background: #fff; border-radius: 10px;
-    padding: clamp(.9rem, 3vw, 1.6rem); max-width: 30rem;
+    margin: 2.25rem 0 0; background: #fff; border-radius: 8px;
+    padding: clamp(.6rem, 2vw, 1rem); max-width: 19rem;
   }
   .plate img { display: block; width: 100%; height: auto; }
   .credit {
-    margin: .85rem 0 2.5rem; max-width: 30rem;
+    margin: .8rem 0 0; max-width: 30rem;
     font-family: var(--mono); font-size: .68rem; line-height: 1.6;
     letter-spacing: .06em; color: var(--slate);
   }
   .credit a { color: var(--slate); }
 
-  .pumps {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(.75rem, 4vw, 2.5rem); max-width: 30rem; margin: 0 0 2.5rem;
-  }
-  .pump { margin: 0; text-align: center; }
-  .pump svg { width: 100%; height: auto; max-width: 10rem; }
-  .pump figcaption {
-    margin-top: .7rem; font-family: var(--mono); font-size: .66rem;
-    letter-spacing: .13em; text-transform: uppercase; color: var(--slate);
-    line-height: 1.5;
-  }
-  .pump .frame {
-    fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .busy .frame { stroke: #4A5568; }
-  .busy .knob  { fill: #4A5568; }
-  .quiet .frame { stroke: #232937; }
-  .quiet .knob  { fill: #232937; }
-  .drop { fill: var(--amber); opacity: 0; }
-
-  @keyframes pumping { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
-  @keyframes spilling {
-    0%   { opacity: 0; transform: translate(0, 0); }
-    12%  { opacity: .95; }
-    100% { opacity: 0; transform: translate(-5px, 15px); }
-  }
-  .busy .lever { transform-box: view-box; transform-origin: 60px 20px;
-                 animation: pumping .8s ease-in-out infinite alternate; }
-  .busy .drop  { animation: spilling 1.6s linear infinite; }
-  .busy .d2 { animation-delay: .53s; }
-  .busy .d3 { animation-delay: 1.06s; }
-
-  /* Asked for less motion: the contrast still has to read, so the busy pump
-     freezes mid-stroke with its drops visible rather than becoming identical
-     to the quiet one. A still image that says the same thing. */
-  @media (prefers-reduced-motion: reduce) {
-    .busy .lever { animation: none; transform: rotate(-14deg); }
-    .busy .drop  { animation: none; opacity: .9; }
-    .busy .d2 { transform: translate(-2px, 7px); }
-    .busy .d3 { transform: translate(-4px, 13px); }
-  }
-
-  @media (max-width: 26rem) { .pump figcaption { font-size: .6rem; letter-spacing: .1em; } }
 </style>
 </head>
 <body>
@@ -476,46 +448,6 @@
 
   <h2 class="eyebrow">Why it is called that</h2>
   <section class="cap">
-    <figure class="plate">
-      <img src="/shadoks-rouxel.jpg" width="800" height="600" loading="lazy" decoding="async"
-           alt="Two Shadoks, round orange and yellow birds on thin legs, working
-                a see-saw lever mounted on a small wheeled platform. Signed Rouxel.">
-    </figure>
-    <p class="credit">Les Shadoks (1968) — drawn by Jacques Rouxel, produced by
-    AAA for the ORTF. Reproduced here to explain the name; all rights remain with
-    the rightsholders. The series is at
-    <a href="https://www.ina.fr/">ina.fr</a>.</p>
-    <div class="pumps">
-    <figure class="pump busy">
-      <svg viewBox="0 0 120 76" role="img" aria-label="A pump working continuously, spilling drops">
-        <path class="frame" d="M12 68 H108"/>
-        <path class="frame" d="M50 68 V32 H70 V68"/>
-        <path class="frame" d="M50 40 H28 L22 48"/>
-        <path class="frame" d="M60 32 V20"/>
-        <g class="lever">
-          <path class="frame" d="M34 20 H84"/>
-          <circle class="knob" cx="86" cy="20" r="5"/>
-        </g>
-      <circle class="drop d1" cx="22" cy="51" r="3.1"/>
-      <circle class="drop d2" cx="22" cy="51" r="3.1"/>
-      <circle class="drop d3" cx="22" cy="51" r="3.1"/>
-      </svg>
-      <figcaption>every hour,<br>just in case</figcaption>
-    </figure>
-    <figure class="pump quiet">
-      <svg viewBox="0 0 120 76" role="img" aria-label="An identical pump, standing still">
-        <path class="frame" d="M12 68 H108"/>
-        <path class="frame" d="M50 68 V32 H70 V68"/>
-        <path class="frame" d="M50 40 H28 L22 48"/>
-        <path class="frame" d="M60 32 V20"/>
-        <g class="lever">
-          <path class="frame" d="M34 20 H84"/>
-          <circle class="knob" cx="86" cy="20" r="5"/>
-        </g>
-      </svg>
-      <figcaption>a quiet hour<br>here</figcaption>
-    </figure>
-    </div>
     <h3>Les Shadoks pumped.</h3>
     <p>They were French cartoon birds drawn in 1968, and the entire joke was that
     they pumped — relentlessly, exhaustingly, and for no result anyone could ever
@@ -528,6 +460,16 @@
     costs nothing at all.</p>
     <p class="aside">Nowhere on this page said any of that until today. That was an
     oversight, not restraint.</p>
+
+    <figure class="plate">
+      <img src="/shadoks-rouxel.webp" width="800" height="600" loading="lazy" decoding="async"
+           alt="Two Shadoks, round orange and yellow birds on thin legs, working
+                a see-saw lever mounted on a small wheeled platform. Signed Rouxel.">
+    </figure>
+    <p class="credit">Les Shadoks (1968) — drawn by Jacques Rouxel, produced by
+    AAA for the ORTF. Reproduced here to explain the name; all rights remain with
+    the rightsholders. The series is at
+    <a href="https://www.ina.fr/">ina.fr</a>.</p>
   </section>
 
 </main>
