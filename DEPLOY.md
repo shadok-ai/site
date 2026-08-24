@@ -4,10 +4,16 @@ There is no build step. Whatever is at the root of this repository is the site.
 
 ## Where it lives
 
-**https://shadok-ai-site.vercel.app** — a Vercel project connected to this
-repository through the Vercel GitHub App, which is installed on the `shadok-ai`
-organisation. Every push to `main` is a production deploy; every branch gets a
-preview URL.
+**https://shadok.ai** — a Vercel project connected to this repository through
+the Vercel GitHub App, which is installed on the `shadok-ai` organisation. Every
+push to `main` is a production deploy; every branch gets a preview URL.
+
+`shadok-ai-site.vercel.app` still answers with the same page. Point it at the
+domain with a redirect in the Vercel project rather than leaving two hosts
+serving identical content — `canonical` already tells a crawler which one is
+real, but a redirect settles it for everything that does not read the tag.
+`www.shadok.ai` does not resolve at all; add it as a redirecting alias if you
+expect anyone to type it.
 
 Written down because none of it was: `.vercel/` is git-ignored, so a local link
 leaves no trace here by design, and nothing else in the repository named the
@@ -16,18 +22,19 @@ host.
 ### The absolute URLs have to name that host
 
 The page carries four absolute URLs — `canonical`, `og:url`, `og:image` and
-`twitter:image` — and they all read `https://shadok-ai-site.vercel.app`. They
-are absolute because a relative `og:image` shows a grey rectangle in half the
-places a launch link gets pasted, and being absolute means naming the host that
-actually serves the page.
+`twitter:image` — and they all read `https://shadok.ai`. They are absolute
+because a relative `og:image` shows a grey rectangle in half the places a launch
+link gets pasted, and being absolute means naming the host that actually serves
+the page.
 
 **Move the site and those four lines move with it.** They sit together under the
 `SHARE CARD` comment at the top of `index.html`, and `check-meta.mjs` below
 fails loudly when they name a host other than the one answering.
 
-If a custom domain is ever added, point them at the domain, not at the
-`.vercel.app` alias: the alias keeps working, but a crawler that follows the
-card back to a second hostname sees two pages where there is one.
+They name the **domain**, not the `.vercel.app` alias. The alias keeps working,
+and that is the trap: a crawler that follows the card back to a second hostname
+sees two pages where there is one. Whatever host you put in front of this page,
+these four lines follow it the same day.
 
 ### A previous deployment died here — how, so it does not happen twice
 
@@ -55,7 +62,7 @@ npx vercel@latest deploy --prod
 ## After any deploy
 
 ```bash
-node docs/launch/check-meta.mjs https://shadok-ai-site.vercel.app/
+node docs/launch/check-meta.mjs https://shadok.ai/
 ```
 
 It reads the **served** page and then fetches what the page claims, so it
@@ -67,7 +74,7 @@ Then set the repository's homepage to the real URL, so GitHub stops advertising
 a dead one:
 
 ```bash
-gh repo edit shadok-ai/site --homepage https://shadok-ai-site.vercel.app
+gh repo edit shadok-ai/site --homepage https://shadok.ai
 ```
 
 ## What gets served
