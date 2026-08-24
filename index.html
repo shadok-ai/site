@@ -293,12 +293,18 @@
      keeps --slate rather than going dimmer still: a credit that cannot be read
      is not a credit, and this one is doing real work. --slate on --void is about
      6:1, which clears AA at this size. */
-  .credit {
+  /* Scoped .cap .credit (0,2,0), NOT .credit (0,1,0). `.cap p` above is (0,1,1)
+     and was winning: it sets font-size, max-width, margin and color on every <p>
+     in a .cap, so two rounds of shrinking this caption changed absolutely
+     nothing on screen and the credit went on rendering at ~18px. The same trap
+     eats .aside's top margin inside a .cap, hence the rule below it. */
+  .cap .credit {
     margin: .7rem 0 0; max-width: 19rem;
-    font-family: var(--mono); font-size: .58rem; line-height: 1.55;
-    letter-spacing: .03em; color: var(--slate);
+    font-family: var(--mono); font-size: .52rem; line-height: 1.6;
+    letter-spacing: .02em; color: var(--slate);
   }
-  .credit a { color: var(--slate); }
+  .cap .credit a { color: var(--slate); }
+  .cap .aside { margin: clamp(2rem, 4vw, 2.5rem) 0 0; }
 
 </style>
 </head>
