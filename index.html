@@ -250,6 +250,64 @@
   }
 
   @media (prefers-reduced-motion: reduce) { .sky { animation: none; } }
+
+  /* ── The name, explained ──────────────────────────────────────────────────
+     The project is named after Les Shadoks, and until now the page never said
+     so. Worth a stop at the end because the cartoon's joke and this product's
+     argument are the SAME joke: the Shadoks pumped relentlessly and to no
+     effect, which is exactly what an agent woken hourly to report that nothing
+     happened is doing. So the drawing has to carry the argument, not decorate
+     it — two pumps, one working for nothing, one still.
+
+     The art is original ON PURPOSE and this is not a stylistic preference.
+     Les Shadoks is Jacques Rouxel's work, he died in 2004, and France protects
+     for 70 years after — it is in copyright until 2074 and INA enforces it. A
+     real frame on the product page of a project being launched publicly is a
+     takedown notice, not a homage. A pump is a generic object; the ACTION is
+     what carries the joke anyway, never the character design. */
+  .pumps {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(.75rem, 4vw, 2.5rem); max-width: 30rem; margin: 0 0 2.5rem;
+  }
+  .pump { margin: 0; text-align: center; }
+  .pump svg { width: 100%; height: auto; max-width: 10rem; }
+  .pump figcaption {
+    margin-top: .7rem; font-family: var(--mono); font-size: .66rem;
+    letter-spacing: .13em; text-transform: uppercase; color: var(--slate);
+    line-height: 1.5;
+  }
+  .pump .frame {
+    fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .busy .frame { stroke: #4A5568; }
+  .busy .knob  { fill: #4A5568; }
+  .quiet .frame { stroke: #232937; }
+  .quiet .knob  { fill: #232937; }
+  .drop { fill: var(--amber); opacity: 0; }
+
+  @keyframes pumping { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+  @keyframes spilling {
+    0%   { opacity: 0; transform: translate(0, 0); }
+    12%  { opacity: .95; }
+    100% { opacity: 0; transform: translate(-5px, 15px); }
+  }
+  .busy .lever { transform-box: view-box; transform-origin: 60px 20px;
+                 animation: pumping .8s ease-in-out infinite alternate; }
+  .busy .drop  { animation: spilling 1.6s linear infinite; }
+  .busy .d2 { animation-delay: .53s; }
+  .busy .d3 { animation-delay: 1.06s; }
+
+  /* Asked for less motion: the contrast still has to read, so the busy pump
+     freezes mid-stroke with its drops visible rather than becoming identical
+     to the quiet one. A still image that says the same thing. */
+  @media (prefers-reduced-motion: reduce) {
+    .busy .lever { animation: none; transform: rotate(-14deg); }
+    .busy .drop  { animation: none; opacity: .9; }
+    .busy .d2 { transform: translate(-2px, 7px); }
+    .busy .d3 { transform: translate(-4px, 13px); }
+  }
+
+  @media (max-width: 26rem) { .pump figcaption { font-size: .6rem; letter-spacing: .1em; } }
 </style>
 </head>
 <body>
@@ -399,6 +457,54 @@
   </ul>
   <p class="aside">All of it is in the open, if you feel like checking:
   <a href="https://github.com/shadok-ai/shadok-ai">see for yourself</a>.</p>
+
+
+  <h2 class="eyebrow">Why it is called that</h2>
+  <section class="cap">
+    <div class="pumps">
+    <figure class="pump busy">
+      <svg viewBox="0 0 120 76" role="img" aria-label="A pump working continuously, spilling drops">
+        <path class="frame" d="M12 68 H108"/>
+        <path class="frame" d="M50 68 V32 H70 V68"/>
+        <path class="frame" d="M50 40 H28 L22 48"/>
+        <path class="frame" d="M60 32 V20"/>
+        <g class="lever">
+          <path class="frame" d="M34 20 H84"/>
+          <circle class="knob" cx="86" cy="20" r="5"/>
+        </g>
+      <circle class="drop d1" cx="22" cy="51" r="3.1"/>
+      <circle class="drop d2" cx="22" cy="51" r="3.1"/>
+      <circle class="drop d3" cx="22" cy="51" r="3.1"/>
+      </svg>
+      <figcaption>every hour,<br>just in case</figcaption>
+    </figure>
+    <figure class="pump quiet">
+      <svg viewBox="0 0 120 76" role="img" aria-label="An identical pump, standing still">
+        <path class="frame" d="M12 68 H108"/>
+        <path class="frame" d="M50 68 V32 H70 V68"/>
+        <path class="frame" d="M50 40 H28 L22 48"/>
+        <path class="frame" d="M60 32 V20"/>
+        <g class="lever">
+          <path class="frame" d="M34 20 H84"/>
+          <circle class="knob" cx="86" cy="20" r="5"/>
+        </g>
+      </svg>
+      <figcaption>a quiet hour<br>here</figcaption>
+    </figure>
+    </div>
+    <h3>Les Shadoks pumped.</h3>
+    <p>They were French cartoon birds drawn in 1968, and the entire joke was that
+    they pumped — relentlessly, exhaustingly, and for no result anyone could ever
+    identify. One of their mottos: <em>the more it fails, the more likely it is to
+    work.</em></p>
+    <p style="margin-top:1.1rem">An agent woken every hour to report that nothing
+    happened is pumping. You pay a model call to be told there was nothing to do,
+    and it will tell you that <b>twenty-three more times today</b>. This is the
+    tool that lets it stop: the check runs without the model, so a quiet hour
+    costs nothing at all.</p>
+    <p class="aside">Nowhere on this page said any of that until today. That was an
+    oversight, not restraint.</p>
+  </section>
 
 </main>
 
