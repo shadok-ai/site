@@ -265,6 +265,21 @@
      real frame on the product page of a project being launched publicly is a
      takedown notice, not a homage. A pump is a generic object; the ACTION is
      what carries the joke anyway, never the character design. */
+  /* The drawing is line art on pure white, and this page is near-black. Rather
+     than fight that, it is framed as a plate: a white card with real padding, so
+     the white reads as the paper it is drawn on instead of as a glare. */
+  .plate {
+    margin: 0 0 2.25rem; background: #fff; border-radius: 10px;
+    padding: clamp(.9rem, 3vw, 1.6rem); max-width: 30rem;
+  }
+  .plate img { display: block; width: 100%; height: auto; }
+  .credit {
+    margin: .85rem 0 2.5rem; max-width: 30rem;
+    font-family: var(--mono); font-size: .68rem; line-height: 1.6;
+    letter-spacing: .06em; color: var(--slate);
+  }
+  .credit a { color: var(--slate); }
+
   .pumps {
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(.75rem, 4vw, 2.5rem); max-width: 30rem; margin: 0 0 2.5rem;
@@ -461,6 +476,15 @@
 
   <h2 class="eyebrow">Why it is called that</h2>
   <section class="cap">
+    <figure class="plate">
+      <img src="/shadoks-rouxel.jpg" width="800" height="600" loading="lazy" decoding="async"
+           alt="Two Shadoks, round orange and yellow birds on thin legs, working
+                a see-saw lever mounted on a small wheeled platform. Signed Rouxel.">
+    </figure>
+    <p class="credit">Les Shadoks (1968) — drawn by Jacques Rouxel, produced by
+    AAA for the ORTF. Reproduced here to explain the name; all rights remain with
+    the rightsholders. The series is at
+    <a href="https://www.ina.fr/">ina.fr</a>.</p>
     <div class="pumps">
     <figure class="pump busy">
       <svg viewBox="0 0 120 76" role="img" aria-label="A pump working continuously, spilling drops">
