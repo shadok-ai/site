@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
     {
-      "source": "/(demo.webm|demo.mp4|demo-poster.webp|og-card.jpg|favicon.svg)",
+      "source": "/(demo.webm|demo.mp4|demo.gif|demo-poster.webp|og-card.jpg|favicon.svg)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]

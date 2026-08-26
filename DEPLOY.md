@@ -82,6 +82,8 @@ gh repo edit shadok-ai/site --homepage https://shadok.ai
 ```
 index.html          the whole page, no framework, no CDN, no fonts
 demo.webm/.mp4      the hero, attached by script only when it scrolls into view
+demo.gif            the same demo for the product README, which cannot play a video;
+                    hosted here, referenced absolutely, and NOT loaded by the page
 demo-poster.webp    what the browser paints immediately; the LCP element
 og-card.jpg         1200x630 share card
 favicon.svg
