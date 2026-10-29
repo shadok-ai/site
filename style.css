@@ -189,6 +189,7 @@ h1 em { font-style: normal; color: var(--ink-3); }
 .band.night p { color: #a3a9bd; }
 .band.night .label { color: #7d8499; }
 .band.night .say strong { color: #fff; }  /* ink-on-ink made it vanish */
+.band.night .chips li { border-color: #2a3043; color: #aab0c6; background: #141827; }  /* ink-on-ink made it vanish */
 .band.night .shot { border-color: #262b3d; background: var(--night-2); }
 .band.night figcaption { background: var(--night-2); border-color: #262b3d; color: #8d94a8; }
 .band.night .tile { background: var(--night-2); border-color: #262b3d; }
@@ -218,6 +219,13 @@ figure { margin: 0; }
 }
 /* a cropped panel is portrait: it must never be blown up past its own pixels */
 .shot.panel { max-width: 560px; }
+/* What you can point an agent at, as a row of tags — the list is the argument. */
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
+.chips li {
+  padding: .22rem .6rem; border: 1px solid var(--line-2); border-radius: 999px;
+  font: 400 .8rem/1.5 var(--mono); color: var(--ink-2); background: #fff;
+}
+
 .shot.live { max-width: 420px; margin-inline: auto; }
 .shot.live video { display: block; width: 100%; height: auto; background: #fff; }
 
