@@ -26,25 +26,37 @@ const OUT = process.env.OUT || '.';
 const URL = process.env.MIRROR_URL || 'http://localhost:3899';
 const GROUP = process.env.GROUP || 'Tech';
 const SECONDS = Number(process.env.SECONDS || 10);
-const SCALE = 2;
+// The screencast ignores deviceScaleFactor: it returns CSS pixels, measured —
+// 1440x940 for a 1440x940 viewport whatever the scale factor says. So the
+// detail has to come from the LAYOUT instead: a viewport twice as wide with the
+// page zoomed 2x renders the same 1440px-wide cockpit into 2880 real pixels.
+const ZOOM = Number(process.env.ZOOM || 2);
+const LAYOUT = 1440;
 
 fs.mkdirSync(OUT, { recursive: true });
 const b = await chromium.launch();
-const p = await b.newPage({ viewport: { width: 1440, height: 940 }, deviceScaleFactor: SCALE, colorScheme: 'light' });
-await p.addInitScript(() => {
+const p = await b.newPage({ viewport: { width: LAYOUT * ZOOM, height: 940 * ZOOM }, colorScheme: 'light' });
+await p.addInitScript((z) => {
   localStorage.setItem('cp.mode', 'light');
   localStorage.setItem('shadok.tourSeen', '1');
-});
+  addEventListener('DOMContentLoaded', () => { document.documentElement.style.zoom = String(z); });
+}, ZOOM);
 await p.goto(URL, { waitUntil: 'networkidle' });
 await p.waitForTimeout(2500);
 await p.locator('.rail-name', { hasText: new RegExp(`^${GROUP}$`) }).click();
 await p.waitForTimeout(1500);
 
-const box = await (await p.$('#tabbar')).boundingBox();
-const crop = {
-  x: Math.round((box.x + 6) * SCALE), y: Math.round((box.y + 4) * SCALE),
-  w: Math.round((box.width - 12) * SCALE), h: Math.round(250 * SCALE),
-};
+// Measure the column and the document in the SAME coordinate system, then scale
+// both by whatever the first frame turns out to be. Assuming the factor is what
+// put the last clip's crop in the middle of the chat pane.
+const geom = await p.evaluate(() => {
+  const bar = document.querySelector('#tabbar').getBoundingClientRect();
+  const tabs = [...document.querySelectorAll('#tabbar .tab')].filter((t) => t.offsetParent);
+  const bottom = tabs.length ? tabs[tabs.length - 1].getBoundingClientRect().bottom : bar.y + 250;
+  // down to the last agent plus the "+ new agent" line under it
+  return { x: bar.x, y: bar.y, w: bar.width, h: bottom - bar.y + 78,
+           docW: document.documentElement.getBoundingClientRect().width };
+});
 
 const frames = [];
 const client = await p.context().newCDPSession(p);
@@ -53,6 +65,15 @@ client.on('Page.screencastFrame', async (f) => {
   await client.send('Page.screencastFrameAck', { sessionId: f.sessionId }).catch(() => {});
 });
 await client.send('Page.startScreencast', { format: 'png', everyNthFrame: 1 });
+// wait for one frame, so the crop can be scaled against a real one
+await new Promise((r) => { const t = setInterval(() => { if (frames.length) { clearInterval(t); r(); } }, 50); });
+const first = Buffer.from(frames[0].data, 'base64');
+const frameW = first.readUInt32BE(16);
+const k = frameW / geom.docW;
+const crop = {
+  x: Math.round((geom.x + 6) * k), y: Math.round((geom.y + 4) * k),
+  w: Math.round((geom.w - 12) * k), h: Math.round(geom.h * k),
+};
 
 // What the rows were actually doing: a film of two idle agents looks exactly
 // like a film of a working one until you read the classes.
