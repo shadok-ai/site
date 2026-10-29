@@ -92,6 +92,11 @@
              alt="The agents column of the Tech group: orders-api and flaky-tests, each with a round avatar, a green
                   dot for a live session, the share of its context window used, and an alarm clock on the one that
                   runs on a schedule.">
+        <img class="dials" src="/shots/frag-dials.webp" width="292" height="132" loading="lazy" decoding="async"
+             alt="The two quota dials in the cockpit header: 9% of the five-hour window, 53% of the seven-day one.">
+        <img class="cron" src="/shots/frag-cron.webp" width="760" height="154" loading="lazy" decoding="async"
+             alt="A scheduled prompt on an agent: daily at 09:00, with a guard, reading “Triage whatever is new in
+                  the inbox: one line per ticket, worst first, and say which one you would take.”">
       </div>
     </div>
   </section>
@@ -123,15 +128,28 @@
 
   <section class="band quiet">
     <div class="wrap">
-      <div class="say">
-        <p class="label"><span class="led"></span> they work in parallel</p>
-        <h2>Each one in its own branch, so they never collide</h2>
-        <p>Give an agent a repository and it works in a git worktree of its own: its own
-        checkout, its own branch. Two agents on the same codebase cannot overwrite each other,
-        and you read the diff before anything is merged.</p>
-        <p>An agent can also <strong>start another one</strong>, hand it a task, and be told
-        the moment it finishes — or the moment it stops to ask something. Nothing sits polling,
-        and a child that dies says so.</p>
+      <div class="duo">
+        <div class="say">
+          <p class="label"><span class="led"></span> they work in parallel</p>
+          <h2>Each one in its own branch, so they never collide</h2>
+          <p>Give an agent a repository and it works in a git worktree of its own: its own
+          checkout, its own branch. Two agents on the same codebase cannot overwrite each other,
+          and you read the diff before anything is merged.</p>
+          <p>An agent can also <strong>start another one</strong>, hand it a task, and be told
+          the moment it finishes — or the moment it stops to ask something. Nothing sits polling,
+          and a child that dies says so.</p>
+        </div>
+        <figure class="shot live">
+          <video id="agents" width="504" height="500" muted loop playsinline preload="none"
+                 poster="/shots/agents-live-poster.webp"
+                 aria-label="The agents column, filmed: one agent counts the seconds of the turn it is running,
+                             the other is striped and carries an hourglass because a script it started is still
+                             going.">
+            <source src="/shots/agents-live.webm" type="video/webm">
+            <source src="/shots/agents-live.mp4" type="video/mp4">
+          </video>
+          <figcaption>Filmed, not drawn: one is thinking, the other is waiting on a script it left running.</figcaption>
+        </figure>
       </div>
       <figure class="shot">
         <img src="/shots/cockpit-work.webp" width="1440" height="900" loading="lazy" decoding="async"
@@ -391,6 +409,23 @@
       }
     })
     .catch(() => {});
+
+  // The filmed column plays only once it is on screen, and never for a reader
+  // who asked for less motion: it ships with a poster and no sources attached
+  // until then, so nobody pays for 70 KB they will not see.
+  (function () {
+    const v = document.getElementById("agents");
+    if (!v) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        v.play().catch(() => {});
+        io.disconnect();
+      }
+    }, { rootMargin: "200px" });
+    io.observe(v);
+  })();
 
   // The command is the one thing a visitor leaves with, so both copies of it copy.
   for (const b of document.querySelectorAll(".copy")) {

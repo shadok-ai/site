@@ -107,7 +107,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -.02
   mask-image: radial-gradient(115% 85% at 70% 0%, #000 10%, transparent 72%);
   opacity: .55;
 }
-.hero .wrap { position: relative; display: grid; gap: 3.4rem; grid-template-columns: 1fr .9fr; align-items: center; padding-block: 5.2rem 6rem; }
+.hero .wrap { position: relative; display: grid; gap: 3.4rem; grid-template-columns: 1fr .9fr; align-items: center; padding-block: 5.2rem 8.5rem; }
 @media (max-width: 960px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 3.6rem 3rem; } }
 
 h1 {
@@ -157,8 +157,16 @@ h1 em { font-style: normal; color: var(--ink-3); }
   position: absolute; left: -7%; bottom: -24%; width: 36%; z-index: 3;
   box-shadow: 0 2px 4px rgba(14, 16, 24, .05), 0 22px 44px -16px rgba(14, 16, 24, .32);
 }
-@media (max-width: 960px) { .stack .list { left: auto; right: 0; bottom: -7%; width: 40%; } }
-@media (max-width: 560px) { .stack .list { display: none; } }
+/* The other instruments of the same panel, pinned around the card. They are
+   the parts a visitor would recognise with no page around them: the quota
+   dials, and a prompt that runs on a timer with a guard in front of it. */
+.stack .dials { position: absolute; top: -12%; left: 4%; width: 21%; z-index: 4; }
+.stack .cron { position: absolute; right: -3%; bottom: -34%; width: 60%; z-index: 1; }
+@media (max-width: 960px) {
+  .stack .list { left: auto; right: 0; bottom: -7%; width: 40%; }
+  .stack .dials, .stack .cron { display: none; }
+}
+@media (max-width: 760px) { .stack .list { display: none; } }
 
 /* ── bands ─────────────────────────────────────────────────────────────── */
 .band { padding-block: 5.6rem; }
@@ -197,6 +205,8 @@ figure { margin: 0; }
 }
 /* a cropped panel is portrait: it must never be blown up past its own pixels */
 .shot.panel { max-width: 560px; }
+.shot.live { max-width: 420px; margin-inline: auto; }
+.shot.live video { display: block; width: 100%; height: auto; background: #fff; }
 
 .duo { display: grid; gap: 3rem; grid-template-columns: 1fr 1fr; align-items: center; }
 .duo .shot { margin-top: 0; }
