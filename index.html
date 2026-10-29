@@ -3,562 +3,509 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>shadok-ai — agents that keep working when you close the laptop</title>
-<meta name="description" content="Give an agent a schedule and a one-line shell check that runs without the model: prints nothing, nothing happened, zero tokens. Self-hosted, on the Claude subscription you already pay for.">
+<title>shadok-ai — the cockpit for a company that runs on agents</title>
+<meta name="description" content="Every Claude Code session your company runs, behind one page: grouped by team, working in parallel, each in its own branch. They ask you when it matters and keep going when you close the laptop. Self-hosted, on the Claude subscription you already pay for.">
 
-<!-- SHARE CARD — the whole first impression of every link posted to X, Slack,
-     Discord, Reddit or LinkedIn, seen with no page around it.
-     Two rules it has to keep:
-       · og:image must be ABSOLUTE. Some crawlers resolve a relative path,
-         plenty do not, and the ones that do not show a grey rectangle.
-       · og:image must be a small STATIC image. It used to point at the 5.29 MB
-         demo GIF: over X's 5 MB ceiling, and X does not animate card images
-         anyway, so the one reason to send a GIF did not exist.
-     Every absolute URL on this page starts with the origin below. If the site
-     is deployed somewhere else, these are the lines to change — DEPLOY.md says
-     so too, and `node docs/launch/check-meta.mjs <url>` checks the deployed
-     page rather than this source. -->
 <link rel="canonical" href="https://shadok.ai/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="shadok-ai">
 <meta property="og:url" content="https://shadok.ai/">
-<meta property="og:title" content="shadok-ai — agents that keep working when you close the laptop">
-<meta property="og:description" content="Give an agent a schedule and a one-line shell check that runs without the model: prints nothing, nothing happened, zero tokens. Self-hosted, on the Claude subscription you already pay for.">
+<meta property="og:title" content="shadok-ai — the cockpit for a company that runs on agents">
+<meta property="og:description" content="Every Claude Code session your company runs, behind one page: grouped by team, working in parallel, each in its own branch. They ask you when it matters and keep going when you close the laptop.">
 <meta property="og:image" content="https://shadok.ai/og-card.jpg">
-<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="shadok-ai — agents that keep working when you close the laptop — next to a screenshot of the cockpit, where one agent is asking a multiple-choice question">
+<meta property="og:image:alt" content="shadok-ai — the cockpit for a company that runs on agents, beside a screenshot of the cockpit where one agent is waiting on a decision">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="shadok-ai — agents that keep working when you close the laptop">
-<meta name="twitter:description" content="Give an agent a schedule and a one-line shell check that runs without the model: prints nothing, nothing happened, zero tokens. Self-hosted, on the Claude subscription you already pay for.">
+<meta name="twitter:title" content="shadok-ai — the cockpit for a company that runs on agents">
+<meta name="twitter:description" content="Every Claude Code session your company runs, behind one page. They ask you when it matters and keep going when you close the laptop.">
 <meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
-<meta name="twitter:image:alt" content="shadok-ai — agents that keep working when you close the laptop — next to a screenshot of the cockpit, where one agent is asking a multiple-choice question">
 
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
-  /* Night flight. The screen is the only real light source on the page: it
-     glows amber onto the surface behind it, and a slow indigo drift sits far
-     below. Everything else stays out of the way. */
+  /* The page is LIGHT by default, like the cockpit it shows. The dark block at
+     the end is the only inversion, and it is there to finish on the command. */
   :root {
-    --void:   #08090D;
-    --raised: #12141C;
-    --bone:   #F5F0E6;
-    --slate:  #8B93A6;
-    --amber:  #F5A524;
-    --indigo: #7C6CF0;
-
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    --gutter: clamp(1.25rem, 5vw, 3.5rem);
-    color-scheme: dark;
+    --page: #ffffff;
+    --surface: #f6f7f9;
+    --surface-2: #eef0f4;
+    --ink: #11131a;
+    --ink-soft: #454a57;
+    --ink-faint: #6b7180;
+    --line: #e3e6ec;
+    --accent: #5b5fc7;        /* the cockpit's own light-mode accent */
+    --accent-soft: #eef0fb;
+    --radius: 14px;
+    --wrap: 1120px;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   }
 
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
   body {
-    margin: 0; position: relative; overflow-x: hidden;
-    background: var(--void); color: var(--bone);
-    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font: 17px/1.65 var(--sans);
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* The drift: two soft masses, one warm one cool, moving slowly past each
-     other. The only ambient motion on the page. */
-  .sky {
-    position: fixed; inset: -20vmax; z-index: 0; pointer-events: none;
-    background:
-      radial-gradient(38vmax 30vmax at 22% 6%,  rgba(245,165,36,.17), transparent 60%),
-      radial-gradient(46vmax 36vmax at 82% 30%, rgba(124,108,240,.21), transparent 62%);
-    filter: blur(30px);
-    animation: drift 34s ease-in-out infinite alternate;
-  }
-  @keyframes drift {
-    from { transform: translate3d(-3%, -2%, 0) scale(1); }
-    to   { transform: translate3d(4%, 3%, 0) scale(1.12); }
-  }
+  .wrap { width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto; }
 
-  .wrap { position: relative; z-index: 1; max-width: 70rem; margin: 0 auto; padding: 0 var(--gutter); }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { text-decoration-thickness: 2px; }
 
-  /* header.wrap, not header: .wrap sets the padding shorthand, and a class
-     beats an element selector — written as `header` this rule lost silently and
-     the wordmark sat flush against the top edge.
-     It also had up to 15rem of air below it against none above: a gap that read
-     as an accident. Both sides now scale together, near 1:2. */
-  header.wrap {
-    padding-top: clamp(2.75rem, 6.5vw, 5rem);
-    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  /* header */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: saturate(140%) blur(10px);
   }
+  .mark { display: flex; align-items: center; gap: .55rem; font-weight: 650; letter-spacing: -.01em; }
+  .mark svg { width: 26px; height: 26px; display: block; }
+  .head-right { display: flex; align-items: center; gap: .9rem; }
+  .head-right .ghost { color: var(--ink-soft); text-decoration: none; font-size: .95rem; }
+  .head-right .ghost:hover { color: var(--ink); }
+  @media (max-width: 620px) { .head-right .ghost { display: none; } }
 
-  /* An ask, not a scoreboard. Framed as "Star" with the count beside it, so a
-     small number reads as an invitation and a large one speaks for itself. */
   .star {
-    display: inline-flex; align-items: center; gap: .5rem; flex: none;
-    padding: .5rem .85rem; border: 1px solid #262B38; border-radius: 8px;
-    font-family: var(--mono); font-size: .82rem; letter-spacing: .06em;
-    color: var(--slate); text-decoration: none;
-    background: rgba(18,20,28,.6);
-    transition: color .15s ease, border-color .15s ease, background .15s ease;
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: .38rem .7rem; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--surface); color: var(--ink); text-decoration: none;
+    font-size: .92rem; font-weight: 500;
   }
-  .star:hover { color: var(--bone); border-color: #3A4152; background: rgba(255,255,255,.05); }
-  .star svg { width: 1.05em; height: 1.05em; fill: currentColor; flex: none; }
-  .star:hover svg { fill: var(--bone); }
-  /* The count only appears once it is known: an empty slot beats a wrong number. */
-  .star b { font-weight: 500; color: var(--bone); }
-  .star b:empty { display: none; }
-  /* The wordmark, not a caption: bone rather than slate, and tracking eased off
-     as the size grows — .16em reads as spacing at .9rem and as gaps at 1.45rem. */
-  .mark {
-    font-family: var(--mono); font-size: clamp(1.15rem, 2vw, 1.45rem);
-    letter-spacing: .1em; color: var(--bone);
-  }
-  .mark b { color: var(--amber); font-weight: 400; }
+  .star:hover { background: var(--surface-2); }
+  .star svg { width: 15px; height: 15px; fill: currentColor; }
+  .star b { font-weight: 650; color: var(--ink-faint); }
 
-  /* ---- the claim: given room, and given scale ---- */
-  /* Tightened from 9rem: the fold on a 1512x860 laptop has to carry the claim,
-     the command and the top of the demo, and it did not. */
-  .hero { padding: clamp(3.25rem, 6vw, 4rem) 0 0; }
+  /* hero */
+  .hero { padding: 4.5rem 0 1rem; text-align: center; }
   .over {
-    margin: 0 0 clamp(1.4rem, 3vw, 2rem);
-    font-family: var(--mono); font-size: .76rem; letter-spacing: .26em;
-    text-transform: uppercase; color: var(--slate);
+    display: inline-block; margin: 0 0 1.4rem;
+    padding: .3rem .75rem; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: .85rem; font-weight: 550;
   }
   h1 {
-    margin: 0; font-weight: 700;
-    /* Capped so "Many Claude Codes." holds one line at desktop width: leaving
-       "Codes." stranded on its own line kills the opening. 7.2rem is the
-       measured ceiling for that line inside a 63rem column. */
-    font-size: clamp(2.7rem, 10vw, 7.2rem);
-    line-height: .93; letter-spacing: -.048em;
+    margin: 0 0 1.2rem;
+    font-size: clamp(2.2rem, 5.6vw, 3.9rem); line-height: 1.07;
+    letter-spacing: -.035em; font-weight: 700;
   }
-  h1 .dim { color: #656B80; }
-  h1 .lit {
-    background: linear-gradient(94deg, var(--amber) 8%, #FFDCA6 46%, var(--indigo) 104%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+  h1 .soft { color: var(--ink-faint); }
+  .lede {
+    margin: 0 auto; max-width: 660px;
+    font-size: clamp(1.05rem, 2.2vw, 1.22rem); color: var(--ink-soft);
   }
-  .sub {
-    margin: clamp(1.75rem, 3.6vw, 2.25rem) 0 0; max-width: 40rem;
-    font-size: clamp(1.08rem, 2.2vw, 1.3rem); color: var(--slate);
-  }
-  .sub b { color: var(--bone); font-weight: 500; }
 
-  /* ---- the screen, lighting the page ---- */
-  .screen {
-    position: relative; margin: clamp(1.75rem, 3.5vw, 2.1rem) 0 0;
-    border-radius: 12px; padding: 1px;
-    background: linear-gradient(160deg, #333A4C 0%, #171A24 45%, #2A2233 100%);
-  }
-  .screen::before {
-    content: ""; position: absolute; inset: 8% 4% -14% 4%;
-    background: radial-gradient(60% 60% at 50% 60%, rgba(245,165,36,.30), transparent 70%);
-    filter: blur(46px); z-index: -1;
-  }
-  .screen video {
-    display: block; width: 100%; height: auto; border-radius: 11px;
-    /* The poster is a still of the first frame, so the box is the right colour
-       before it arrives and nothing shifts when it does. */
-    background: #0A0C10;
-  }
-  /* WCAG 2.2.2: motion that starts on its own and runs past five seconds needs
-     a way to stop it. Kept out of the frame's content — the cockpit's own
-     chrome is at the top, so the bottom right is the empty corner. */
-  .motion {
-    position: absolute; right: .8rem; bottom: .8rem; z-index: 1;
-    border: 1px solid #2C3242; border-radius: 7px;
-    background: rgba(8,9,13,.78); backdrop-filter: blur(6px);
-    color: var(--slate); cursor: pointer;
-    font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
-    text-transform: uppercase; padding: .42rem .7rem;
-  }
-  .motion:hover { color: var(--bone); border-color: #3C4356; }
-
-  /* ---- the command ---- */
   .run {
-    margin: clamp(2rem, 4vw, 2.5rem) 0 0;
-    display: flex; align-items: stretch; max-width: 33rem;
-    border: 1px solid #262B38; border-radius: 10px; overflow: hidden;
-    background: rgba(18,20,28,.72); backdrop-filter: blur(6px);
+    display: inline-flex; align-items: center; gap: .6rem; margin: 2rem 0 .8rem;
+    padding: .55rem .6rem .55rem 1rem;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 11px;
   }
-  .run code {
-    flex: 1; padding: 1rem 1.15rem; font-family: var(--mono);
-    font-size: 1.02rem; color: var(--bone); white-space: nowrap; overflow-x: auto;
-  }
-  .run code i { color: var(--indigo); font-style: normal; }
+  .run code { font: 16px/1 var(--mono); color: var(--ink); }
+  .run code i { color: var(--ink-faint); font-style: normal; margin-right: .5rem; }
   .copy {
-    flex: none; border: 0; border-left: 1px solid #262B38; background: transparent;
-    color: var(--slate); cursor: pointer; font-family: var(--mono); font-size: .78rem;
-    letter-spacing: .12em; text-transform: uppercase; padding: 0 1.15rem;
-    transition: color .15s ease, background .15s ease;
+    border: 1px solid var(--line); background: #fff; color: var(--ink-soft);
+    border-radius: 7px; padding: .35rem .7rem; font: 500 .85rem var(--sans); cursor: pointer;
   }
-  .copy:hover { color: var(--bone); background: rgba(255,255,255,.04); }
-  .copy[data-done] { color: var(--amber); }
-  .req { margin: .85rem 0 0; color: var(--slate); font-size: .92rem; }
-  .req code { color: var(--bone); font-family: var(--mono); font-size: .88em; }
+  .copy:hover { color: var(--ink); border-color: var(--ink-faint); }
+  .req { margin: 0; color: var(--ink-faint); font-size: .95rem; }
+  .req code { font: .92em var(--mono); }
 
-  /* ---- what it does when you are not looking ---- */
+  /* screenshots */
+  figure { margin: 0; }
+  .shot {
+    margin-top: 2.6rem;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--surface); overflow: hidden;
+    box-shadow: 0 1px 2px rgba(17, 19, 26, .04), 0 12px 32px rgba(17, 19, 26, .07);
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot figcaption {
+    padding: .8rem 1.1rem; border-top: 1px solid var(--line);
+    background: #fff; color: var(--ink-faint); font-size: .9rem;
+  }
+  .shot.plain figcaption { border-top: 0; }
+
+  /* sections */
+  section.band { padding: 5.5rem 0 1rem; }
+  section.band.tint { background: var(--surface); padding-bottom: 5.5rem; margin-top: 5rem; }
+  .intro { max-width: 720px; }
   .eyebrow {
-    margin: clamp(6rem, 13vw, 9rem) 0 0;
-    font-family: var(--mono); font-size: .74rem; letter-spacing: .24em;
-    text-transform: uppercase; color: var(--slate);
+    margin: 0 0 .7rem; color: var(--accent);
+    font-size: .85rem; font-weight: 600; letter-spacing: .02em;
   }
-  .cap { border-top: 1px solid #1B1F2A; padding: clamp(2rem, 4vw, 2.75rem) 0; }
-  .cap:first-of-type { margin-top: 2rem; }
-  .cap h3 {
-    margin: 0 0 .9rem; font-size: clamp(1.5rem, 3.4vw, 2.15rem);
-    font-weight: 650; letter-spacing: -.02em;
+  h2 {
+    margin: 0 0 .9rem; font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+    line-height: 1.15; letter-spacing: -.025em; font-weight: 680;
   }
-  .cap p { margin: 0; max-width: 44rem; color: var(--slate); font-size: clamp(1rem, 2vw, 1.12rem); }
-  .cap p b { color: var(--bone); font-weight: 500; }
-  .cap p em { font-style: normal; color: var(--amber); }
+  .intro p { margin: 0 0 .9rem; color: var(--ink-soft); font-size: 1.07rem; }
+  .intro p b, .intro p strong { color: var(--ink); font-weight: 620; }
+  .intro p code { font: .9em var(--mono); background: var(--surface-2); padding: .1em .35em; border-radius: 5px; }
+  .intro p:last-child { margin-bottom: 0; }
 
-  /* A tighter texture than the .cap blocks above, so seven capabilities do not
-     read as seven identical slabs: label left, sentence right. */
-  .rows { margin: 2.25rem 0 0; display: grid; gap: 0; }
-  .row {
-    display: grid; grid-template-columns: 13rem 1fr; gap: clamp(1rem, 3vw, 2.5rem);
-    padding: clamp(1.4rem, 2.6vw, 1.9rem) 0; border-top: 1px solid #1B1F2A;
+  .split { display: grid; gap: 2.5rem; align-items: center; grid-template-columns: 1.05fr .95fr; }
+  @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+  .split .shot { margin-top: 0; }
+  /* A panel crop is portrait: full page width would blow it up past its own
+     pixels. Half the column, centred, is the size it was taken at. */
+  .shot.side { max-width: 620px; margin-inline: auto; }
+  .phone { max-width: 320px; margin-inline: auto; }
+
+  .grid { display: grid; gap: 1.6rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); margin-top: 2.8rem; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem 1.5rem; }
+  .card h3 { margin: 0 0 .5rem; font-size: 1.05rem; font-weight: 650; letter-spacing: -.01em; }
+  .card p { margin: 0; color: var(--ink-soft); font-size: .98rem; }
+  .card code { font: .9em var(--mono); background: var(--surface-2); padding: .1em .35em; border-radius: 5px; }
+
+  .quote { max-width: 760px; margin: 0 auto; text-align: center; }
+  .quote blockquote {
+    margin: 0 0 1rem; font-size: clamp(1.25rem, 2.8vw, 1.7rem);
+    line-height: 1.4; letter-spacing: -.02em; font-weight: 600;
   }
-  .row dt {
-    font-family: var(--mono); font-size: .78rem; letter-spacing: .16em;
-    text-transform: uppercase; color: var(--amber); padding-top: .35rem;
+  .quote .who { color: var(--ink-faint); font-size: .95rem; }
+
+  .end {
+    margin-top: 6rem; padding: 5rem 0 4rem;
+    background: #0d0f16; color: #f3f4f8; text-align: center;
   }
-  .row dd { margin: 0; max-width: 40rem; color: var(--slate); font-size: clamp(1rem, 1.9vw, 1.08rem); }
-  .row dd b { color: var(--bone); font-weight: 500; }
-  @media (max-width: 44rem) {
-    .row { grid-template-columns: 1fr; gap: .55rem; }
-    .row dt { padding-top: 0; }
-  }
+  .end h2 { color: #fff; }
+  .end p { color: #a9aebd; max-width: 620px; margin-inline: auto; }
+  .end .run { background: #171a24; border-color: #272b37; }
+  .end .run code { color: #f3f4f8; }
+  .end .run code i { color: #6b7180; }
+  .end .copy { background: #222634; border-color: #333848; color: #c9cdda; }
+  .end .copy:hover { color: #fff; border-color: #4a5063; }
+  .end a { color: #a5a9ff; }
 
-  .facts { margin: 2rem 0 0; padding: 0; list-style: none; display: grid; gap: clamp(1.4rem, 3vw, 2rem); }
-  .facts li { max-width: 46rem; font-size: clamp(1.02rem, 2vw, 1.15rem); }
-  .facts em { font-style: normal; color: var(--amber); }
-  .aside { margin: clamp(2rem, 4vw, 2.5rem) 0 0; color: var(--slate); max-width: 46rem; }
+  footer { padding: 2.5rem 0 3.5rem; color: var(--ink-faint); font-size: .92rem; }
+  footer p { margin: 0 0 .5rem; }
 
-  a { color: var(--indigo); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  a:hover { color: var(--bone); }
-  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 3px; }
-
-  /* footer.wrap, not footer — same trap as the header: .wrap sets the padding
-     shorthand and a class beats an element selector, so written as `footer`
-     this padding is silently dropped. */
-  footer.wrap {
-    margin: clamp(5rem, 11vw, 8rem) auto 0; border-top: 1px solid #1B1F2A;
-    padding: 1.6rem var(--gutter) 4.5rem;
-    /* #666D7E measured 3.84:1 on the void — under the 4.5:1 AA floor for text
-       this size. */
-    font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; color: #7A8193;
-  }
-
-  @media (prefers-reduced-motion: reduce) { .sky { animation: none; } }
-
-  /* ── The name, explained ──────────────────────────────────────────────────
-     The project is named after Les Shadoks and until now the page never said so.
-     Worth a stop at the end because the cartoon's joke and this product's
-     argument are the SAME joke: the Shadoks pumped relentlessly and to no
-     effect, which is exactly what an agent woken hourly to report that nothing
-     happened is doing. The prose carries it; the drawing arrives afterwards as
-     the illustration of a point already made.
-
-     ON THE DRAWING'S RIGHTS, since nobody should have to re-derive this.
-     Les Shadoks is Jacques Rouxel's work, he died in 2004, France protects for
-     70 years after, so it is in copyright until 2074 with INA and AAA Production
-     holding rights — the signature is in the image itself. It is here on the
-     site owner's explicit instruction, after that was put to them: a considered
-     risk, not a licence. Credited below the plate and linked to ina.fr, which is
-     the difference between a credit and a lift, not a substitute for permission.
-
-     It is SELF-HOSTED, and that part is not about rights. This page makes
-     exactly one request to anything outside itself (the star count, below). A
-     hotlink to Fandom's CDN would quietly make it two, would show them every
-     visitor here, and would break the day they rename the path.
-
-     It is a .webp DESPITE its source URL ending in .jpg — that CDN negotiates
-     the format, so the bytes that arrive are RIFF/WEBP. Served as .jpg, Vercel
-     declared image/jpeg over WebP bytes and the browser drew the alt text
-     instead of the picture. Check the magic bytes, never the URL.
-
-     The art is line work on pure white and this page is near-black, so it is
-     framed as a plate: a white card with real padding, and the white reads as
-     the paper it was drawn on rather than as a hole burnt in the page. */
-  /* Small on purpose. It arrives after the argument has already been made, so
-     it is an illustration of a point the reader has taken rather than the thing
-     carrying it -- and a plate of white on a near-black page earns its size. */
-  .plate {
-    margin: 2.25rem 0 0; background: #fff; border-radius: 8px;
-    padding: clamp(.6rem, 2vw, 1rem); max-width: 19rem;
-  }
-  .plate img { display: block; width: 100%; height: auto; }
-  /* Deliberately tiny, and aligned to the plate rather than the text column, so
-     it reads as the caption of the picture and not as another paragraph. It
-     keeps --slate rather than going dimmer still: a credit that cannot be read
-     is not a credit, and this one is doing real work. --slate on --void is about
-     6:1, which clears AA at this size. */
-  /* Scoped .cap .credit (0,2,0), NOT .credit (0,1,0). `.cap p` above is (0,1,1)
-     and was winning: it sets font-size, max-width, margin and color on every <p>
-     in a .cap, so two rounds of shrinking this caption changed absolutely
-     nothing on screen and the credit went on rendering at ~18px. The same trap
-     eats .aside's top margin inside a .cap, hence the rule below it. */
-  .cap .credit {
-    margin: .7rem 0 0; max-width: 19rem;
-    font-family: var(--mono); font-size: .52rem; line-height: 1.6;
-    letter-spacing: .02em; color: var(--slate);
-  }
-  .cap .credit a { color: var(--slate); }
-  .cap .aside { margin: clamp(2rem, 4vw, 2.5rem) 0 0; }
-
+  figure.plate { margin-top: 2.2rem; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+  figure.plate img { display: block; width: 100%; height: auto; }
+  .credit { margin-top: .8rem; color: var(--ink-faint); font-size: .85rem; }
 </style>
 </head>
 <body>
-<div class="sky" aria-hidden="true"></div>
 
-<header class="wrap">
-  <div class="mark"><b>◆</b> shadok-ai</div>
-  <!-- Opens in a new tab on purpose: starring only happens on github.com, and
-       the reader should not lose this page to do it. The mark is inlined rather
-       than pulled from an icon service — this page fetches nothing but the
-       count. -->
-  <a class="star" href="https://github.com/shadok-ai/shadok-ai"
-     target="_blank" rel="noopener" aria-label="Star shadok-ai on GitHub">
-    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-    Star <b id="stars"></b>
-  </a>
-</header>
+<div class="wrap">
+  <header>
+    <div class="mark">
+      <!-- The cockpit's own mark, the same drawing as the tab and the product header. -->
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#5b5fc7" stroke="#5b5fc7" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#5b5fc7"/><circle cx="19.2" cy="8.1" r="1.3" fill="#5b5fc7"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </div>
+    <div class="head-right">
+      <a class="ghost" href="#how">How it works</a>
+      <a class="ghost" href="https://github.com/shadok-ai/shadok-ai#readme" target="_blank" rel="noopener">Docs</a>
+      <!-- Opens in a new tab on purpose: starring only happens on github.com, and
+           the reader should not lose this page to do it. -->
+      <a class="star" href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener"
+         aria-label="Star shadok-ai on GitHub">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        Star <b id="stars"></b>
+      </a>
+    </div>
+  </header>
 
-<main class="wrap">
-  <section class="hero">
-    <p class="over">open source · runs on your Claude subscription</p>
-    <h1><span class="dim">Many Claude Codes.</span><br>One cockpit.<br><span class="lit">And it wrote itself.</span></h1>
-    <p class="sub">Put an agent on a schedule with a check that runs <b>without the
-    model</b>: prints nothing, nothing happened, zero tokens. Or drive them yourself, in
-    parallel, each in its own git worktree.</p>
+  <main>
+    <section class="hero">
+      <p class="over">open source · runs on your Claude subscription</p>
+      <h1>Your agents do the work.<br><span class="soft">You keep the controls.</span></h1>
+      <p class="lede">shadok-ai puts every Claude Code session your company runs behind
+      one page — grouped by team, working in parallel, each in its own branch. They ask
+      you when it matters, and they keep going when you close the laptop.</p>
 
-    <!-- The command comes before the demo: on a 1512x860 laptop the demo used
-         to start 36 px below the fold and this line 717 px below it, so the
-         first screen carried no product and nothing to act on. -->
+      <div class="run">
+        <code><i>$</i> npx shadok-ai</code>
+        <button class="copy" type="button" data-cmd="npx shadok-ai">Copy</button>
+      </div>
+      <p class="req">Node 20 or newer. It opens the cockpit in your browser, installs the
+      <code>claude</code> CLI if you do not have it, and signs you in to your own Claude
+      account. No API key.</p>
+
+      <figure class="shot">
+        <img src="/shots/cockpit-approval.webp" width="1440" height="900" fetchpriority="high" decoding="async"
+             alt="The shadok-ai cockpit in light mode: a Groups column reading Main, Tech, Marketing and Support,
+                  the agent list beside it, and an agent asking which issue the team should take first, with two
+                  options to click.">
+        <figcaption>An agent that reaches a decision stops and asks. Nothing moves until someone answers.</figcaption>
+      </figure>
+    </section>
+
+    <section class="band" id="how">
+      <div class="intro">
+        <p class="eyebrow">What it is</p>
+        <h2>One cockpit for every agent in the company</h2>
+        <p>It starts the way it usually does: a Claude Code session open in one directory,
+        then another, then five — and none of them survive closing the laptop.
+        <b>shadok-ai is the interface around them.</b></p>
+        <p>Each agent is a real Claude Code session with its own directory and its own git
+        branch, driven from the browser or from Telegram. You group them the way you group
+        people: a Tech group, a Marketing group, a Support group. Open one and you are in
+        its conversation — <b>the same session, whoever is watching</b>.</p>
+      </div>
+      <figure class="shot">
+        <img src="/shots/cockpit-teams.webp" width="1440" height="900" loading="lazy" decoding="async"
+             alt="The cockpit with the Support group selected, showing its agent, while the Groups column keeps
+                  the count of agents in Main, Tech, Marketing and Support.">
+        <figcaption>Groups hold agents the way teams hold people — each one carrying its own count of who is waiting on you.</figcaption>
+      </figure>
+    </section>
+
+    <section class="band">
+      <div class="intro">
+        <p class="eyebrow">They work in parallel</p>
+        <h2>Each one in its own branch, so they never collide</h2>
+        <p>Give an agent a repository and it works in a git worktree of its own: its own
+        checkout, its own branch. Two agents on the same codebase cannot overwrite each
+        other, and you read the diff before anything is merged.</p>
+        <p>An agent can also <b>start another one</b>, hand it a task, and be told the
+        moment it finishes — or the moment it stops to ask something. Nothing sits
+        polling, and a child that dies says so.</p>
+      </div>
+      <figure class="shot">
+        <img src="/shots/cockpit-work.webp" width="1440" height="900" loading="lazy" decoding="async"
+             alt="An agent named orders-api reporting what it changed: a POST handler added, five tests passing,
+                  the validation rules it chose, and two decisions it leaves to the human.">
+        <figcaption>It says what it did, what it chose, and what it left for you — and it says plainly that nothing is committed yet.</figcaption>
+      </figure>
+    </section>
+
+    <section class="band tint">
+      <div class="intro">
+        <p class="eyebrow">You supervise</p>
+        <h2>A role, a leash, and a question when it matters</h2>
+        <p>A profile is a named role you give an agent at startup: the system prompt it
+        begins with, the model it runs, how hard it is told to think, the secrets it may
+        see, and <b>the commands it may not run</b>. Forbid <code>git commit</code> and it
+        cannot commit. Change the profile on a running agent and it restarts in place,
+        keeping the conversation.</p>
+        <p>When an agent needs a decision, it does not guess: the question arrives as a
+        card with buttons, in the browser and on your phone at the same time, and the turn
+        waits.</p>
+      </div>
+      <figure class="shot side">
+        <img src="/shots/panel-profiles.webp" width="900" height="1206" loading="lazy" decoding="async"
+             alt="The Agent profiles panel listing roles — Boss, dev, QA, Release, Product, Marketing, Content and
+                  Support — each with a badge showing whether it can write, and a form to add one.">
+        <figcaption>The roles ship with the cockpit; you write your own in the same panel.</figcaption>
+      </figure>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Run it yourself</h3>
+          <p>An agent that asks you to run something gets a run button on the command it
+          wrote. One click, one confirmation showing exactly what will run, straight into
+          that agent's shell — as you, not as the agent.</p>
+        </div>
+        <div class="card">
+          <h3>Every prompt has a name on it</h3>
+          <p>Put a password on the cockpit and each pilot gets a login of their own. Switch
+          on two-factor and the fingerprint or face unlock of your own phone finishes the
+          sign-in; lose it and another admin lets you back in.</p>
+        </div>
+        <div class="card">
+          <h3>Keys live in a vault</h3>
+          <p>Never in the repository. A profile names the secrets its agents need and they
+          arrive as environment variables at startup. Each secret keeps its own history —
+          who created it and which agent it was handed to, names only, never values.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="intro">
+        <p class="eyebrow">They stop redoing each other's work</p>
+        <h2>A shared ledger, so nobody re-raises what is done</h2>
+        <p>Agents working in parallel re-discover the same bug, re-propose the same fix,
+        re-run the same job. The cockpit keeps one short table of what has been resolved or
+        decided, and <b>every agent is handed what changed before its next message</b>,
+        without asking for it.</p>
+        <p>One row per subject: a new line on the same subject replaces the old one, so the
+        table stays short enough to read.</p>
+      </div>
+      <figure class="shot side">
+        <img src="/shots/panel-ledger.webp" width="900" height="856" loading="lazy" decoding="async"
+             alt="The Shared ledger panel: four rows with their status — a rotated deploy key marked current, a
+                  validation task resolved, a CSV export bug open, a duplicate webhook in progress — each with the
+                  agent that wrote it.">
+        <figcaption>Who resolved what, who is on it, and what is still open — written by the agents themselves.</figcaption>
+      </figure>
+    </section>
+
+    <section class="band">
+      <div class="intro">
+        <p class="eyebrow">While you are away</p>
+        <h2>A schedule, and a check that costs nothing</h2>
+        <p>Give an agent a recurring prompt: every thirty minutes, or every morning at nine
+        in the time zone you name. Attach a one-line shell check and it runs <b>without the
+        model</b> — if the check prints nothing, nothing happened, and the agent is never
+        woken.</p>
+        <p>A watcher that stays quiet most of the day costs you nothing most of the day.</p>
+      </div>
+      <figure class="shot side">
+        <img src="/shots/panel-schedule.webp" width="900" height="814" loading="lazy" decoding="async"
+             alt="The Schedule panel for an agent: a daily nine o'clock prompt in Europe/Paris, with a check
+                  command field explaining that printing nothing means the agent stays asleep.">
+        <figcaption>The check is the whole trick: no output, no model call, no tokens.</figcaption>
+      </figure>
+    </section>
+
+    <section class="band tint">
+      <div class="split">
+        <div class="intro">
+          <p class="eyebrow">From anywhere</p>
+          <h2>Answer them from your phone</h2>
+          <p>The cockpit works on a phone screen, and it connects to Telegram: every agent
+          gets its own topic, questions arrive as buttons you tap, files you send land in
+          the agent's working directory, and <b>what it produces comes back the same way</b>.</p>
+          <p>Speak instead of typing and the voice note is transcribed on the machine
+          shadok-ai runs on, never handed to a transcription service. Send a video and it is
+          watched, not just filed.</p>
+          <p>It is not a notification feed — <b>it is the same session your browser is
+          watching</b>, so an answer you tap on the train shows up on the screen you left
+          open.</p>
+        </div>
+        <figure class="shot plain phone">
+          <img src="/shots/cockpit-phone.webp" width="640" height="1385" loading="lazy" decoding="async"
+               alt="The cockpit on a phone: the agent's question with its two options filling the screen, the
+                    quota dials still visible at the top.">
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="intro">
+        <p class="eyebrow">Not only code</p>
+        <h2>The same cockpit for the rest of the company</h2>
+        <p>An agent does not have to be a developer. The role you give it decides what it
+        is: one reads the support inbox and tells you which ticket to take first, one
+        rewrites the page nobody has looked at in a month, one watches a deploy.</p>
+        <p>They share the ledger, the schedule, the vault and the same chat — which is what
+        makes this a cockpit rather than a terminal multiplexer.</p>
+      </div>
+      <figure class="shot">
+        <img src="/shots/cockpit-marketing.webp" width="1440" height="900" loading="lazy" decoding="async"
+             alt="A marketing agent proposing two sharper versions of a headline and saying which one it would
+                  ship, without editing the file.">
+        <figcaption>A read-only role proposes and argues; it does not touch the file.</figcaption>
+      </figure>
+    </section>
+
+    <section class="band tint">
+      <div class="intro">
+        <p class="eyebrow">What it costs</p>
+        <h2>On the subscription you already pay for</h2>
+        <p>Agents run on your own Claude account, through the <code>claude</code> CLI — no
+        API key, no second bill. The cockpit watches how fast you are spending your
+        five-hour and seven-day windows and holds a prompt back when you are running ahead
+        of an even pace. Any message can push through when you mean it.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Or a model you host yourself</h3>
+          <p>Point the cockpit at Ollama, llama.cpp or vLLM — or at any Anthropic-compatible
+          provider. It is a choice in the first card, and it makes one real round trip to
+          that server before it lets you keep it.</p>
+        </div>
+        <div class="card">
+          <h3>Self-hosted, and yours</h3>
+          <p>It runs on your machine or your own server, on loopback unless you give it a
+          password. Nothing about your repositories, your prompts or your keys passes
+          through anyone else.</p>
+        </div>
+        <div class="card">
+          <h3>It keeps itself current</h3>
+          <p>Every merge publishes a version and a running cockpit picks it up on its own,
+          agents and all. It also warns you two days before your Claude sign-in expires, and
+          signs you in again in one click.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="quote">
+        <blockquote>“It built one of my products on its own, and it runs most of the rest
+        of my work almost automatically — all on my Claude subscription, without blowing
+        it up.”</blockquote>
+        <p class="who">— the person who wrote shadok-ai, explaining it to a friend</p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="intro">
+        <p class="eyebrow">It wrote itself</p>
+        <h2>Most of this was built by the agents it ships</h2>
+        <p>Nearly every feature on this page was written by a shadok-ai agent working in its
+        own worktree, reviewed and merged like any other contribution. The pull requests are
+        public, and so is the history —
+        <a href="https://github.com/shadok-ai/shadok-ai">see for yourself</a>.</p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="intro">
+        <p class="eyebrow">Why it is called that</p>
+        <h2>Les Shadoks pumped</h2>
+        <p>They were French cartoon birds drawn in 1968, and the whole joke was that they
+        pumped — relentlessly, exhaustingly, and for no result anyone could ever identify.
+        One of their mottos: <em>the more it fails, the more likely it is to work.</em></p>
+        <p>An agent woken every hour to report that nothing happened is pumping. You pay a
+        model call to be told there was nothing to do, and it will tell you that <b>twenty-three
+        more times today</b>. This is the tool that lets it stop.</p>
+      </div>
+      <figure class="plate">
+        <img src="/shadoks-rouxel.webp" width="800" height="600" loading="lazy" decoding="async"
+             alt="Two Shadoks, round orange and yellow birds on thin legs, working a see-saw lever mounted on a
+                  small wheeled platform. Signed Rouxel.">
+      </figure>
+      <p class="credit">Les Shadoks (1968) — drawn by Jacques Rouxel, produced by AAA for the ORTF.
+      Reproduced here to explain the name; all rights remain with the rightsholders. The series is at
+      <a href="https://www.ina.fr/">ina.fr</a>.</p>
+    </section>
+  </main>
+</div>
+
+<section class="end">
+  <div class="wrap">
+    <h2>Start with one agent</h2>
+    <p>It opens in your browser, looks at the directory you launched from, and offers you
+    one thing it can do with it.</p>
     <div class="run">
       <code><i>$</i> npx shadok-ai</code>
       <button class="copy" type="button" data-cmd="npx shadok-ai">Copy</button>
     </div>
-    <p class="req">Node 20 or newer. It opens the cockpit in your browser, installs the
-    <code>claude</code> CLI if you do not have it, and signs you in to your Claude account
-    itself. No API key.</p>
+    <p style="margin-top:1.4rem"><a href="https://github.com/shadok-ai/shadok-ai">github.com/shadok-ai/shadok-ai</a></p>
+  </div>
+</section>
 
-    <!-- A video, not the GIF it replaced. Same 39 s edit: 5.29 MB became
-         1.1 MB, the poster gives the browser something to paint at once
-         instead of after the whole file lands, and an animated GIF cannot be
-         paused by anything — CSS, prefers-reduced-motion or the visitor —
-         which is a WCAG 2.2.2 failure on its own.
-         The sources are attached only when this scrolls into view (see the
-         script below), so a visitor who never reaches it pays nothing. -->
-    <div class="screen">
-      <video id="demo" class="demo" width="960" height="600" poster="/demo-poster.webp"
-             muted loop playsinline preload="none" disablepictureinpicture
-             aria-label="The shadok-ai cockpit: several agents working on the same repository at once, one asking a question that is answered with a click, the code it wrote in the diff panel, and the raw terminal behind it"></video>
-      <button class="motion" id="motion" type="button" aria-label="Pause the demo" hidden>Pause</button>
-      <noscript>
-        <video width="960" height="600" poster="/demo-poster.webp" controls muted loop playsinline preload="none"
-               aria-label="The shadok-ai cockpit, with several agents working at once">
-          <source src="/demo.webm" type="video/webm">
-          <source src="/demo.mp4" type="video/mp4">
-        </video>
-      </noscript>
-    </div>
-  </section>
-
-  <h2 class="eyebrow">The first minute</h2>
-
-  <section class="cap">
-    <h3>Someone is already there</h3>
-    <p>You do not arrive at an empty box. An agent is waiting in the directory you
-    launched from, it has looked at what is in there, and it opens by <b>naming what it
-    actually found</b> and offering one thing it can do with it. Recognised nothing?
-    It says so plainly rather than inventing a stack it thinks you wanted to hear. It is
-    an offer, not a wizard — ignore it and the cockpit is exactly as it was.</p>
-  </section>
-
-  <h2 class="eyebrow">It does not stop at one</h2>
-
-  <section class="cap">
-    <h3>They start each other</h3>
-    <p>An agent in the cockpit can open another one, hand it a task in its own
-    worktree, and <b>be told the moment it finishes</b> — or the moment it stops,
-    waiting on a question someone has to answer. Nothing sits polling, and a child
-    that dies says so too. You review the work, not the plumbing.
-    <b>Most of what this page describes was built exactly that way</b> — one agent
-    at the keyboard, and the ones it started.</p>
-  </section>
-
-  <section class="cap">
-    <h3>They stop redoing each other's work</h3>
-    <p>Agents run siloed, so the second one to reach a problem fixes it again. The cockpit
-    keeps one shared table of what has been settled — a bug closed, a decision taken, a
-    job already run. An agent that resolves something writes a line, and <b>every other
-    agent is handed what changed before its next message</b>, without asking for it. A
-    new line on the same subject replaces the old one, so the table stays short enough to
-    read — and for code, git stays the truth.</p>
-  </section>
-
-  <h2 class="eyebrow">And when you are not at the desk</h2>
-
-  <section class="cap">
-    <h3>Answer them from your phone</h3>
-    <p>Connect a Telegram group and every agent gets its own topic. Their questions
-    arrive as buttons you tap, photos or files you send land in the agent's working
-    directory, and <b>what it produces comes back the same way</b> — a file you can
-    open without going near a laptop. It is not a copy or a notification feed — <b>it is the same
-    session your browser is watching</b>, so an answer you tap on the train shows up
-    on the screen you left open. <b>Speak instead of typing</b> and the voice note is
-    transcribed on the machine shadok-ai runs on — not handed to a transcription
-    service — and read back to you before it counts as what you said. <b>Send a video
-    and it is watched, not just filed</b>: stills are pulled out of it for the agent to
-    look at, and whatever is said in it is transcribed the same way, on the same
-    machine.</p>
-  </section>
-
-  <section class="cap">
-    <h3>Put an agent on a schedule</h3>
-    <p>Give one a recurring prompt: every thirty minutes, or every morning at nine in
-    the time zone you name. Attach a guard command and it runs <b>without the model</b>
-    — if the guard has nothing to report, the agent is never woken and the run costs
-    <em>nothing at all</em>. A watcher that stays quiet most of the day is free most of
-    the day.</p>
-  </section>
-
-  <section class="cap">
-    <h3>Fly it with more than one pilot</h3>
-    <p>Several people can drive the same agent at the same time. Open it in another
-    browser, on another machine, or from Telegram: everyone sees the same answers, the
-    same questions, and <b>each other's prompts as they are sent</b>. One process, one
-    transcript, as many pilots as you have. Put a password on the cockpit and each pilot
-    gets a login of their own — an invitation link they set their own password on — so
-    <b>every prompt arrives with a name on it</b>. Switch on two-factor and a password
-    only opens the second step: the <b>fingerprint or face unlock of your own phone or
-    laptop</b> finishes the sign-in. Lose the phone and it is not a dead end — another
-    admin lets you back in, and <b>nobody can recover themselves</b>.</p>
-  </section>
-
-  <h2 class="eyebrow">Keeping a fleet in line</h2>
-  <dl class="rows">
-    <div class="row">
-      <dt>Profiles</dt>
-      <dd>A name for a role and a leash: the system prompt an agent starts with, the
-      model it runs, how hard it is told to think, the secrets it may see, and the
-      commands it may not run.
-      <b>Forbid <code>git commit</code> and it cannot commit.</b> Pick one when you
-      start an agent, and change it on one already running — <b>it restarts in
-      place and keeps the conversation</b>, so a wrong pick costs you nothing.</dd>
-    </div>
-    <div class="row">
-      <dt>Another model</dt>
-      <dd>The subscription is the default, not the only road. Point the cockpit at a
-      model you host yourself — Ollama, llama.cpp, vLLM — or at any Anthropic-compatible
-      provider: it is a choice in the very first card, and it <b>makes one real round
-      trip to that server</b> before it lets you keep it. A profile can put one role on
-      another model while everything else stays on Claude.</dd>
-    </div>
-    <div class="row">
-      <dt>Run it yourself</dt>
-      <dd>An agent that asks you to run something gets a <b>run button on the command
-      it wrote</b>, where it wrote it. One click, one confirmation showing exactly what
-      will run, and it goes straight to that agent's own shell — no model turn in
-      between. It runs <b>as you, not as the agent</b>, so what a profile forbids it is
-      still yours to run, and the output comes back in the conversation like everything
-      else.</dd>
-    </div>
-    <div class="row">
-      <dt>Tweak</dt>
-      <dd>Something about the cockpit itself bothers you? One click starts an agent
-      in a clone of this repository with the room to change it. You describe the
-      idea, watch it work, and <b>read the whole diff before anything leaves your
-      machine</b> — it asks to connect your GitHub account only once there is
-      something worth pushing, then opens the pull request from your own fork.
-      <b>And it stays with that pull request until it closes</b>: it repairs a red
-      build or a branch that has fallen behind, and tells you plainly when it
-      cannot.</dd>
-    </div>
-    <div class="row">
-      <dt>Secrets</dt>
-      <dd>Keys live in a vault outside your repository, never inside it. A profile
-      names the ones its agents need and they arrive as environment variables when
-      the agent starts. <b>Send one from Telegram and the message carrying the value
-      is deleted behind you.</b> It goes both ways: an agent that logs into
-      something itself can keep the credential there, so the next one does not
-      start by authenticating all over again — and the value never passes through
-      the transcript. Each secret also keeps its own history — who created it, who
-      attached it to a profile, and which agent it was handed to, <b>names only, never
-      values</b>.</dd>
-    </div>
-    <div class="row">
-      <dt>Pace</dt>
-      <dd>It watches how fast you are spending your five-hour and seven-day windows
-      and holds a prompt back when you are running ahead of the pace that would use
-      them evenly. <b>Any message can push through</b> when you mean it — it is a
-      guardrail, not a wall.</dd>
-    </div>
-    <div class="row">
-      <dt>Sign-in</dt>
-      <dd>A Claude sign-in expires eventually, and agents left running are exactly what
-      that takes down. The cockpit watches the deadline, <b>warns you two days before</b> —
-      in red once it has passed — and signs you in again from the browser in one click,
-      so you never go looking for a terminal on the machine it runs on.</dd>
-    </div>
-  </dl>
-
-  <h2 class="eyebrow">It wrote itself</h2>
-  <ul class="facts">
-    <li>Most of this code, and every spec behind it, was written by agents running
-    <em>inside this cockpit</em>.</li>
-    <li>They worked the way you would want them to: a spec, then a plan, then the
-    code, then a pull request a human read and merged.</li>
-    <li>They also left notes for whoever came next. The best file in the repository
-    is the one listing everything they broke first.</li>
-  </ul>
-  <p class="aside">All of it is in the open, if you feel like checking:
-  <a href="https://github.com/shadok-ai/shadok-ai">see for yourself</a>.</p>
-
-
-  <h2 class="eyebrow">Why it is called that</h2>
-  <section class="cap">
-    <h3>Les Shadoks pumped.</h3>
-    <p>They were French cartoon birds drawn in 1968, and the entire joke was that
-    they pumped — relentlessly, exhaustingly, and for no result anyone could ever
-    identify. One of their mottos: <em>the more it fails, the more likely it is to
-    work.</em></p>
-    <p style="margin-top:1.1rem">An agent woken every hour to report that nothing
-    happened is pumping. You pay a model call to be told there was nothing to do,
-    and it will tell you that <b>twenty-three more times today</b>. This is the
-    tool that lets it stop: the check runs without the model, so a quiet hour
-    costs nothing at all.</p>
-    <p class="aside">Nowhere on this page said any of that until today. That was an
-    oversight, not restraint.</p>
-
-    <figure class="plate">
-      <img src="/shadoks-rouxel.webp" width="800" height="600" loading="lazy" decoding="async"
-           alt="Two Shadoks, round orange and yellow birds on thin legs, working
-                a see-saw lever mounted on a small wheeled platform. Signed Rouxel.">
-    </figure>
-    <p class="credit">Les Shadoks (1968) — drawn by Jacques Rouxel, produced by
-    AAA for the ORTF. Reproduced here to explain the name; all rights remain with
-    the rightsholders. The series is at
-    <a href="https://www.ina.fr/">ina.fr</a>.</p>
-  </section>
-
-</main>
-
-<!-- Outside <main> on purpose: nested inside it, this is a section footer and
-     screen readers lose the "jump to the page footer" landmark. -->
 <footer class="wrap">
-  <a href="https://github.com/shadok-ai/shadok-ai">github.com/shadok-ai/shadok-ai</a>
-  &nbsp;·&nbsp; AGPL-3.0 &nbsp;·&nbsp;
-  <a href="https://github.com/shadok-ai/site">this page has its own repository</a>,
-  written the same way
+  <p>Open source, MIT. Built with the agents it ships.</p>
+  <p><a href="https://github.com/shadok-ai/site">This page has its own repository</a> — the
+  screenshots are a real cockpit, staged on a company that does not exist.</p>
 </footer>
 
 <script>
-  // The one request this page makes to anything outside itself. It is
-  // deliberate: a number baked in at build time is wrong the next day, and a
-  // third-party badge service would watch every visitor. If GitHub is
-  // unreachable or rate-limits us, the button simply reads "Star".
+  // The one request this page makes to anything outside itself. A number baked in
+  // at build time is wrong the next day, and a third-party badge service would
+  // watch every visitor. If GitHub is unreachable, the button simply reads "Star".
   fetch("https://api.github.com/repos/shadok-ai/shadok-ai")
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
@@ -570,77 +517,16 @@
     })
     .catch(() => {});
 
-  // The demo weighs 1.1 MB — a tenth of the GIF it replaced, but still by far
-  // the heaviest thing here. So it is not fetched until it is on screen: the
-  // <video> ships with a poster and no sources, and the sources are attached
-  // the first time it comes into view. A visitor who reads the headline and
-  // leaves pays for the poster alone.
-  (function () {
-    const video = document.getElementById("demo");
-    const button = document.getElementById("motion");
-    if (!video) return;
-
-    const still = matchMedia("(prefers-reduced-motion: reduce)");
-    let loaded = false;
-
-    function attach() {
-      if (loaded) return;
-      loaded = true;
-      for (const [src, type] of [["/demo.webm", "video/webm"], ["/demo.mp4", "video/mp4"]]) {
-        const s = document.createElement("source");
-        s.src = src;
-        s.type = type;
-        video.appendChild(s);
-      }
-      video.load();
-    }
-
-    function label() {
-      const playing = !video.paused && !video.ended;
-      button.textContent = playing ? "Pause" : "Play";
-      button.setAttribute("aria-label", playing ? "Pause the demo" : "Play the demo");
-    }
-
-    button.hidden = false;
-    label();
-    button.addEventListener("click", () => {
-      attach();
-      // play() rejects when the browser refuses autoplay; a click is a gesture,
-      // so this one is allowed — but never let a rejection reach the console.
-      if (video.paused) video.play().catch(() => {});
-      else video.pause();
-      label();
+  // The command is the one thing a visitor leaves with, so both copies of it copy.
+  for (const b of document.querySelectorAll(".copy")) {
+    b.addEventListener("click", () => {
+      navigator.clipboard.writeText(b.dataset.cmd).then(() => {
+        const was = b.textContent;
+        b.textContent = "Copied";
+        setTimeout(() => (b.textContent = was), 1400);
+      }).catch(() => {});
     });
-    video.addEventListener("play", label);
-    video.addEventListener("pause", label);
-
-    // Someone who asked their system for less motion gets the poster and the
-    // button, and nothing moves until they say so.
-    if (still.matches) return;
-
-    if (!("IntersectionObserver" in window)) { attach(); return; }
-    const seen = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        attach();
-        video.play().catch(() => {});
-        seen.disconnect();
-      }
-    }, { rootMargin: "200px" });
-    seen.observe(video);
-  })();
-
-  document.querySelector(".copy").addEventListener("click", async (e) => {
-    const b = e.currentTarget;
-    try {
-      await navigator.clipboard.writeText(b.dataset.cmd);
-      b.textContent = "Copied";
-      b.dataset.done = "";
-      setTimeout(() => { b.textContent = "Copy"; delete b.dataset.done; }, 1800);
-    } catch {
-      b.textContent = "Select it";
-    }
-  });
+  }
 </script>
 </body>
 </html>
