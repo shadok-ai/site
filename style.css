@@ -136,8 +136,14 @@ h1 em { font-style: normal; color: var(--ink-3); }
 .facts b { color: var(--ink-2); font-weight: 500; }
 
 /* the floating pile of real cockpit parts */
-.stack { position: relative; min-height: 380px; }
-.stack img { display: block; border-radius: var(--r); border: 1px solid var(--line-2); background: #fff; }
+/* The pile bleeds past its column on a wide screen: at its true ratio the card
+   is short, and inside the column it left a hole under itself. */
+.stack { position: relative; }
+@media (min-width: 961px) { .stack { margin-right: -4.5rem; } }
+/* height:auto is not optional here: the width/height ATTRIBUTES act as
+   presentational hints, so a CSS width alone leaves the attribute height in
+   force and the picture is stretched — measured at 0.47 of its own ratio. */
+.stack img { display: block; height: auto; border-radius: var(--r); border: 1px solid var(--line-2); background: #fff; }
 /* On a phone the hero carries the PHONE capture (see the <picture>): a 772px-wide
    desktop fragment shrunk into 350px puts its type at six pixels. */
 @media (max-width: 760px) { .stack .card { width: 100%; max-width: 360px; margin-inline: auto; } .stack { min-height: 0; } }
@@ -148,7 +154,7 @@ h1 em { font-style: normal; color: var(--ink-3); }
 .stack .list {
   /* Overlaps the card's lower-left corner and nothing else: pushed further left
      it ran under the paragraph, which read as a broken float rather than a pile. */
-  position: absolute; left: -5%; bottom: -12%; width: 38%; z-index: 3;
+  position: absolute; left: -7%; bottom: -24%; width: 36%; z-index: 3;
   box-shadow: 0 2px 4px rgba(14, 16, 24, .05), 0 22px 44px -16px rgba(14, 16, 24, .32);
 }
 @media (max-width: 960px) { .stack .list { left: auto; right: 0; bottom: -7%; width: 40%; } }
