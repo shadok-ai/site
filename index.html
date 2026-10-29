@@ -473,7 +473,9 @@
       is deleted behind you.</b> It goes both ways: an agent that logs into
       something itself can keep the credential there, so the next one does not
       start by authenticating all over again — and the value never passes through
-      the transcript.</dd>
+      the transcript. Each secret also keeps its own history — who created it, who
+      attached it to a profile, and which agent it was handed to, <b>names only, never
+      values</b>.</dd>
     </div>
     <div class="row">
       <dt>Pace</dt>
