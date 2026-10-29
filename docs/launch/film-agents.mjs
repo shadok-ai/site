@@ -17,9 +17,19 @@ const box = await (await p.$('#tabbar')).boundingBox();
 const clip = { x: box.x + 6, y: box.y + 4, width: box.width - 12, height: 250 };
 // 2x screenshots beat Playwright's own recorder here: it films at CSS size, and
 // 264px of column blown up on a page is mush.
+// Report what state the rows were actually in: a film of two idle agents looks
+// exactly like a film of a working one until you read the classes. An agent
+// whose turn ends in two seconds — or who pushes a `sleep` to the background —
+// carries `working` for one frame out of seventy.
+const seen = new Map();
 for (let i = 0; i < 72; i++) {
   await p.screenshot({ path: `${OUT}/f${String(i).padStart(3, '0')}.png`, clip });
+  for (const c of await p.$$eval('#tabbar .tab', (l) => l.map((e) => e.className)))
+    seen.set(c, (seen.get(c) || 0) + 1);
   await p.waitForTimeout(110);
 }
 console.log('frames taken');
+for (const [cls, n] of [...seen].sort((a, b) => b[1] - a[1])) console.log(`  ${n}\t${cls}`);
+if (![...seen.keys()].some((c) => c.includes('working')))
+  console.log('  NOTE: nothing was working while this filmed — the clip shows idle rows.');
 await b.close();
