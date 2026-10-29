@@ -138,6 +138,9 @@ h1 em { font-style: normal; color: var(--ink-3); }
 /* the floating pile of real cockpit parts */
 .stack { position: relative; min-height: 380px; }
 .stack img { display: block; border-radius: var(--r); border: 1px solid var(--line-2); background: #fff; }
+/* On a phone the hero carries the PHONE capture (see the <picture>): a 772px-wide
+   desktop fragment shrunk into 350px puts its type at six pixels. */
+@media (max-width: 760px) { .stack .card { width: 100%; max-width: 360px; margin-inline: auto; } .stack { min-height: 0; } }
 .stack .card {
   width: 100%; box-shadow: 0 2px 4px rgba(14, 16, 24, .04), 0 28px 60px -20px rgba(14, 16, 24, .3);
   position: relative; z-index: 2;
@@ -180,7 +183,8 @@ figure { margin: 0; }
   background: #fff; overflow: hidden;
   box-shadow: 0 2px 4px rgba(14, 16, 24, .03), 0 24px 56px -28px rgba(14, 16, 24, .35);
 }
-.shot img { display: block; width: 100%; height: auto; }
+.shot img, .shot picture { display: block; width: 100%; height: auto; }
+.shot picture img { width: 100%; height: auto; }
 .shot figcaption {
   padding: .85rem 1.15rem; border-top: 1px solid var(--line);
   font: 400 .88rem/1.5 var(--mono); color: var(--ink-3); background: var(--paper);

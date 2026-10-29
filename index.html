@@ -81,10 +81,13 @@
         </ul>
       </div>
       <div class="stack">
-        <img class="card" src="/shots/frag-card.webp" width="1100" height="580" fetchpriority="high" decoding="async"
-             alt="A card in the cockpit chat reading “Approval requested — Which issue should the team take first
-                  this week: the duplicate webhook on retry, or the CSV export missing its currency column?”, with
-                  both options as buttons.">
+        <picture>
+          <source media="(max-width: 760px)" srcset="/shots/frag-card-sm.webp" width="682" height="1116">
+          <img class="card" src="/shots/frag-card.webp" width="1100" height="580" fetchpriority="high" decoding="async"
+               alt="A card in the cockpit chat reading “Approval requested — Which item should the team start with
+                    this week: the duplicate webhook on retry, or the CSV export that drops its currency column?”,
+                    with both options as buttons.">
+        </picture>
         <img class="list" src="/shots/frag-agents.webp" width="440" height="336" loading="lazy" decoding="async"
              alt="The agents column of the Tech group: orders-api and flaky-tests, each with a round avatar, a green
                   dot for a live session, the share of its context window used, and an alarm clock on the one that
@@ -107,9 +110,12 @@
         conversation — <strong>the same session, whoever is watching</strong>.</p>
       </div>
       <figure class="shot">
-        <img src="/shots/cockpit-teams.webp" width="1440" height="900" loading="lazy" decoding="async"
-             alt="The cockpit with the Support group selected, showing its agent, while the Groups column keeps the
-                  count of agents in Main, Tech, Marketing and Support.">
+        <picture>
+          <source media="(max-width: 760px)" srcset="/shots/cockpit-teams-sm.webp" width="780" height="960">
+          <img src="/shots/cockpit-teams.webp" width="1440" height="900" loading="lazy" decoding="async"
+               alt="The cockpit with the Support group selected, showing its agent, while the Groups column keeps the
+                    count of agents in Main, Tech, Marketing and Support.">
+        </picture>
         <figcaption>Groups hold agents the way teams hold people — each carrying its own count of who is waiting on you.</figcaption>
       </figure>
     </div>
