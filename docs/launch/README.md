@@ -1,94 +1,93 @@
-# Launch assets
+# The mirror, and the pictures that come out of it
 
-The hero is generated, not hand-made. Regenerate it whenever the cockpit UI
-moves — the full staging checklist and the privacy pass are in Task 3 of the
-launch plan, which lives with the product repository.
+Every screenshot on shadok.ai is a real cockpit. Not the live one — that is full
+of client names and work in progress — but a **mirror**: a second instance,
+kept running, driving a company that does not exist.
 
-One take produces all four files:
+The product's interface moves most days. So this is built to be re-shot in
+minutes rather than re-described in words: when a merge changes what the cockpit
+looks like, the answer is to retake the picture.
 
+```bash
+docs/launch/mirror.sh status     # up on 3899 — {"current":"0.16.6",…}
+docs/launch/mirror.sh start      # after a container restart
 ```
-demo.webm         the hero, VP9 — what almost every visitor plays
-demo.mp4          H.264 fallback for browsers that still refuse VP9
-demo-poster.webp  the first frame; the LCP element on mobile
-og-card.jpg       1200x630, the card every shared link shows
+
+## What the mirror is
+
+| | |
+|---|---|
+| port | **3899**, loopback only, no GUI password (3789 is the live cockpit — never touch it) |
+| HOME | `/root/capture-home` — its own channels, crons, vault, ledger |
+| token | a **symlink** to the live `~/.claude/.credentials.json`; a copy goes stale and every agent then answers *"Login expired · Please run /login"* |
+| transport | `SHADOK_TMUX=0`. tmux keys its socket by uid, not by HOME: on the tmux transport the mirror's agents join the **live** tmux server and write their transcripts into the live `~/.claude`, so the mirror shows no history at all |
+| launch dir | `/root/capture-work` — a different directory from the live one, or it inherits its agent list |
+| update | `autoUpdate: false`, and it runs the npm-installed app the live supervisor keeps current. Restart the mirror to pick up a new build |
+
+The fictional company lives in `/root/capture-work`: `orchard` (an orders API),
+`orchard-site`, `support-inbox`. Groups: **Main, Tech, Marketing, Support**.
+
+## Staging
+
+Deliberately by hand, with `pilotctl` pointed at the mirror:
+
+```bash
+export SHADOK_PORT=3899
+P=~/.claude/skills/shadok-ai-agents/pilotctl.mjs
+node $P spawn --cwd /root/capture-work/orchard --profile Shadok-dev --name orders-api --worktree
+node $P prompt <id8> "Add a POST handler to the /orders route…"
 ```
 
-It used to be a single 5.29 MB `demo.gif`. That was 99.7% of the page and put
-mobile LCP at 4,424 ms on a 10 Mbps connection — Google's "poor" band starts at
-4,000. A GIF also cannot be paused by anything (WCAG 2.2.2), and X caps card
-images at 5 MB and renders them as stills anyway, so sending one as `og:image`
-bought nothing and broke every share.
+Three things to know before an agent stalls on you:
 
-## 1. Start a capture instance
+- a fresh worktree opens Claude Code's **trust screen** ("Is this a project you
+  created or one you trust?") and nothing else happens until it is answered.
+  Seed `hasCompletedProjectOnboarding` and `hasTrustDialogAccepted` for the new
+  directory in `/root/capture-home/.claude.json` instead;
+- `pilotctl prompt` can answer `{"status":"answer","text":""}` while the agent is
+  still working. Read `/live` or the screen, not that;
+- what you type at the agent is **in the picture**. "Ask me with your question
+  tool, two options, nothing else" ends up on the page. Ask the way a person
+  would ask, and let the agent choose to put the decision back.
 
-Run it from **its own directory**, not from the repo. Channels are persisted per
-launch directory and tmux sessions outlive the server, so an instance started
-from the live cockpit's directory inherits its channel list and can reattach to
-agents that are mid-work. A different port does not protect against that.
+## Taking the pictures
 
-````bash
-npm run build
-mkdir -p /tmp/shadok-capture && cd /tmp/shadok-capture
-PORT=3899 node ~/projects/shadok-ai/dist/server.js &     # never 3789
-````
+```bash
+PLAYWRIGHT=/root/tools/node_modules/playwright/index.mjs    # no node_modules here
 
-Auto-update will otherwise kill it: `autoUpdate` in `~/.shadok-ai/config.json`
-wins over the environment, and without a supervisor the server exits and nothing
-restarts it. The value is read **only at boot**, so flip it to `false`, start the
-capture instance, and restore it immediately — the running production server
-holds its own value in memory and never notices.
+OUT=./frames node docs/launch/film-agents.mjs     # 72 stills of the agents column, 2x
+OUT=./shots  node docs/launch/shoot-page.mjs      # the site itself: first screen, full, phone
+node docs/launch/measure-images.mjs               # every drawn ratio over its natural ratio
+node docs/launch/check-meta.mjs https://shadok.ai/   # the share card, on the live page
+node docs/launch/make-og-card.mjs shots/cockpit-approval.webp og-card.jpg
+```
 
-## 2. Stage the agents by hand
+Then encode — any ffmpeg will do, `ffmpeg-static` included:
 
-Deliberately not scripted: scripting it would mean filming whatever an agent
-happened to do that day. Create three or four agents on the same repo with
-worktree isolation on — that parallelism is the product's actual story — give
-them real work, and leave the agent you want filmed **with a question pending**.
+```bash
+ffmpeg -framerate 9 -i frames/f%03d.png -c:v libvpx-vp9 -crf 36 -b:v 0 -pix_fmt yuv420p -an shots/agents-live.webm
+ffmpeg -framerate 9 -i frames/f%03d.png -c:v libx264 -crf 26 -preset slow -pix_fmt yuv420p -movflags +faststart -an shots/agents-live.mp4
+ffmpeg -i frames/f055.png -quality 86 shots/agents-live-poster.webp
+ffmpeg -i shot.png -vf scale=1440:-2 -quality 82 shots/<name>.webp
+```
 
-Then run the privacy pass from the plan before recording anything: no secrets
-panel, no tokens, no employer or client material on screen.
+Rules the page already paid for:
 
-## 3. Record
+- **film with the burst, not with Playwright's recorder.** The recorder films at
+  CSS size; 264px of column blown up on a page is mush;
+- **a wide screenshot does not survive a phone.** Below 760px the page serves a
+  capture taken at 390px through `<picture>`; a desktop fragment shrunk into a
+  350px column puts its type at six pixels;
+- **crop a panel to the panel.** A modal over a dimmed cockpit, at page width, is
+  unreadable murk;
+- **`height: auto` wherever CSS sets a width.** The `width`/`height` attributes
+  are presentational hints: a CSS width alone leaves the attribute height in
+  force and the picture is stretched. `measure-images.mjs` catches it;
+- **nothing with a real client's name on screen.** That is why the mirror exists.
 
-````bash
-NODE_PATH=$HOME/projects/aibrowser/node_modules \
-  SHADOK_URL=http://localhost:3899 FILMED=3 node docs/launch/capture-demo.mjs
-````
+## The retired hero video
 
-`FILMED` is the index of the tab to film; `BUSY` (default `1,2`) lists the tabs
-put to work off-camera so their LEDs move during the take. The script prints a
-timestamp for each beat — use those to pick the trim window.
-
-Raw recordings land in `docs/launch/raw/` and are git-ignored: they are large,
-and they are the copy most likely to still hold something that should not ship.
-
-## 4. Cut
-
-````bash
-bash docs/launch/make-demo.sh          # newest raw take, outputs into the repo root
-````
-
-The shot list and its timings live at the bottom of `make-demo.sh`, and they are
-keyed to the beats `capture-demo.mjs` printed — **re-check them after a new
-take** or the camera will punch in on the wrong thing. Everything else is
-tunable from the environment: `DEMO_W`, `DEMO_H`, `DEMO_FPS`, `DEMO_CRF_VP9`,
-`DEMO_CRF_H264`.
-
-Needs `ffmpeg` and `cwebp` (`brew install ffmpeg webp`). The ffmpeg on this
-machine is built without libwebp and says only "Unknown encoder" about it, which
-is why the poster goes through `cwebp`.
-
-The Open Graph card is drawn as HTML and screenshotted, by
-`make-demo.sh` → `make-og-card.mjs`. It needs a Playwright; there is no
-`node_modules` here, so it borrows the one in `~/projects/aibrowser` — override
-with `PLAYWRIGHT_FROM`.
-
-## 5. Check the share card against the deployed page
-
-````bash
-node docs/launch/check-meta.mjs https://shadok-ai-site.vercel.app/
-````
-
-Reads the **served** page, not this source, then fetches what it claims: the
-card has to be absolute, reachable, an image, and under 1 MB. It also runs
-against a local server as a dry run, and says so.
+`capture-demo.mjs` and `make-demo.sh` filmed the 39-second hero that the page
+carried until October 2026 (`demo.webm` / `demo.mp4` / `demo.gif`). The page no
+longer shows it, but the files stay: the product's README links
+`shadok.ai/demo.gif`.
