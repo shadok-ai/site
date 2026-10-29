@@ -131,9 +131,14 @@ h1 em { font-style: normal; color: var(--ink-3); }
   background: var(--signal); color: #fff; font: 500 .95rem var(--body); cursor: pointer;
 }
 .copy:hover { background: color-mix(in srgb, var(--signal) 86%, #000); }
-.facts { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; margin: 1.4rem 0 0; padding: 0; list-style: none; }
-.facts li { font: 400 .86rem/1.4 var(--mono); color: var(--ink-3); }
-.facts b { color: var(--ink-2); font-weight: 500; }
+/* Three short facts on ONE line, separated like a readout. The sentence that
+   explains the sign-in lives under them: carried inside the list it pushed
+   "MIT" onto a second line on its own, which read as a mistake. */
+.facts { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; margin: 1.5rem 0 .6rem; padding: 0; list-style: none; }
+.facts li { font: 500 .82rem/1.4 var(--mono); letter-spacing: .02em; color: var(--ink-2); }
+.facts li + li::before { content: "·"; color: var(--line-2); margin-right: 1.1rem; }
+.req { margin: 0; max-width: 46em; font-size: .92rem; color: var(--ink-3); }
+.req code { font: .92em var(--mono); color: var(--ink-2); }
 
 /* the floating pile of real cockpit parts */
 /* The pile bleeds past its column on a wide screen: at its true ratio the card
