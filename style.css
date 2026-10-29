@@ -57,13 +57,13 @@ h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -.02
 
 /* ── instrument label: the eyebrow of every section ────────────────────── */
 .label {
-  display: inline-flex; align-items: center; gap: .55rem;
+  display: inline-flex; align-items: flex-start; gap: .55rem;
   margin: 0 0 1rem;
   font: 500 .76rem/1 var(--mono);
   letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3);
 }
 .led {
-  width: 7px; height: 7px; border-radius: 50%; background: var(--ready);
+  width: 7px; height: 7px; margin-top: .42em; flex: none; border-radius: 50%; background: var(--ready);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--ready) 18%, transparent);
 }
 .led.wait { background: var(--waiting); box-shadow: 0 0 0 3px color-mix(in srgb, var(--waiting) 20%, transparent); animation: blink 2.4s ease-in-out infinite; }
@@ -107,15 +107,23 @@ h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: -.02
   mask-image: radial-gradient(115% 85% at 70% 0%, #000 10%, transparent 72%);
   opacity: .55;
 }
-.hero .wrap { position: relative; display: grid; gap: 3.4rem; grid-template-columns: 1fr .9fr; align-items: center; padding-block: 5.2rem 8.5rem; }
+/* The headline spans both columns. Inside the left one it broke after "You
+   keep the", leaving "controls." alone on a fourth line — two sentences, two
+   lines is the shape the sentence itself asks for. */
+.hero .wrap { position: relative; display: grid; gap: 2.2rem 3.4rem; grid-template-columns: 1fr .9fr; align-items: center; padding-block: 4.6rem 8.5rem; }
+.hero .head { grid-column: 1 / -1; }
+@media (min-width: 961px) { .hero .head { max-width: none; } .hero .head h1 { max-width: 19ch; } }
 @media (max-width: 960px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 3.6rem 3rem; } }
 
 h1 {
-  margin: 0 0 1.1rem;
-  font-size: clamp(2.5rem, 5.2vw, 4.1rem); line-height: 1.02; font-weight: 800;
+  margin: 0;
+  font-size: clamp(2rem, 5.2vw, 4.1rem); line-height: 1.02; font-weight: 800;
   letter-spacing: -.04em;
 }
 h1 em { font-style: normal; color: var(--ink-3); }
+/* Narrow enough, the two sentences run into each other mid-line ("work. You"),
+   which loses the turn the whole headline is built on. */
+@media (max-width: 860px) { h1 em { display: block; } }
 .lede { margin: 0; max-width: 34em; font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--ink-2); }
 
 .cmd { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: 2.1rem; }
