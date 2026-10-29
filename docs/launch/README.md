@@ -65,16 +65,25 @@ node docs/launch/make-og-card.mjs shots/cockpit-approval.webp og-card.jpg
 Then encode — any ffmpeg will do, `ffmpeg-static` included:
 
 ```bash
-ffmpeg -framerate 9 -i frames/f%03d.png -c:v libvpx-vp9 -crf 36 -b:v 0 -pix_fmt yuv420p -an shots/agents-live.webm
-ffmpeg -framerate 9 -i frames/f%03d.png -c:v libx264 -crf 26 -preset slow -pix_fmt yuv420p -movflags +faststart -an shots/agents-live.mp4
-ffmpeg -i frames/f055.png -quality 86 shots/agents-live-poster.webp
+# film-agents.mjs prints the crop and writes frames.ffconcat, which carries the
+# real gap between frames — that is what keeps the clip at life speed.
+C=crop=504:500:392:128
+ffmpeg -f concat -safe 0 -i frames/frames.ffconcat -t 8 -vf "$C" -r 25 \
+       -c:v libvpx-vp9 -b:v 0 -crf 36 -pix_fmt yuv420p -an shots/agents-live.webm
+ffmpeg -f concat -safe 0 -i frames/frames.ffconcat -t 8 -vf "$C" -r 25 \
+       -c:v libx264 -preset slow -crf 27 -pix_fmt yuv420p -movflags +faststart -an shots/agents-live.mp4
+ffmpeg -f concat -safe 0 -i frames/frames.ffconcat -ss 2 -frames:v 1 -vf "$C" -quality 80 shots/agents-live-poster.webp
 ffmpeg -i shot.png -vf scale=1440:-2 -quality 82 shots/<name>.webp
 ```
 
 Rules the page already paid for:
 
-- **film with the burst, not with Playwright's recorder.** The recorder films at
-  CSS size; 264px of column blown up on a page is mush;
+- **film with the screencast, and keep the frame times.** Playwright's recorder
+  films at CSS size (264px of column blown up on a page is mush), and a loop of
+  `page.screenshot()` lands frames at an irregular 2-3 per second — encode those
+  at a flat 9fps and the cockpit plays back at three times life speed, juddering.
+  CDP screencast gives ~40 frames a second at 2x, each stamped, and the stamps
+  become the durations in `frames.ffconcat`;
 - **a wide screenshot does not survive a phone.** Below 760px the page serves a
   capture taken at 390px through `<picture>`; a desktop fragment shrunk into a
   350px column puts its type at six pixels;
