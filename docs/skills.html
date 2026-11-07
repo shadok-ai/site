@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Skill Factory — shadok-ai docs</title>
+<meta name="description" content="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">
+<link rel="canonical" href="https://shadok.ai/docs/skills">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shadok.ai/docs/skills">
+<meta property="og:title" content="The Skill Factory — shadok-ai docs">
+<meta property="og:description" content="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">
+<meta property="og:image" content="https://shadok.ai/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/docs/docs.css?v=1">
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#4b4fc0" stroke="#4b4fc0" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#4b4fc0"/><circle cx="19.2" cy="8.1" r="1.3" fill="#4b4fc0"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </a>
+    <nav class="topnav">
+      <a class="prod" href="/">The product</a>
+      <a class="here" href="/docs">Docs</a>
+      <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap docs">
+  <details class="side-sheet">
+    <summary>All pages</summary>
+    <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" aria-current="page" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+  </details>
+  <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" aria-current="page" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+
+  <article>
+    <p class="crumb"><a href="/docs">Docs</a> <span>/</span> Core concepts <span>/</span> The Skill Factory</p>
+    <p class="alpha-line"><span class="badge">alpha</span> Everything on this page needs the alpha channel — <code>npx shadok-ai@alpha</code>, or the version menu. It is not in the default install yet.</p>
+<h1>The Skill Factory</h1>
+<p>The flask icon in the header switches the cockpit to the <strong>Skills</strong> page. A skill is a Claude Code skill — a named set of instructions, with scripts if it needs them — and here people and agents write them together.</p>
+<p>An agent that has a skill can be asked for it by name in the composer: <code>/name:name</code>.</p>
+<h2 id="the-list"><a class="anchor" href="#the-list">The list</a></h2>
+<p>Every skill with its tags, who it is shared with, whether it is saved or carries draft changes, where it is used, and how many times it ran this week. Filter by tag, by <em>shared with</em>, or by status — draft changes, unused, feedback, archived. Tick rows to share, tag or archive them in one go.</p>
+<p>The detail panel beside it holds the skill's numbers, the agents that have it (group by group, each with its run count), the secrets agents running it get, and its feedback.</p>
+<h2 id="creating-one"><a class="anchor" href="#creating-one">Creating one</a></h2>
+<p>The new-skill form asks for a <strong>name</strong>, which is what people see, and a <strong>technical name</strong>, which is what agents call it — proposed from the name until you type your own.</p>
+<p>Choose the technical name carefully: it is the skill's repository and plugin name, so it <strong>cannot be changed afterwards</strong>. A name already taken gets a number (<code>-2</code>, <code>-3</code>…), and the form says so before you create it.</p>
+<p>Renaming later changes only the displayed name. Agents keep calling it by its technical name, so attached agents are never disturbed.</p>
+<h2 id="editing-on-one-screen"><a class="anchor" href="#editing-on-one-screen">Editing, on one screen</a></h2>
+<p>Skills are listed by name on the left. In the middle, the skill reads as one document — <em>When to use it</em>, <em>Instructions</em>, <em>Needs</em> — with the scripts folded away for developers.</p>
+<p>On the right, <strong>change it by prompt</strong>: a <code>Shadok-Skillsmith</code> agent edits, tests and pushes, and its changes appear in the document.</p>
+<p>Two buttons, and no versions to manage:</p>
+<ul>
+<li><strong>Save draft</strong> keeps your edits while agents keep running the last saved
+ skill;
+</li>
+<li><strong>Save</strong> makes it what they run. Idle agents already running it reload onto it
+ at once; the others pick it up at their next reload.
+</li>
+</ul>
+<h2 id="sharing-is-where-it-runs"><a class="anchor" href="#sharing-is-where-it-runs">Sharing is where it runs</a></h2>
+<p>A skill is shared with <strong>only me</strong>, with <strong>one or more groups</strong>, or with <strong>everyone</strong> — and that is also where it runs. Every agent of those groups has it; with <em>everyone</em>, every agent; with <em>only me</em>, only the agents you created, and nobody else sees it.</p>
+<p>A skill is never handed to one agent at a time.</p>
+<aside class="note"><strong>Sharing is not a permission boundary.</strong> <em>Only me</em> hides a skill; it does not seal it. Having a skill grants nothing beyond the rights that already exist — each group's own acceptance, and the secrets approved for it — but anyone who can see a skill can put it on any agent they can drive.</aside>
+<h2 id="secrets-travel-by-name-once-you-approve-them"><a class="anchor" href="#secrets-travel-by-name-once-you-approve-them">Secrets travel by name, once you approve them</a></h2>
+<p>A save asks for the secrets the skill declares, plus any vault name its code reads. It lists those names and asks you to approve them, and agents receive only what you approved.</p>
+<p>A save or a push holding a vault <strong>value</strong> is refused. So is a push carrying a symlink or a submodule.</p>
+<h2 id="running-one"><a class="anchor" href="#running-one">Running one</a></h2>
+<p>A saved skill is loaded by every agent it is shared with, as <code>&lt;name&gt;:&lt;name&gt;</code>. To run it on a schedule, set the schedule <strong>on the agent</strong> — its own cron — not on the skill. Agents report problems with the factory's own feedback command, and the feedback shows up in the skill's detail panel.</p>
+<p>You can also import a skill from <code>~/.claude/skills</code>, make a variant of one, or archive it.</p>
+    <nav class="updown">
+      <a class="prev" href="/docs/accounts"><span>Previous</span>People and accounts</a>
+      <a class="next" href="/docs/quota"><span>Next</span>Quota and pace</a>
+    </nav>
+  </article>
+</div>
+
+<footer class="wrap">
+  <p><a href="/">shadok-ai</a> — the cockpit for a company that runs on agents.
+  <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">Source</a>,
+  AGPL-3.0-only.</p>
+  <p>These pages describe the <b>beta</b> channel, which is what <code>npx shadok-ai</code>
+  installs. Anything marked <span class="badge">alpha</span> ships on <code>@alpha</code> first.</p>
+</footer>
+
+</body>
+</html>

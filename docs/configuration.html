@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Configuration — shadok-ai docs</title>
+<meta name="description" content="Where settings live, which ones are per launch directory, and every environment variable.">
+<link rel="canonical" href="https://shadok.ai/docs/configuration">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shadok.ai/docs/configuration">
+<meta property="og:title" content="Configuration — shadok-ai docs">
+<meta property="og:description" content="Where settings live, which ones are per launch directory, and every environment variable.">
+<meta property="og:image" content="https://shadok.ai/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/docs/docs.css?v=1">
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#4b4fc0" stroke="#4b4fc0" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#4b4fc0"/><circle cx="19.2" cy="8.1" r="1.3" fill="#4b4fc0"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </a>
+    <nav class="topnav">
+      <a class="prod" href="/">The product</a>
+      <a class="here" href="/docs">Docs</a>
+      <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap docs">
+  <details class="side-sheet">
+    <summary>All pages</summary>
+    <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" aria-current="page" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+  </details>
+  <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" aria-current="page" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+
+  <article>
+    <p class="crumb"><a href="/docs">Docs</a> <span>/</span> Reference <span>/</span> Configuration</p>
+    
+<h1>Configuration</h1>
+<p>Configuration lives in <code>~/.shadok-ai/config.json</code>, mode 600, and it is <strong>authoritative over the environment once set</strong> from the cockpit. Two exceptions, where the environment wins:</p>
+<ul>
+<li><code>SHADOK_GUI_PASSWORD</code> — a password saved with <code>--password</code> is used only when
+ that variable is unset, and nothing in the cockpit can change it. In Docker,
+ the password is the one the container was created with.
+</li>
+<li><code>TELEGRAM_BOT_TOKEN</code>.
+</li>
+</ul>
+<h2 id="per-launch-directory"><a class="anchor" href="#per-launch-directory">Per launch directory</a></h2>
+<p>Several things are keyed to the directory you started the server in, not to the machine: the <strong>agent list</strong>, the <strong>scheduled prompts</strong>, the <strong>accounts</strong>, the cockpit's <strong>name</strong> and <strong>accent colour</strong>, and the Telegram token, allowed chats and on/off switch.</p>
+<p>Run the server from another repository and you get a different cockpit, with a different bot. Light or dark <strong>mode</strong>, by contrast, is per browser — the accent is the instance's shared identity, the mode is personal.</p>
+<h2 id="time-zone"><a class="anchor" href="#time-zone">Time zone</a></h2>
+<p><code>timezone</code>, an IANA name like <code>Europe/Paris</code>, settable with <code>/timezone</code>, is the default zone for reading a <code>daily</code> schedule. Without it the hour follows the machine, which silently shifts every daily prompt on a server running in UTC.</p>
+<h2 id="environment-variables"><a class="anchor" href="#environment-variables">Environment variables</a></h2>
+<div class="scroll"><table><thead><tr>
+<th>Variable</th>
+<th></th>
+</tr></thead><tbody>
+<tr>
+<td><code>PORT</code></td>
+<td>HTTP/WS port</td>
+</tr>
+<tr>
+<td><code>SHADOK_HOST</code></td>
+<td>interface to bind (default <code>127.0.0.1</code>, this machine only)</td>
+</tr>
+<tr>
+<td><code>SHADOK_GUI_PASSWORD</code></td>
+<td>require a password for the cockpit — overrides one saved by <code>--password</code></td>
+</tr>
+<tr>
+<td><code>SHADOK_ORIGINS</code></td>
+<td>extra browser origins allowed, comma-separated (reverse proxy); their hosts also pass the Host check</td>
+</tr>
+<tr>
+<td><code>SHADOK_ALLOWED_HOSTS</code></td>
+<td>host names the cockpit answers besides its own (the DNS-rebinding guard); with a password, setting it makes the check strict. <code>*</code> disables it <span class="badge">alpha</span></td>
+</tr>
+<tr>
+<td><code>SHADOK_TMUX=0</code></td>
+<td>force the plain pseudo-terminal transport instead of tmux</td>
+</tr>
+<tr>
+<td><code>SHADOK_IDLE_MIN</code></td>
+<td>minutes with no client before a session is reclaimed (60)</td>
+</tr>
+<tr>
+<td><code>SHADOK_AUTO_RELOAD=0</code></td>
+<td>do not apply a pending "reload to apply" by itself — leave it to the ↻ click <span class="badge">alpha</span></td>
+</tr>
+<tr>
+<td><code>SHADOK_AUTO_RELOAD_IDLE_SEC</code></td>
+<td>how long an agent must be quiet before that automatic reload (120) <span class="badge">alpha</span></td>
+</tr>
+<tr>
+<td><code>SHADOK_PERMISSION_MODE</code></td>
+<td>the mode new agents start in (default <code>acceptEdits</code>)</td>
+</tr>
+<tr>
+<td><code>SHADOK_AUTOUPDATE</code></td>
+<td>fallback only — the cockpit's own setting wins once used</td>
+</tr>
+<tr>
+<td><code>SHADOK_PILOT_PROMPT=0</code></td>
+<td>do not inject the cockpit system prompt</td>
+</tr>
+<tr>
+<td><code>SHADOK_GREETING=0</code></td>
+<td>the lead agent starts silent — no first-message greeting</td>
+</tr>
+<tr>
+<td><code>SHADOK_LEDGER=0</code></td>
+<td>turn <strong>off</strong> the shared-ledger reflex: a per-instance state table siblings read and write so they stop re-surfacing resolved work, plus a delta pushed ahead of each message. On by default</td>
+</tr>
+<tr>
+<td><code>SHADOK_SEED_SKILLS=0</code></td>
+<td>do not rewrite the machine-wide skill scripts at boot — for a build run side by side with another instance, so it does not hand that instance's agents scripts newer than the server they call <span class="badge">alpha</span></td>
+</tr>
+<tr>
+<td><code>SHADOK_RESUME_SUMMARY=1</code></td>
+<td>do not auto-answer Claude Code's resume-from-summary prompt</td>
+</tr>
+<tr>
+<td><code>SHADOK_WS_PING_MS</code></td>
+<td>WebSocket keep-alive interval (25s)</td>
+</tr>
+<tr>
+<td><code>SHADOK_ALLOW_ARTIFACTS=1</code></td>
+<td>allow agents to answer with a claude.ai artifact instead of a real file</td>
+</tr>
+<tr>
+<td><code>SHADOK_WHISPER_MODEL</code> · <code>SHADOK_WHISPER_MODEL_SHA256</code> · <code>SHADOK_WHISPER_DIR</code></td>
+<td>the local transcription model, its pinned hash <span class="badge">alpha</span>, and a shared install directory</td>
+</tr>
+<tr>
+<td><code>SHADOK_SSH_IDENTITY=0</code> · <code>SHADOK_FORCE_SSH_IDENTITY=1</code></td>
+<td>disable / force the container SSH identity</td>
+</tr>
+<tr>
+<td><code>SHADOK_HOME_BASE</code></td>
+<td>where a dropped agent's home is created (<code>/home</code>) <span class="badge">alpha</span></td>
+</tr>
+<tr>
+<td><code>TELEGRAM_BOT_TOKEN</code> · <code>TELEGRAM_ALLOWED_CHATS</code></td>
+<td>override the stored Telegram config</td>
+</tr>
+<tr>
+<td><code>ANTHROPIC_BASE_URL</code> · <code>ANTHROPIC_AUTH_TOKEN</code> · <code>ANTHROPIC_MODEL</code> · <code>SHADOK_CONTEXT_WINDOW</code></td>
+<td>run on <a href="/docs/model-backend">another model</a></td>
+</tr>
+<tr>
+<td><code>CLAUDE_CODE_OAUTH_TOKEN</code></td>
+<td>the usage gauges only; <code>claude</code> itself uses the keychain</td>
+</tr>
+</tbody></table></div>
+<h2 id="what-lives-under-shadok-ai"><a class="anchor" href="#what-lives-under-shadok-ai">What lives under <code>~/.shadok-ai</code></a></h2>
+<p>The vault, the profiles, the per-directory agent lists and schedules, the transcript tail offsets, the auto-updating application copy, the agents' worktrees, the container SSH identity, and the shared ledger. It is the one directory to back up, and the one to mount as a volume in Docker.</p>
+    <nav class="updown">
+      <a class="prev" href="/docs/update"><span>Previous</span>Updating</a>
+      <a class="next" href="/docs/cli"><span>Next</span>CLI and library</a>
+    </nav>
+  </article>
+</div>
+
+<footer class="wrap">
+  <p><a href="/">shadok-ai</a> — the cockpit for a company that runs on agents.
+  <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">Source</a>,
+  AGPL-3.0-only.</p>
+  <p>These pages describe the <b>beta</b> channel, which is what <code>npx shadok-ai</code>
+  installs. Anything marked <span class="badge">alpha</span> ships on <code>@alpha</code> first.</p>
+</footer>
+
+</body>
+</html>

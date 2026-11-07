@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Running in Docker — shadok-ai docs</title>
+<meta name="description" content="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">
+<link rel="canonical" href="https://shadok.ai/docs/docker">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shadok.ai/docs/docker">
+<meta property="og:title" content="Running in Docker — shadok-ai docs">
+<meta property="og:description" content="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">
+<meta property="og:image" content="https://shadok.ai/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/docs/docs.css?v=1">
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#4b4fc0" stroke="#4b4fc0" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#4b4fc0"/><circle cx="19.2" cy="8.1" r="1.3" fill="#4b4fc0"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </a>
+    <nav class="topnav">
+      <a class="prod" href="/">The product</a>
+      <a class="here" href="/docs">Docs</a>
+      <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap docs">
+  <details class="side-sheet">
+    <summary>All pages</summary>
+    <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" aria-current="page" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+  </details>
+  <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" aria-current="page" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+
+  <article>
+    <p class="crumb"><a href="/docs">Docs</a> <span>/</span> Deploy and operate <span>/</span> Running in Docker</p>
+    
+<h1>Running in Docker</h1>
+<p>The repository ships an official <code>Dockerfile</code>.</p>
+<pre class="lang-bash"><code>docker build -t shadok-ai .
+docker run -d --name shadok-ai --restart unless-stopped \
+  -p 127.0.0.1:3789:3789 \
+  -v shadok-data:/root/.shadok-ai \
+  -v shadok-claude:/root/.claude \
+  -v shadok-workspace:/workspace \
+  -e SHADOK_HOST=0.0.0.0 -e SHADOK_GUI_PASSWORD=change-me \
+  shadok-ai</code></pre>
+<p>A fresh container needs the one-time Claude sign-in. Do it in the cockpit, or from a shell: <code>docker exec -it shadok-ai claude</code>.</p>
+<h2 id="what-the-image-carries"><a class="anchor" href="#what-the-image-carries">What the image carries</a></h2>
+<p><strong>Claude Code</strong>, <strong>shadok-ai</strong> and a <strong>headless browser</strong> (Playwright Chromium, at <code>PLAYWRIGHT_BROWSERS_PATH=/opt/playwright-browsers</code>), so an agent can screenshot a page or drive the web with no first-run download. Plus <code>git</code>, <code>gh</code>, <code>tmux</code>, <code>jq</code> and a C toolchain for the agents' own work.</p>
+<h2 id="the-three-volumes"><a class="anchor" href="#the-three-volumes">The three volumes</a></h2>
+<p>They are what survives <code>docker restart</code> <strong>and</strong> <code>docker rm</code> + recreate:</p>
+<div class="scroll"><table><thead><tr>
+<th>Volume</th>
+<th>Holds</th>
+</tr></thead><tbody>
+<tr>
+<td><code>/root/.shadok-ai</code></td>
+<td>the vault, profiles, the agent list, scheduled prompts, the SSH identity</td>
+</tr>
+<tr>
+<td><code>/root/.claude</code></td>
+<td>Claude credentials and transcripts</td>
+</tr>
+<tr>
+<td><code>/workspace</code></td>
+<td>the agents' own files</td>
+</tr>
+</tbody></table></div>
+<p>On a multi-tenant instance there is a fourth worth mounting — the group homes — because they do <strong>not</strong> live on the data volume. See <a href="/docs/groups#in-docker-persist-the-group-homes">Groups</a>. <span class="badge">alpha</span></p>
+<h2 id="two-things-about-the-network"><a class="anchor" href="#two-things-about-the-network">Two things about the network</a></h2>
+<p><code>SHADOK_HOST=0.0.0.0</code> is the only value that works in a container: the container's own loopback is not reachable from the host. And it <strong>requires a password</strong>, as everywhere else.</p>
+<p>Publish the port on the host's loopback — <code>-p 127.0.0.1:3789:3789</code>. Plain <code>-p 3789:3789</code> publishes on <strong>every</strong> host interface and <strong>bypasses ufw/firewalld</strong>, because Docker inserts its own iptables rules upstream of them. <a href="/docs/expose">Beyond this machine</a> is the page for exposing it on purpose.</p>
+<h2 id="pid-1-reaps"><a class="anchor" href="#pid-1-reaps">pid 1 reaps</a></h2>
+<p>The image enters through <code>tini</code>, and that is load-bearing in the long run.</p>
+<p>Agents orphan processes all day: a backgrounded <code>sleep</code> loop, an abandoned <code>esbuild</code>, a killed <code>gh</code>. An orphan is re-parented to pid 1 and only pid 1 can reap it — which the cockpit's own supervisor never does, since Node waits only for the children it spawned itself. A zombie costs no memory and no CPU, just a pid slot, so nothing shows at all until the container's pid budget runs out and it can no longer fork anything: no new agent, no <code>git</code>, no shell. Measured on an instance running since August: <strong>79,055 zombies against a 113,098 pid budget</strong>.</p>
+<p>Two consequences for an existing deployment:</p>
+<ul>
+<li>running an image from before this, or any image whose pid 1 is the app? Add
+ <code>--init</code> and Docker supplies the reaper.
+</li>
+<li>it is decided when the container is <strong>created</strong>. <code>docker restart</code> empties the
+ table — pid 1 restarts, the kernel drops the lot — but the leak starts over.
+ A recreate is what makes it stop.
+</li>
+</ul>
+<h2 id="the-ssh-identity"><a class="anchor" href="#the-ssh-identity">The SSH identity</a></h2>
+<p>In a container, shadok-ai gives itself an SSH key on first boot so agents can <code>git clone</code>/<code>push</code> private repositories and <code>ssh</code> into servers. It lives under <code>~/.shadok-ai/ssh/</code> — on the data volume you already mount — so it survives both a restart and a recreate, unlike a plain <code>~/.ssh</code>, which a recreate wipes. Each container has its own volume and therefore its own unique key, and <code>~/.ssh</code> is symlinked to it, so <code>git</code> and <code>ssh</code> use it with no extra configuration. Nothing to add to <code>docker run</code>.</p>
+<p>Read the public key to register it as a GitHub <strong>deploy key</strong>, or in the target hosts' <code>authorized_keys</code>:</p>
+<pre class="lang-bash"><code>docker logs &lt;name&gt; | grep 'ssh identity'          # printed on every boot
+docker exec &lt;name&gt; cat /root/.shadok-ai/ssh/id_ed25519.pub</code></pre>
+<p>On a normal host this is a <strong>no-op</strong>: shadok never touches your <code>~/.ssh</code>. Detection is <code>/.dockerenv</code>; <code>SHADOK_SSH_IDENTITY=0</code> disables it, <code>SHADOK_FORCE_SSH_IDENTITY=1</code> forces it on.</p>
+    <nav class="updown">
+      <a class="prev" href="/docs/files"><span>Previous</span>Files, photos and voice</a>
+      <a class="next" href="/docs/expose"><span>Next</span>Beyond this machine</a>
+    </nav>
+  </article>
+</div>
+
+<footer class="wrap">
+  <p><a href="/">shadok-ai</a> — the cockpit for a company that runs on agents.
+  <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">Source</a>,
+  AGPL-3.0-only.</p>
+  <p>These pages describe the <b>beta</b> channel, which is what <code>npx shadok-ai</code>
+  installs. Anything marked <span class="badge">alpha</span> ships on <code>@alpha</code> first.</p>
+</footer>
+
+</body>
+</html>

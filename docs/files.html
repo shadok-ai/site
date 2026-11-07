@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Files, photos and voice — shadok-ai docs</title>
+<meta name="description" content="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">
+<link rel="canonical" href="https://shadok.ai/docs/files">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shadok.ai/docs/files">
+<meta property="og:title" content="Files, photos and voice — shadok-ai docs">
+<meta property="og:description" content="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">
+<meta property="og:image" content="https://shadok.ai/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/docs/docs.css?v=1">
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#4b4fc0" stroke="#4b4fc0" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#4b4fc0"/><circle cx="19.2" cy="8.1" r="1.3" fill="#4b4fc0"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </a>
+    <nav class="topnav">
+      <a class="prod" href="/">The product</a>
+      <a class="here" href="/docs">Docs</a>
+      <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap docs">
+  <details class="side-sheet">
+    <summary>All pages</summary>
+    <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" aria-current="page" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+  </details>
+  <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" aria-current="page" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+
+  <article>
+    <p class="crumb"><a href="/docs">Docs</a> <span>/</span> Core concepts <span>/</span> Files, photos and voice</p>
+    
+<h1>Files, photos and voice</h1>
+<p>An agent that can only read text in a box is half an agent. Everything here runs on the machine the cockpit runs on: no upload service, no transcription API.</p>
+<h2 id="files-you-hand-an-agent"><a class="anchor" href="#files-you-hand-an-agent">Files you hand an agent</a></h2>
+<p>Paste a file into the composer, drop it there, or pick one with the 📎 button — an image, a PDF, a CSV. It becomes a <strong>chip</strong> above the text box: a thumbnail for an image, a named tag for anything else, each with a ✕ to remove it. A message can be attachments alone, with no words.</p>
+<p>On send, an image shows <strong>inline in your own bubble</strong>. Under the hood the agent receives it as an <code>[Attached …: path]</code> line, the same format Telegram uses, so nothing about how it reads the file changes. If the agent is mirrored into Telegram, the file is posted into its topic too — a photo as a photo, anything else as a document — so whoever is reading there sees what you sent instead of a path.</p>
+<h2 id="files-an-agent-hands-you"><a class="anchor" href="#files-an-agent-hands-you">Files an agent hands you</a></h2>
+<p>When an agent's result <strong>is</strong> a file — a report, an export, a screenshot, an archive — it arrives as a download card in the chat, inline if it is an image, and as an upload in the Telegram topic.</p>
+<p>It goes through shadok's own file-handover skill rather than depending on the harness's own file tool, which is <strong>not on every agent</strong>: a long-lived agent keeps the Claude Code binary it started with, so an older one would otherwise just print a local path you cannot open.</p>
+<p>For the same reason <strong>artifacts are denied</strong> cockpit-wide — a page on claude.ai is not the file you asked for. <code>SHADOK_ALLOW_ARTIFACTS=1</code> lifts that.</p>
+<h2 id="looking-at-what-came-back"><a class="anchor" href="#looking-at-what-came-back">Looking at what came back</a></h2>
+<p>An image or a <strong>video</strong> (mp4, webm, mov…) renders inline, a video with a real player, and clicking a photo opens it full-size in a lightbox. Videos are served with HTTP range requests, so they seek and stream instead of downloading whole.</p>
+<p>The 🖼 button in an agent's bar opens a <strong>media gallery</strong>: a grid of every photo and video in that conversation, click a thumbnail to view or play it full-size, then back to the grid.</p>
+<h2 id="dictate-instead-of-typing"><a class="anchor" href="#dictate-instead-of-typing">Dictate instead of typing</a></h2>
+<p>A 🎙 button beside <em>Send</em> records your microphone and transcribes it with a local whisper.cpp — nothing leaves the machine. The text lands in the composer <strong>editable</strong> and is never auto-sent, so a misheard word is fixed before it goes. Click to start, click to stop, a red timer runs while recording.</p>
+<p>It needs a secure context for the browser to grant the microphone at all: <code>localhost</code> or HTTPS.</p>
+<h2 id="voice-notes-and-video-on-telegram"><a class="anchor" href="#voice-notes-and-video-on-telegram">Voice notes and video on Telegram</a></h2>
+<p>A <strong>voice message</strong> in a topic is transcribed and acted on. What was understood is echoed back first (<code>🎙 « … »</code>), and the agent is told the words were <strong>spoken</strong>, so it asks about an odd file name instead of acting on a mishearing.</p>
+<p>A <strong>video</strong>, GIF or round video note is really looked at: shadok pulls a handful of stills out of the clip and transcribes the sound when there is speech. Past two minutes it keeps the stills and says the audio was left unheard — ask, and the agent can listen. Telegram caps what a bot may download at <strong>20 MB</strong>; past that you get a clear notice rather than silence.</p>
+<h2 id="the-transcription-toolchain"><a class="anchor" href="#the-transcription-toolchain">The transcription toolchain</a></h2>
+<p>It is installed <strong>on first use</strong>, and the topic says so rather than going quiet for several minutes: a static ffmpeg, whisper.cpp, and a 181 MB model.</p>
+<ul>
+<li><code>SHADOK_WHISPER_MODEL</code> picks a bigger model if your recordings need it.
+</li>
+<li>Every download is checked against a <strong>SHA-256 pinned in the source</strong> — ffmpeg
+ per platform, the whisper.cpp source, the model at a fixed Hugging Face commit.
+ A mismatch is refused, and transcription stays off until the next restart.
+ <span class="badge">alpha</span>
+</li>
+<li>Only two models carry a pinned hash; any other needs
+ <code>SHADOK_WHISPER_MODEL_SHA256=&lt;hex&gt;</code>, or it is refused. <span class="badge">alpha</span>
+</li>
+<li><code>SHADOK_WHISPER_DIR</code> can point at a directory shared between containers, and
+ one copy then serves them all.
+</li>
+</ul>
+<h2 id="link-to-a-message"><a class="anchor" href="#link-to-a-message">Link to a message</a></h2>
+<p>Every message, yours and the agent's, has a 🔗 button beside copy. It copies a URL like <code>…/#agent=&lt;session&gt;&amp;msg=&lt;id&gt;</code>; whoever opens it — after the usual sign-in — lands on that agent, scrolled to that message, highlighted.</p>
+<p>The link lives in the URL's <code>#</code> part, so it never reaches the server or a proxy log. A message older than the history shown, or an agent that was closed, says so rather than opening somewhere else.</p>
+<h2 id="compaction-summaries-folded-away"><a class="anchor" href="#compaction-summaries-folded-away">Compaction summaries, folded away</a></h2>
+<p>When Claude Code runs out of context it compacts the conversation and writes a long "This session is being continued…" summary as the first message of what follows. Shown in full it buried the chat, so the cockpit folds it into a collapsible <strong>Context summary</strong> box — collapsed by default, one click to read, capped and scrolling even when open. It is still real history, just out of the way.</p>
+    <nav class="updown">
+      <a class="prev" href="/docs/peers"><span>Previous</span>Cross-instance peers</a>
+      <a class="next" href="/docs/docker"><span>Next</span>Running in Docker</a>
+    </nav>
+  </article>
+</div>
+
+<footer class="wrap">
+  <p><a href="/">shadok-ai</a> — the cockpit for a company that runs on agents.
+  <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">Source</a>,
+  AGPL-3.0-only.</p>
+  <p>These pages describe the <b>beta</b> channel, which is what <code>npx shadok-ai</code>
+  installs. Anything marked <span class="badge">alpha</span> ships on <code>@alpha</code> first.</p>
+</footer>
+
+</body>
+</html>

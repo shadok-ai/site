@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>People and accounts — shadok-ai docs</title>
+<meta name="description" content="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">
+<link rel="canonical" href="https://shadok.ai/docs/accounts">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shadok.ai/docs/accounts">
+<meta property="og:title" content="People and accounts — shadok-ai docs">
+<meta property="og:description" content="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">
+<meta property="og:image" content="https://shadok.ai/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/docs/docs.css?v=1">
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#4b4fc0" stroke="#4b4fc0" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#4b4fc0"/><circle cx="19.2" cy="8.1" r="1.3" fill="#4b4fc0"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </a>
+    <nav class="topnav">
+      <a class="prod" href="/">The product</a>
+      <a class="here" href="/docs">Docs</a>
+      <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap docs">
+  <details class="side-sheet">
+    <summary>All pages</summary>
+    <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" aria-current="page" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+  </details>
+  <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" aria-current="page" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+
+  <article>
+    <p class="crumb"><a href="/docs">Docs</a> <span>/</span> Core concepts <span>/</span> People and accounts</p>
+    
+<h1>People and accounts</h1>
+<p>With no password there are no accounts and no login screen — nothing changes for a machine you use alone. Set one and the cockpit grows a sign-in, because the password <strong>is</strong> the <code>admin</code> account.</p>
+<p>Accounts belong to <strong>one instance</strong> — one launch directory — like its agents and its scheduled prompts.</p>
+<h2 id="inviting-someone"><a class="anchor" href="#inviting-someone">Inviting someone</a></h2>
+<p>An admin invites people from the <strong>Users</strong> panel. Each invitation is a single-use link, valid 48 hours, on which the invitee chooses their own password — so the admin never learns it — and redeeming it signs them in straight away.</p>
+<p>Two roles: <strong>admin</strong> manages accounts, <strong>member</strong> does everything else you do. The ⋯ menu names who you are and lets you sign out. When a signed-in session expires — the cookie lasts a week — the open tab returns you to the login screen on its next request, instead of failing in place on a paste that will not send.</p>
+<p>Once people are named, a prompt <strong>carries its sender</strong>: the agent sees who asked, and other browsers show the name above the message instead of "pilot (elsewhere)". The server takes that name from the session, never from what the browser claims.</p>
+<h2 id="two-factor-sign-in"><a class="anchor" href="#two-factor-sign-in">Two-factor sign-in</a></h2>
+<p>Anyone signed in with a named account can register a <strong>passkey</strong> from the Users panel — the fingerprint, face or PIN unlock of their own phone or laptop (WebAuthn, user verification required). An admin can then turn <strong>Two-factor sign-in</strong> on for the instance, and from that point a correct password only opens a second step.</p>
+<p>Passkeys need a <strong>secure context</strong>: <code>https://</code> or <code>localhost</code>. They are bound to the host name, so one made on <code>cockpit.example.com</code> does not work on <code>localhost</code>.</p>
+<h3 id="switching-it-on"><a class="anchor" href="#switching-it-on">Switching it on</a></h3>
+<p>It needs <strong>at least two named admins, each with a passkey</strong>. Recovery here is "another admin resets you", so a lone admin who lost their phone would lock the cockpit for good. The acting admin confirms with their own passkey.</p>
+<h3 id="adding-a-device"><a class="anchor" href="#adding-a-device">Adding a device</a></h3>
+<p>On a device already signed in, <em>Add another device (code)</em> shows an 8-character code, valid 10 minutes, single use. On the new device, sign in with the password, choose <em>use a code</em>, and register.</p>
+<p>A password alone never registers a passkey. That is what stops a stolen password from enrolling the thief's phone.</p>
+<h3 id="losing-something"><a class="anchor" href="#losing-something">Losing something</a></h3>
+<p>Another admin opens <em>recover access…</em> on your row and picks what you lost, always confirming with their own passkey. <strong>Nobody can recover themselves.</strong></p>
+<ul>
+<li><strong>lost password</strong> — one admin; you get a link valid 48 hours, choose a new
+ password, then confirm with one of your passkeys, which are all kept;
+</li>
+<li><strong>lost passkey</strong> — a <strong>second admin approves</strong>; you then get a device code,
+ valid 48 hours, to register a new device;
+</li>
+<li><strong>lost everything</strong> — password and passkeys are wiped <strong>24 hours</strong> later, or as
+ soon as a second admin approves. You, the asker, or any admin can cancel it
+ meanwhile.
+</li>
+</ul>
+<p>Making or unmaking an admin also needs a second admin's approval. Every session opened before a recovery stops working — including one on the lost device. Removing a passkey or demoting an admin does the same.</p>
+<h3 id="the-security-panel"><a class="anchor" href="#the-security-panel">The security panel</a></h3>
+<p>🛡 in the header, with a badge when something is new. It shows what was done to <strong>your</strong> account — invited, made admin, reset, a passkey added or removed, a recovery asked about you — and, for admins, the whole log, the requests waiting for their approval, and their own requests with the link or code to hand over.</p>
+<p>On anything you do not recognise, <strong>This wasn't me</strong> ends your other sessions, removes a passkey you did not add, and flags it to every admin. There is no mail yet: this panel is the channel, so keep an eye on its badge.</p>
+<h3 id="while-it-is-on"><a class="anchor" href="#while-it-is-on">While it is on</a></h3>
+<p>The instance password cannot sign in to the browser any more — nobody could reset it — so use a named account. Agents, Telegram and peers keep working, as they never use the login, but account and two-factor management is reserved to a signed-in person: an agent's key can no longer create or reset accounts.</p>
+<p><strong>Break-glass</strong>, if every admin loses everything at once: on the machine, remove the instance's entry under <code>twoFactor</code> in <code>~/.shadok-ai/config.json</code> and restart. Whoever has that shell could read every secret anyway.</p>
+<h3 id="what-it-protects-and-what-it-does-not"><a class="anchor" href="#what-it-protects-and-what-it-does-not">What it protects, and what it does not</a></h3>
+<p>It stops a leaked password used over the network, and it invalidates every session issued before it was switched on. It does nothing about anything already running as the machine's user — the same soft boundary as <a href="/docs/profiles">profiles</a>.</p>
+<h2 id="an-agent-is-not-the-admin"><a class="anchor" href="#an-agent-is-not-the-admin">An agent is not the admin <span class="badge">alpha</span></a></h2>
+<p>An agent authenticates to its own cockpit with <code>SHADOK_SESSION_KEY</code>, and that key makes it <strong>that agent</strong>: a member of its own group, never an admin.</p>
+<p>It can drive its siblings, schedule prompts on its own channel, store a secret it obtained, record in the shared ledger, send you files and reload itself. It is refused (<code>403</code>) on the account, peer, Telegram and backend routes, and on every browser-only route — guardrails, shell mode, uploads — which now require a signed-in person rather than an <code>Origin</code> header. Agents are no longer handed the admin's cookie or the instance password.</p>
+<aside class="note"><strong>Upgrading to this.</strong> The first start of that version signs out whoever is signed in with the instance password, once. Agents spawned <strong>before</strong> it still hold the password in their environment: change the password and reload those agents (version menu → <em>Restart all agents</em>) to take it away from them.</aside>
+    <nav class="updown">
+      <a class="prev" href="/docs/groups"><span>Previous</span>Groups and isolation</a>
+      <a class="next" href="/docs/skills"><span>Next</span>The Skill Factory</a>
+    </nav>
+  </article>
+</div>
+
+<footer class="wrap">
+  <p><a href="/">shadok-ai</a> — the cockpit for a company that runs on agents.
+  <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">Source</a>,
+  AGPL-3.0-only.</p>
+  <p>These pages describe the <b>beta</b> channel, which is what <code>npx shadok-ai</code>
+  installs. Anything marked <span class="badge">alpha</span> ships on <code>@alpha</code> first.</p>
+</footer>
+
+</body>
+</html>

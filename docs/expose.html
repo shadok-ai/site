@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Beyond this machine — shadok-ai docs</title>
+<meta name="description" content="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">
+<link rel="canonical" href="https://shadok.ai/docs/expose">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shadok.ai/docs/expose">
+<meta property="og:title" content="Beyond this machine — shadok-ai docs">
+<meta property="og:description" content="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">
+<meta property="og:image" content="https://shadok.ai/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/docs/docs.css?v=1">
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#4b4fc0" stroke="#4b4fc0" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#4b4fc0"/><circle cx="19.2" cy="8.1" r="1.3" fill="#4b4fc0"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </a>
+    <nav class="topnav">
+      <a class="prod" href="/">The product</a>
+      <a class="here" href="/docs">Docs</a>
+      <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap docs">
+  <details class="side-sheet">
+    <summary>All pages</summary>
+    <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" aria-current="page" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+  </details>
+  <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" aria-current="page" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+
+  <article>
+    <p class="crumb"><a href="/docs">Docs</a> <span>/</span> Deploy and operate <span>/</span> Beyond this machine</p>
+    
+<h1>Beyond this machine</h1>
+<p>The cockpit runs arbitrary commands on its host <strong>by design</strong> — that is what an agent is. So it binds <code>127.0.0.1</code>, this machine only, until you say otherwise.</p>
+<p>Opening it up is two settings and a handful of things to know.</p>
+<h2 id="the-bind-needs-a-password"><a class="anchor" href="#the-bind-needs-a-password">The bind needs a password</a></h2>
+<p><code>SHADOK_HOST=0.0.0.0</code> <strong>requires</strong> a password — <code>--password</code>, or <code>SHADOK_GUI_PASSWORD</code>. Without one the server <strong>refuses to start</strong>, rather than hand the network a shell.</p>
+<p>That password is the <code>admin</code> account: with it set, the login page gains a user field, and an admin can invite other people. <a href="/docs/accounts">People and accounts</a> covers invitations, roles and two-factor sign-in.</p>
+<p>In a container, <code>0.0.0.0</code> is the only value that works, and the port should be published on the host's loopback. See <a href="/docs/docker#two-things-about-the-network">Docker</a>.</p>
+<h2 id="browsers-may-only-talk-to-it-from-its-own-origin"><a class="anchor" href="#browsers-may-only-talk-to-it-from-its-own-origin">Browsers may only talk to it from its own origin</a></h2>
+<p>A WebSocket ignores the same-origin policy, so without a check, <strong>any page you happen to visit</strong> could drive your agents. The server refuses a browser whose <code>Origin</code> is not the request's own <code>Host</code>.</p>
+<p>Behind a reverse proxy that rewrites <code>Host</code>, list the public origin in <code>SHADOK_ORIGINS</code>.</p>
+<aside class="note"><strong>Origin-less clients are let through on purpose.</strong> The Telegram bridge, the CLI, the scheduler and agents' own tooling open loopback connections with no <code>Origin</code> header at all; tightening that branch to a deny would cut Telegram off from its own sessions. The bind and the password are what stop a network attacker — this guard only ever addresses browsers.</aside>
+<h2 id="which-host-names-it-answers"><a class="anchor" href="#which-host-names-it-answers">Which host names it answers <span class="badge">alpha</span></a></h2>
+<p>A page on <code>evil.com</code> can re-point its own name at <code>127.0.0.1</code>. Its requests then carry <code>Origin</code> <strong>and</strong> <code>Host</code> as <code>evil.com:3789</code> and look same-origin. So the server also checks the <code>Host</code> header, on every request and on the WebSocket upgrade:</p>
+<ul>
+<li><strong>No password</strong> — the local default: only <code>localhost</code>, <code>*.localhost</code>, any IP
+ address, and this machine's own name (<code>hostname</code>, <code>hostname.local</code>) are
+ answered, on any port. Anything else gets <code>403 host not allowed</code> and one log
+ line. If you really reach a password-less cockpit through another name — an
+ <code>/etc/hosts</code> alias, a same-host proxy — add it to <code>SHADOK_ALLOWED_HOSTS</code>.
+</li>
+<li><strong>With a password</strong> — every <code>Host</code> is answered, as before. A rebound page holds
+ no cookie for your cockpit, so it is a stranger at the login page, and this is
+ what keeps a container behind nginx or Cloudflare on its own domain working
+ with no change. Setting <code>SHADOK_ALLOWED_HOSTS</code> then tightens it to that list.
+</li>
+</ul>
+<p><code>SHADOK_ALLOWED_HOSTS</code> is comma-separated: names, <code>host:port</code> or whole origins (the port is ignored), <code>.example.com</code> for a domain and its subdomains, <code>*</code> to switch the check off. Loopback names and IPs always stay allowed — agents call <code>127.0.0.1</code>. The hosts in <code>SHADOK_ORIGINS</code> are accepted too.</p>
+<h2 id="sign-in-attempts-are-limited"><a class="anchor" href="#sign-in-attempts-are-limited">Sign-in attempts are limited</a></h2>
+<p>A failed <code>POST /login</code> is counted against the caller's address (10 per 15 minutes) and against the account (20 per 15 minutes, from every address together). Past that the answer is <code>429</code> with a <code>Retry-After</code>, <strong>before</strong> any password is checked. Enrollment codes are counted the same way.</p>
+<p>An unknown user name costs the server exactly what a real one does, so the timing says nothing about which accounts exist. The counters live in memory, so a restart clears them.</p>
+<p>Behind a proxy, the address is the one the proxy appended last to <code>X-Forwarded-For</code> — trusted only when the proxy connects from this machine or a private range. A proxy that sends no <code>X-Forwarded-For</code> puts every visitor in one bucket, so ten wrong passwords from anyone lock the login for everyone for fifteen minutes.</p>
+<h2 id="behind-tls"><a class="anchor" href="#behind-tls">Behind TLS</a></h2>
+<p>Serving the cockpit over HTTPS works, with one requirement: <strong>the proxy must forward the WebSocket upgrade</strong>. Everything live travels over <code>/ws</code> and the page itself is static, so a proxy that drops <code>Upgrade</code>/<code>Connection</code> produces a cockpit that loads perfectly and then never connects.</p>
+<pre class="lang-nginx"><code>location / {
+    proxy_pass http://127.0.0.1:3789;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    client_max_body_size 50m;
+}</code></pre>
+<p>The client picks <code>wss://</code> on its own when the page is HTTPS, so there is nothing to configure on that side. Four details in that block earn their place:</p>
+<ul>
+<li><strong>Forward the client address.</strong> An agent authenticates to its own server with
+ a session key that never expires, so the server accepts that key **only from
+ this machine, directly** — never from the network, where a key leaked by a
+ prompt-injected agent would otherwise be permanent admin. A proxy on the same
+ host connects from <code>127.0.0.1</code> too; the <code>X-Forwarded-For</code> line is what tells
+ the server the request was relayed. Without it, requests through a same-host
+ proxy look local.
+</li>
+<li><strong>Secure cookies.</strong> With <code>X-Forwarded-Proto: https</code> from a proxy on this
+ machine or a private range, the session cookies are set <code>Secure</code>, so a browser
+ never sends them over plain http.
+</li>
+<li><strong>Upload size.</strong> The server accepts a pasted or dropped file up to 50 MB, but
+ nginx's default <code>client_max_body_size</code> is <strong>1 MB</strong> — a full-page screenshot
+ sails past it, and nginx answers its own <code>413</code> page before the request ever
+ reaches the cockpit.
+</li>
+<li><strong>Idle timeout.</strong> A resting agent's socket carries no traffic, and proxies
+ idle-close a quiet one (nginx 60s by default, Cloudflare around 100s); the
+ symptom is a cockpit that keeps flashing "reconnecting…" with nothing actually
+ wrong. The server sends a ping every 25s to keep it warm
+ (<code>SHADOK_WS_PING_MS</code>), so normally no proxy change is needed. If yours still
+ cuts it, raise <code>proxy_read_timeout</code> above the ping interval.
+</li>
+</ul>
+<h2 id="sleep-wake-and-network-blips"><a class="anchor" href="#sleep-wake-and-network-blips">Sleep, wake, and network blips</a></h2>
+<p>When the machine comes back, the cockpit revives the links that actually <strong>dropped</strong> and leaves the ones that still report open alone.</p>
+<p>That asymmetry is deliberate. The browser's <code>online</code> event fires on every blip — a wifi roam, a VPN, an interface change — and force-reconnecting healthy links on each one reconnected every agent at once, tripping the upstream single-use token refresh so a batch of them stuck on "connecting…". A slept socket that looks open but is dead is terminated by the server's own heartbeat instead, and reconnects on the resulting close without that churn.</p>
+    <nav class="updown">
+      <a class="prev" href="/docs/docker"><span>Previous</span>Running in Docker</a>
+      <a class="next" href="/docs/model-backend"><span>Next</span>Running on another model</a>
+    </nav>
+  </article>
+</div>
+
+<footer class="wrap">
+  <p><a href="/">shadok-ai</a> — the cockpit for a company that runs on agents.
+  <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">Source</a>,
+  AGPL-3.0-only.</p>
+  <p>These pages describe the <b>beta</b> channel, which is what <code>npx shadok-ai</code>
+  installs. Anything marked <span class="badge">alpha</span> ships on <code>@alpha</code> first.</p>
+</footer>
+
+</body>
+</html>

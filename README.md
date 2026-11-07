@@ -4,14 +4,53 @@ The one-pager for [shadok-ai](https://github.com/shadok-ai/shadok-ai), kept in
 its own repository so it can be deployed without touching the product.
 
 ```
-index.html          the whole page — no build step, no framework, no CDN
+index.html          the one-pager — no build step, no framework, no CDN
 demo.webm/.mp4      the hero, in the two codecs browsers need between them
 demo-poster.webp    the still the browser paints before the video arrives
 og-card.jpg         1200x630, what a shared link shows
 favicon.svg
-vercel.json         cache headers
+vercel.json         cache headers, and cleanUrls for /docs/<page>
+docs/               the manual — see below
 docs/launch/        the tooling that produces all of the above
 ```
+
+## The manual (`/docs`)
+
+Twenty-five pages at [shadok.ai/docs](https://shadok.ai/docs), in the same
+palette and the same three typefaces as the one-pager.
+
+```
+docs/src/*.md       the SOURCE — this is the file you edit
+docs/launch/build-docs.mjs
+                    the generator: sidebar, breadcrumb, prev/next, alpha badges
+docs/*.html         the OUTPUT — generated, committed, served as-is
+docs/docs.css       the manual's own stylesheet
+```
+
+```bash
+node docs/launch/build-docs.mjs     # after any edit under docs/src/
+```
+
+The deploy still has no build step: Vercel serves committed HTML and runs
+nothing. The generator exists because twenty-five pages cannot share a sidebar
+and a prev/next strip by hand. **Edit the `.md` and re-run it** — an edit made
+straight in a `.html` is overwritten by the next build, silently.
+
+The page order, and the sidebar with it, is the `NAV` array at the top of the
+generator. A source file that is not in `NAV` is not published, and the build
+says so and exits non-zero.
+
+**The channel line.** These pages describe the **beta** channel — what
+`npx shadok-ai` installs. Anything that is merged but not yet promoted is
+marked `[[alpha]]`, inline or as `alpha: true` in a page's front matter. To find
+what is still alpha, diff the published beta README against `main`:
+
+```bash
+npm pack shadok-ai@latest          # the beta README, inside the tarball
+```
+
+Writing an alpha capability as if it shipped is the one mistake that costs a
+reader their afternoon: they install, and it is not there.
 
 ## Deploy
 

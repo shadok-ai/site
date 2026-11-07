@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Install — shadok-ai docs</title>
+<meta name="description" content="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">
+<link rel="canonical" href="https://shadok.ai/docs/install">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shadok.ai/docs/install">
+<meta property="og:title" content="Install — shadok-ai docs">
+<meta property="og:description" content="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">
+<meta property="og:image" content="https://shadok.ai/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/docs/docs.css?v=1">
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#4b4fc0" stroke="#4b4fc0" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#4b4fc0"/><circle cx="19.2" cy="8.1" r="1.3" fill="#4b4fc0"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </a>
+    <nav class="topnav">
+      <a class="prod" href="/">The product</a>
+      <a class="here" href="/docs">Docs</a>
+      <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap docs">
+  <details class="side-sheet">
+    <summary>All pages</summary>
+    <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" aria-current="page" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+  </details>
+  <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" aria-current="page" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+
+  <article>
+    <p class="crumb"><a href="/docs">Docs</a> <span>/</span> Start here <span>/</span> Install</p>
+    
+<h1>Install</h1>
+<pre><code>npx shadok-ai</code></pre>
+<p>That is the whole install. The server comes up, and <strong>your browser opens</strong> on the port it actually landed on — which is not always 3789, because a busy port walks to the next free one. Only the launch you asked for opens a tab; an auto-update respawn never does. It is skipped where it would make no sense — in a container, over SSH, on a Linux box with no display — and <code>--no-open</code> turns it off.</p>
+<h2 id="what-it-needs"><a class="anchor" href="#what-it-needs">What it needs</a></h2>
+<p><strong>Node 20 or newer.</strong> That is the hard requirement.</p>
+<p>Everything else is handled, and says so when it cannot be:</p>
+<ul>
+<li><strong>The <code>claude</code> CLI.</strong> shadok-ai drives Claude Code on your own subscription.
+ If the CLI is missing it is installed at the first agent launch
+ (<code>npm i -g @anthropic-ai/claude-code</code>); if that cannot write the global
+ directory, the cockpit tells you the one command to run.
+</li>
+<li><strong><code>tmux</code>.</strong> With it, agents survive the server restarting — including every
+ auto-update — so it is auto-installed at boot when missing (<code>brew</code> on macOS,
+ <code>apt</code>/<code>apk</code>/<code>dnf</code>/<code>pacman</code> on Linux, with <code>sudo</code> when not root). If it cannot
+ be installed, the cockpit falls back to a plain pseudo-terminal and names the
+ command. <code>SHADOK_TMUX=0</code> skips all of it.
+</li>
+</ul>
+<p>On the first run it asks once for an optional <strong>Telegram bot token</strong>. Press Enter to skip — you can add it later from the cockpit.</p>
+<h2 id="flags"><a class="anchor" href="#flags">Flags</a></h2>
+<div class="scroll"><table><thead><tr>
+<th>Flag</th>
+<th>Effect</th>
+</tr></thead><tbody>
+<tr>
+<td><code>--port, -p &lt;n&gt;</code></td>
+<td>HTTP/WS port (default 3789; falls back to the next free one)</td>
+</tr>
+<tr>
+<td><code>--no-telegram</code></td>
+<td>web only; do not prompt for or use a bot token</td>
+</tr>
+<tr>
+<td><code>--no-open</code></td>
+<td>do not open the browser on launch</td>
+</tr>
+<tr>
+<td><code>--password &lt;p&gt;</code></td>
+<td>require this password to open the cockpit (stored in config)</td>
+</tr>
+<tr>
+<td><code>--version, -v</code> · <code>--help, -h</code></td>
+<td>version / help</td>
+</tr>
+</tbody></table></div>
+<h2 id="sign-in-to-claude"><a class="anchor" href="#sign-in-to-claude">Sign in to Claude</a></h2>
+<p>Agents run on your Claude account, so there is one step nobody can skip — and you never need a shell on the host for it.</p>
+<p>When the instance is not signed in, a card takes over the page with the OAuth link and a field for the code you get back. Agents <strong>refuse to start</strong> until it is done, so you cannot accidentally manufacture an agent with no credentials. The card exists only while it is needed: there is no button that opens it when everything is fine.</p>
+<p>From Telegram, which is where you usually are when a session expires mid-afternoon:</p>
+<pre><code>/login          → replies with the link
+/code &lt;code&gt;    → finishes the sign-in (your message is deleted afterwards)</code></pre>
+<p>The sign-in is instance-wide, so a code pasted in Telegram also closes the card waiting in a browser.</p>
+<aside class="note"><strong>The first-run screens are already answered.</strong> A virgin <code>claude</code> opens on a theme picker and then a per-directory trust dialog, and an agent started there never reaches a prompt at all. shadok-ai seeds those answers — at boot for the global ones, and before every spawn for the session's directory, because a new worktree is a new directory and therefore a new trust dialog. The seeding only ever adds: a value already there is never overwritten, so on a machine that has used Claude Code before, nothing is written.</aside>
+<h2 id="when-it-expires"><a class="anchor" href="#when-it-expires">When it expires</a></h2>
+<p>The version menu shows which Claude login this cockpit runs on — the email, the subscription, and when the sign-in <strong>expires</strong>. The timestamp is read from Claude Code's own credentials store, never from a token. A <strong>↻ Re-login to Claude</strong> button is right there, and in the last 48 hours a banner carries the same one click, so agents never quietly start failing because nobody renewed the session.</p>
+<h2 id="keeping-it-up-to-date"><a class="anchor" href="#keeping-it-up-to-date">Keeping it up to date</a></h2>
+<p>The server polls npm and can update and reload itself in place. It runs the npm-installed copy rather than a checkout, so a merged fix reaches a running instance on its own within minutes. <a href="/docs/update">Update</a> covers the channels and the switch.</p>
+    <nav class="updown">
+      <a class="prev" href="/docs/key-concepts"><span>Previous</span>Key concepts</a>
+      <a class="next" href="/docs/first-agent"><span>Next</span>Your first agent</a>
+    </nav>
+  </article>
+</div>
+
+<footer class="wrap">
+  <p><a href="/">shadok-ai</a> — the cockpit for a company that runs on agents.
+  <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">Source</a>,
+  AGPL-3.0-only.</p>
+  <p>These pages describe the <b>beta</b> channel, which is what <code>npx shadok-ai</code>
+  installs. Anything marked <span class="badge">alpha</span> ships on <code>@alpha</code> first.</p>
+</footer>
+
+</body>
+</html>

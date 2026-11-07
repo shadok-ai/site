@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/(demo.webm|demo.mp4|demo.gif|demo-poster.webp|og-card.jpg|favicon.svg)",
