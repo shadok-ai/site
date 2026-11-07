@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://shadok.ai/</loc></url>
+  <url><loc>https://shadok.ai/docs</loc></url>
+  <url><loc>https://shadok.ai/docs/getting-started</loc></url>
+  <url><loc>https://shadok.ai/docs/key-concepts</loc></url>
+  <url><loc>https://shadok.ai/docs/install</loc></url>
+  <url><loc>https://shadok.ai/docs/first-agent</loc></url>
+  <url><loc>https://shadok.ai/docs/telegram</loc></url>
+  <url><loc>https://shadok.ai/docs/agents</loc></url>
+  <url><loc>https://shadok.ai/docs/profiles</loc></url>
+  <url><loc>https://shadok.ai/docs/worktrees</loc></url>
+  <url><loc>https://shadok.ai/docs/secrets</loc></url>
+  <url><loc>https://shadok.ai/docs/schedules</loc></url>
+  <url><loc>https://shadok.ai/docs/groups</loc></url>
+  <url><loc>https://shadok.ai/docs/accounts</loc></url>
+  <url><loc>https://shadok.ai/docs/skills</loc></url>
+  <url><loc>https://shadok.ai/docs/quota</loc></url>
+  <url><loc>https://shadok.ai/docs/peers</loc></url>
+  <url><loc>https://shadok.ai/docs/files</loc></url>
+  <url><loc>https://shadok.ai/docs/docker</loc></url>
+  <url><loc>https://shadok.ai/docs/expose</loc></url>
+  <url><loc>https://shadok.ai/docs/model-backend</loc></url>
+  <url><loc>https://shadok.ai/docs/update</loc></url>
+  <url><loc>https://shadok.ai/docs/configuration</loc></url>
+  <url><loc>https://shadok.ai/docs/cli</loc></url>
+  <url><loc>https://shadok.ai/docs/websocket</loc></url>
+  <url><loc>https://shadok.ai/docs/limits</loc></url>
+</urlset>

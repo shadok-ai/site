@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /docs/src/
+Disallow: /docs/launch/
+
+Sitemap: https://shadok.ai/sitemap.xml

@@ -334,4 +334,45 @@ for (const slug of flat) {
   writeFileSync(file, page(slug, pages, flat));
   console.log(`  ${file.replace(ROOT + "/", "")}`);
 }
+
+/* ── what a crawler is told ────────────────────────────────────────────────
+   Both files are written from NAV, for the same reason the sidebar is: a
+   sitemap maintained by hand lists the pages that existed the day someone
+   remembered it. Written at the repo root, because a sitemap only covers the
+   directory it sits in and below — /sitemap.xml may speak for the whole site,
+   /docs/sitemap.xml may not.
+
+   No lastmod and no priority on purpose. Google ignores priority and
+   changefreq outright, and it only trusts lastmod when a site is consistently
+   honest about it — a date stamped at build time would say every page changed
+   whenever any page did, which is worse than saying nothing. */
+const urls = ["https://shadok.ai/", ...flat.map((s) => "https://shadok.ai" + href(s))];
+writeFileSync(
+  join(ROOT, "sitemap.xml"),
+  '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  urls.map((u) => `  <url><loc>${u}</loc></url>`).join("\n") +
+  "\n</urlset>\n"
+);
+
+// Everything in this repository is deployed, tooling included, so the two
+// directories that are SOURCE rather than page are kept out of the index: the
+// Markdown each page is generated from would otherwise compete with the page
+// itself, and the launch scripts are not reading material. Disallow is about
+// crawling, not secrecy — the repo is public either way.
+writeFileSync(
+  join(ROOT, "robots.txt"),
+  [
+    "User-agent: *",
+    "Allow: /",
+    "Disallow: /docs/src/",
+    "Disallow: /docs/launch/",
+    "",
+    "Sitemap: https://shadok.ai/sitemap.xml",
+    "",
+  ].join("\n")
+);
+
+console.log(`  sitemap.xml (${urls.length} urls)`);
+console.log("  robots.txt");
 console.log(`${flat.length} pages`);

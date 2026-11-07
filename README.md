@@ -25,6 +25,8 @@ docs/launch/build-docs.mjs
                     the generator: sidebar, breadcrumb, prev/next, alpha badges
 docs/*.html         the OUTPUT — generated, committed, served as-is
 docs/docs.css       the manual's own stylesheet
+robots.txt          generated too — ditto sitemap.xml, from the same NAV
+sitemap.xml         so a page added to NAV is a page crawlers are told about
 ```
 
 ```bash
