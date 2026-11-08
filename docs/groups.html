@@ -141,13 +141,15 @@
 <h2 id="what-it-takes"><a class="anchor" href="#what-it-takes">What it takes <span class="badge">alpha</span></a></h2>
 <p>Real isolation needs two things, checked once at boot:</p>
 <ol>
-<li>the server can <strong>create OS users</strong> — it runs as root or has passwordless
- <code>sudo</code>, which means the official Docker image or a VPS deploy; <strong>and</strong>
+<li>the server runs on <strong>Linux</strong> and can <strong>create OS users</strong> — as root or with
+ passwordless <code>sudo</code>, which means the official Docker image or a VPS deploy.
+ The walls are built with <code>useradd</code> and <code>runuser</code>, so a macOS or Windows host
+ stays single-tenant however privileged it is; <strong>and</strong>
 </li>
 <li>a <strong>GUI password</strong> is set, because accounts are who the walls protect.
 </li>
 </ol>
-<p>Both → <strong>multi-tenant</strong>. Anything else — <code>npx shadok-ai</code> on your own machine, Docker without a password — stays <strong>single-tenant</strong>, exactly as it was. You do not configure this; it follows from how you ran it, and the boot log prints <code>deployment mode: …</code>.</p>
+<p>Both → <strong>multi-tenant</strong>. Anything else — <code>npx shadok-ai</code> on your own machine, a Mac with a password, Docker without a password — stays <strong>single-tenant</strong>, exactly as it was. You do not configure this; it follows from how you ran it, and the boot log prints <code>deployment mode: …</code>.</p>
 <aside class="note"><strong>A single-tenant instance refuses to pretend.</strong> It will not create a private or restricted group rather than draw a wall that protects nothing. If the cockpit tells you that, the answer is a deployment that meets the two conditions above — not a setting.</aside>
 <h2 id="migrating-an-existing-instance"><a class="anchor" href="#migrating-an-existing-instance">Migrating an existing instance <span class="badge">alpha</span></a></h2>
 <p>An instance that comes up capable is migrated for you: what you have becomes the public <code>Main</code> group, each account gets a private group, and agents restart one at a time. A banner shows the progress.</p>

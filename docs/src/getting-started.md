@@ -49,9 +49,9 @@ an older image needs.
 
 ## On a server, for a team
 
-A deploy where the server can create OS users — the official image, or a VPS
-where it runs as root or with passwordless `sudo` — and where a GUI password is
-set, unlocks the part a laptop cannot do: **groups that actually isolate**. Each
+A **Linux** deploy where the server can create OS users — the official image, or
+a VPS where it runs as root or with passwordless `sudo` — and where a GUI
+password is set, unlocks the part a laptop cannot do: **groups that actually isolate**. Each
 agent then runs as its own OS user, with its own home and its own secrets, and a
 private group is invisible even to an admin. [[alpha]]
 

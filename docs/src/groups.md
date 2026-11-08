@@ -35,12 +35,15 @@ private group cannot be written to at all).
 
 Real isolation needs two things, checked once at boot:
 
-1. the server can **create OS users** — it runs as root or has passwordless
-   `sudo`, which means the official Docker image or a VPS deploy; **and**
+1. the server runs on **Linux** and can **create OS users** — as root or with
+   passwordless `sudo`, which means the official Docker image or a VPS deploy.
+   The walls are built with `useradd` and `runuser`, so a macOS or Windows host
+   stays single-tenant however privileged it is; **and**
 2. a **GUI password** is set, because accounts are who the walls protect.
 
-Both → **multi-tenant**. Anything else — `npx shadok-ai` on your own machine,
-Docker without a password — stays **single-tenant**, exactly as it was. You do
+Both → **multi-tenant**. Anything else — `npx shadok-ai` on your own machine, a
+Mac with a password, Docker without a password — stays **single-tenant**, exactly
+as it was. You do
 not configure this; it follows from how you ran it, and the boot log prints
 `deployment mode: …`.
 
