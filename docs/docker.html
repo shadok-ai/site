@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Running in Docker — shadok-ai docs</title>
-<meta name="description" content="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">
+<meta name="description" content="The official image, the volumes that must survive a recreate, what a recreate rolls back, and the pid-1 flag an older image needs.">
 <link rel="canonical" href="https://shadok.ai/docs/docker">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://shadok.ai/docs/docker">
 <meta property="og:title" content="Running in Docker — shadok-ai docs">
-<meta property="og:description" content="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">
+<meta property="og:description" content="The official image, the volumes that must survive a recreate, what a recreate rolls back, and the pid-1 flag an older image needs.">
 <meta property="og:image" content="https://shadok.ai/og-card.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
@@ -73,7 +73,7 @@
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
 </ul>
 <p class="side-group">Deploy and operate</p><ul>
-<li><a href="/docs/docker" aria-current="page" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/docker" aria-current="page" title="The official image, the volumes that must survive a recreate, what a recreate rolls back, and the pid-1 flag an older image needs.">Docker</a></li>
 <li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
 <li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
 <li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
@@ -110,7 +110,7 @@
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
 </ul>
 <p class="side-group">Deploy and operate</p><ul>
-<li><a href="/docs/docker" aria-current="page" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/docker" aria-current="page" title="The official image, the volumes that must survive a recreate, what a recreate rolls back, and the pid-1 flag an older image needs.">Docker</a></li>
 <li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
 <li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
 <li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
@@ -137,10 +137,12 @@ docker run -d --name shadok-ai --restart unless-stopped \
   -e SHADOK_HOST=0.0.0.0 -e SHADOK_GUI_PASSWORD=change-me \
   shadok-ai</code></pre>
 <p>A fresh container needs the one-time Claude sign-in. Do it in the cockpit, or from a shell: <code>docker exec -it shadok-ai claude</code>.</p>
+<p>Tagging it <code>shadok-ai</code> is fine while you try it out. For an instance that stays up, tag the build with a date and a commit, then pin the image <strong>id</strong>: a tag is a label that moves, while a container keeps the id it was created with — so two containers can both report <code>shadok-ai</code> and be running genuinely different software.</p>
+<p><strong>Putting one online for someone else, behind a domain?</strong> The product repository carries the whole order of operations on one page, with a <code>docker-compose.yml</code> to copy, the proxy and certificate steps, and the upgrade path: <a href="https://github.com/shadok-ai/shadok-ai/blob/main/docs/deploying-an-instance.md" target="_blank" rel="noopener">deploying an instance</a>.</p>
 <h2 id="what-the-image-carries"><a class="anchor" href="#what-the-image-carries">What the image carries</a></h2>
 <p><strong>Claude Code</strong>, <strong>shadok-ai</strong> and a <strong>headless browser</strong> (Playwright Chromium, at <code>PLAYWRIGHT_BROWSERS_PATH=/opt/playwright-browsers</code>), so an agent can screenshot a page or drive the web with no first-run download. Plus <code>git</code>, <code>gh</code>, <code>tmux</code>, <code>jq</code> and a C toolchain for the agents' own work.</p>
-<h2 id="the-three-volumes"><a class="anchor" href="#the-three-volumes">The three volumes</a></h2>
-<p>They are what survives <code>docker restart</code> <strong>and</strong> <code>docker rm</code> + recreate:</p>
+<h2 id="the-volumes"><a class="anchor" href="#the-volumes">The volumes</a></h2>
+<p>Three on every instance. They are what survives <code>docker restart</code> <strong>and</strong> <code>docker rm</code> + recreate:</p>
 <div class="scroll"><table><thead><tr>
 <th>Volume</th>
 <th>Holds</th>
@@ -158,7 +160,24 @@ docker run -d --name shadok-ai --restart unless-stopped \
 <td>the agents' own files</td>
 </tr>
 </tbody></table></div>
-<p>On a multi-tenant instance there is a fourth worth mounting — the group homes — because they do <strong>not</strong> live on the data volume. See <a href="/docs/groups#in-docker-persist-the-group-homes">Groups</a>. <span class="badge">alpha</span></p>
+<p>Two more exist only where groups isolate for real, and neither sits on the data volume — so a recreate wipes both: <span class="badge">alpha</span></p>
+<div class="scroll"><table><thead><tr>
+<th>Volume</th>
+<th>Holds</th>
+</tr></thead><tbody>
+<tr>
+<td><code>/home</code></td>
+<td>the group homes: each group's own transcripts, memories, keys and worktrees</td>
+</tr>
+<tr>
+<td><code>/var/lib/shadok-ai</code></td>
+<td>the shared pot, which is the <code>~/shared/</code> folder in every group home, and the attachments agents are sent</td>
+</tr>
+</tbody></table></div>
+<p>Mounting them on a single-tenant instance costs nothing and saves you a recreate later — and a recreate is what erases whatever accumulated in the meantime. On a single-tenant instance attachments stay in <code>~/.shadok-ai/media</code>, on the data volume, unchanged. See <a href="/docs/groups#in-docker-persist-the-group-homes">Groups</a>.</p>
+<h2 id="a-recreate-rolls-claude-code-back"><a class="anchor" href="#a-recreate-rolls-claude-code-back">A recreate rolls Claude Code back</a></h2>
+<p><code>docker restart</code> keeps the container's writable layer; <code>docker rm</code> and recreate destroys it. Every volume above survives either one — but <strong>Claude Code is installed into the image</strong>, not onto a volume, and its own updater writes there. A recreate therefore returns it to the version baked into the image you built, which on a container up for months is a real downgrade. It surfaces as an API error naming a minimum version, with nothing in it about Docker.</p>
+<p>That is the reason to rebuild the image when you recreate, rather than recreating on the old one. The cockpit is the opposite case: it updates itself into <code>~/.shadok-ai/app</code>, which is on the data volume, so those upgrades survive a recreate and you never rebuild for them — see <a href="/docs/update">Updates</a>.</p>
 <h2 id="two-things-about-the-network"><a class="anchor" href="#two-things-about-the-network">Two things about the network</a></h2>
 <p><code>SHADOK_HOST=0.0.0.0</code> is the only value that works in a container: the container's own loopback is not reachable from the host. And it <strong>requires a password</strong>, as everywhere else.</p>
 <p>Publish the port on the host's loopback — <code>-p 127.0.0.1:3789:3789</code>. Plain <code>-p 3789:3789</code> publishes on <strong>every</strong> host interface and <strong>bypasses ufw/firewalld</strong>, because Docker inserts its own iptables rules upstream of them. <a href="/docs/expose">Beyond this machine</a> is the page for exposing it on purpose.</p>

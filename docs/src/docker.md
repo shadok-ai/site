@@ -1,7 +1,7 @@
 ---
 title: Running in Docker
 nav: Docker
-summary: The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.
+summary: The official image, the volumes that must survive a recreate, what a recreate rolls back, and the pid-1 flag an older image needs.
 ---
 
 # Running in Docker
@@ -22,6 +22,17 @@ docker run -d --name shadok-ai --restart unless-stopped \
 A fresh container needs the one-time Claude sign-in. Do it in the cockpit, or
 from a shell: `docker exec -it shadok-ai claude`.
 
+Tagging it `shadok-ai` is fine while you try it out. For an instance that stays
+up, tag the build with a date and a commit, then pin the image **id**: a tag is a
+label that moves, while a container keeps the id it was created with — so two
+containers can both report `shadok-ai` and be running genuinely different
+software.
+
+**Putting one online for someone else, behind a domain?** The product repository
+carries the whole order of operations on one page, with a `docker-compose.yml` to
+copy, the proxy and certificate steps, and the upgrade path:
+[deploying an instance](https://github.com/shadok-ai/shadok-ai/blob/main/docs/deploying-an-instance.md).
+
 ## What the image carries
 
 **Claude Code**, **shadok-ai** and a **headless browser** (Playwright Chromium,
@@ -29,9 +40,10 @@ at `PLAYWRIGHT_BROWSERS_PATH=/opt/playwright-browsers`), so an agent can
 screenshot a page or drive the web with no first-run download. Plus `git`, `gh`,
 `tmux`, `jq` and a C toolchain for the agents' own work.
 
-## The three volumes
+## The volumes
 
-They are what survives `docker restart` **and** `docker rm` + recreate:
+Three on every instance. They are what survives `docker restart` **and**
+`docker rm` + recreate:
 
 | Volume | Holds |
 |---|---|
@@ -39,9 +51,33 @@ They are what survives `docker restart` **and** `docker rm` + recreate:
 | `/root/.claude` | Claude credentials and transcripts |
 | `/workspace` | the agents' own files |
 
-On a multi-tenant instance there is a fourth worth mounting — the group homes —
-because they do **not** live on the data volume. See
-[Groups](/docs/groups#in-docker-persist-the-group-homes). [[alpha]]
+Two more exist only where groups isolate for real, and neither sits on the data
+volume — so a recreate wipes both: [[alpha]]
+
+| Volume | Holds |
+|---|---|
+| `/home` | the group homes: each group's own transcripts, memories, keys and worktrees |
+| `/var/lib/shadok-ai` | the shared pot, which is the `~/shared/` folder in every group home, and the attachments agents are sent |
+
+Mounting them on a single-tenant instance costs nothing and saves you a recreate
+later — and a recreate is what erases whatever accumulated in the meantime. On a
+single-tenant instance attachments stay in `~/.shadok-ai/media`, on the data
+volume, unchanged. See
+[Groups](/docs/groups#in-docker-persist-the-group-homes).
+
+## A recreate rolls Claude Code back
+
+`docker restart` keeps the container's writable layer; `docker rm` and recreate
+destroys it. Every volume above survives either one — but **Claude Code is
+installed into the image**, not onto a volume, and its own updater writes there.
+A recreate therefore returns it to the version baked into the image you built,
+which on a container up for months is a real downgrade. It surfaces as an API
+error naming a minimum version, with nothing in it about Docker.
+
+That is the reason to rebuild the image when you recreate, rather than recreating
+on the old one. The cockpit is the opposite case: it updates itself into
+`~/.shadok-ai/app`, which is on the data volume, so those upgrades survive a
+recreate and you never rebuild for them — see [Updates](/docs/update).
 
 ## Two things about the network
 
