@@ -24,6 +24,14 @@ On a deployment that can isolate, the same group is also a **wall**.
 You see and drive your own groups plus the public ones. That covers the agent
 list, the secrets, the shared ledger and messaging between agents.
 
+A wall also decides where an agent can be dragged. On an isolating deployment a
+move is allowed only where it changes nothing about the running process: between
+public groups and `Main`, which all share one OS user. Into or out of a walled
+group it is refused, and the drop tells you so at once rather than sliding the
+tab back on the next sync — the agent's process, its home and its transcripts
+belong to the user it was born as. On a single-tenant instance groups are
+cosmetic, so every move is allowed. [[alpha]]
+
 Private and restricted groups are real walls: each agent runs as **its own OS
 user**, with its own home and its own secrets, never as root. Crossing a wall is
 always a deliberate act — drop a file in the shared `~/shared/` folder, record a
