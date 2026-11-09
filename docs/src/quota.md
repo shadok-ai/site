@@ -31,13 +31,19 @@ cache-read. The same view shows how long the agent has been **up** — the
 session's age, which survives a restart — and when it **last respawned**, which
 is the running process.
 
+The header's own ⋯ menu totals those windows across **every agent you can
+see** — your groups if you are a member, the whole instance if you are an admin
+— so the fleet figure never shows you work you are not allowed to look at.
+
 Beside each window sits a **notional cost**, and *notional* is the word that
 carries the meaning: shadok drives your Claude **subscription**, not the API, so
 nothing is billed per token. The figure prices those tokens at Anthropic's API
 list rates, which makes it a fair way to compare two agents and not an invoice.
 
 The numbers are read from the agent's current session transcript, once, when you
-open the view.
+open the view. The instance total sums the running agents from memory and reads a
+dormant one's transcript a single time, then keeps it, so neither view stalls the
+cockpit.
 
 ## The pace guard
 
