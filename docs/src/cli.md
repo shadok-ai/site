@@ -48,6 +48,7 @@ the web UI, and you can step in.
 | `prompt <id> "text" [--timeout s]` | sends a prompt and waits for the end of the turn |
 | `dialog <id>` · `choose <id> <n>` · `toggle` + `confirm` · `freetext` | read and answer a pending question |
 | `list` · `diff <id>` · `screen <id>` · `stop <id>` | the driven agents, an agent's changes, its raw screen, end it |
+| `set-parent <id> <parent-id\|none>` | re-link a running agent, or detach it with `none` so it reports to nobody |
 | `talk-handle` · `talk <handle> "message"` | share an address · send a one-way letter across groups |
 | `… --peer <alias>` | run the same command against [another instance](/docs/peers) |
 

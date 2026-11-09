@@ -53,8 +53,11 @@ own children finishes its turn, blocks on a question, or dies.
 It hears about **its own** children and nothing else, so a busy cockpit never
 wakes it. What arrives is the child's own summary plus pointers — its branch, a
 link to its diff — never the diff itself, which on a large session costs far
-more than it is worth. You can attach or detach an agent by hand from its ⋯
-menu.
+more than it is worth. A 🔗 on a tab marks an agent that is linked, whether it
+has a parent or children of its own, and its ⋯ menu cuts the link from either
+end: "Report to…" and "Detach from…" on the child, "Children reporting here…"
+on the parent, to drop one whose reports you no longer want. An agent does the
+same from a shell with `set-parent` — see [the CLI](/docs/cli#driving-agents-from-an-agent).
 
 A prompt from another agent reaches the recipient under a header naming the
 sender and ending with its short session id — its reply address, since a tab
