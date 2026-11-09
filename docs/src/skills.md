@@ -22,8 +22,15 @@ Filter by tag, by *shared with*, or by status — draft changes, unused, feedbac
 archived. Tick rows to share, tag or archive them in one go.
 
 The detail panel beside it holds the skill's numbers, the agents that have it
-(group by group, each with its run count), the secrets agents running it get,
-and its feedback.
+(group by group, each with its run count), the agents that **run it on a
+schedule** — a scheduled prompt that names it, or a scheduled run that called it
+— the secrets agents running it get, and its feedback. Click an agent to open
+it.
+
+The same question answers from the other side: the **▯** button in an agent's
+bar opens its info panel — its directory and profile, the skills it has with
+their runs this week and how many are on a schedule, and its schedules with the
+skills each one uses. Click a skill there to land on its card in the factory.
 
 ## Creating one
 
