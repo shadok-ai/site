@@ -32,8 +32,9 @@ Each one is yours to edit, and a role you delete stays deleted.
 
 A profile says what one agent is for. The **instance context** says what this
 whole cockpit is for — a handful of lines (2,000 characters at most) that every
-agent here receives at spawn, right after its role: what the instance is for,
-who works on it, which language to answer in.
+agent here receives at spawn, **ahead of** its role: what the instance is for,
+who works on it, which language to answer in. General before specific, so a role
+can still override the general case.
 
 On a fresh instance the lead agent asks two or three questions in its first
 message and writes it **once**. After that it is a human's to edit, from the
