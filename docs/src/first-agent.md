@@ -19,6 +19,11 @@ nothing in the directory is recognisable it says so plainly instead of guessing
 a stack. It is an offer, not a first-run screen: ignore it and the cockpit works
 exactly the same. `SHADOK_GREETING=0` turns it off.
 
+On a brand-new instance that first message also asks you two or three questions
+— what this cockpit is for, who works on it, which language — and writes the
+answers once as the [instance context](/docs/profiles#instance-context), which
+every agent here then receives at spawn. [[alpha]]
+
 ## Start one of your own
 
 The **＋** on a group creates an agent straight into that group. The creation

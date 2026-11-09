@@ -28,6 +28,22 @@ organic, support).
 
 Each one is yours to edit, and a role you delete stays deleted.
 
+## Instance context [[alpha]]
+
+A profile says what one agent is for. The **instance context** says what this
+whole cockpit is for — a handful of lines (2,000 characters at most) that every
+agent here receives at spawn, right after its role: what the instance is for,
+who works on it, which language to answer in.
+
+On a fresh instance the lead agent asks two or three questions in its first
+message and writes it **once**. After that it is a human's to edit, from the
+version menu → **🧭 Instance context…**; the lead's door reopens only if you
+clear the text again. If it is still empty, *Ask general to draft it* runs the
+same short interview.
+
+Saving it does **not** mark the fleet stale: running agents pick up the new text
+at their next reload, and nothing is interrupted to deliver it.
+
 ## The guardrails are soft
 
 This is the sentence to read twice. Profile guardrails stop an agent from
