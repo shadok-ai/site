@@ -247,11 +247,15 @@
 </tbody></table></div>
 <p><code>error.code</code> saves a machine client from matching on message text: <code>"busy"</code> for a prompt refused mid-turn, <code>"logged-out"</code> for a spawn refused because the instance is not signed in to Claude, <code>"space-not-connected"</code> for a spawn whose space has no credential of its own (it carries that space's <code>user</code>), and <code>"resume-refused"</code> for a shortened id that matches no agent or several.</p>
 <h2 id="http"><a class="anchor" href="#http">HTTP</a></h2>
-<p>Behind the same auth as the socket. The read side: <code>/usage</code>, <code>/live</code>, <code>/sessions</code>, <code>/recover</code>, <code>/diff</code>, <code>/channels</code>, <code>/groups</code>, <code>/groups/ssh</code>, <code>/crons</code>, <code>/profiles</code>, <code>/secrets</code>, <code>/defaults</code>, <code>/version</code>, <code>/auth</code>, <code>/first-agent</code>. The write side adds <code>/channel</code> (DELETE), <code>/timezone</code>, <code>/title</code>, <code>/theme</code>, <code>/telegram</code>, <code>/autoupdate</code>, <code>/update-channel</code>, <code>/permission-mode</code>, <code>/secrets/audit</code>, <code>/backend</code> and its <code>/test</code> and <code>/models</code>, and <code>/media/&lt;name&gt;</code> for an attachment served back for inline display.</p>
+<p>Behind the same auth as the socket. The read side: <code>/usage</code>, <code>/live</code>, <code>/sessions</code>, <code>/recover</code>, <code>/diff</code>, <code>/channels</code>, <code>/channels/glance</code>, <code>/groups</code>, <code>/groups/ssh</code>, <code>/crons</code>, <code>/profiles</code>, <code>/secrets</code>, <code>/defaults</code>, <code>/version</code>, <code>/auth</code>, <code>/first-agent</code>. The write side adds <code>/channel</code> (DELETE), <code>/timezone</code>, <code>/title</code>, <code>/theme</code>, <code>/telegram</code>, <code>/autoupdate</code>, <code>/update-channel</code>, <code>/permission-mode</code>, <code>/secrets/audit</code>, <code>/backend</code> and its <code>/test</code> and <code>/models</code>, and <code>/media/&lt;name&gt;</code> for an attachment served back for inline display.</p>
 <p>Two shapes to know about:</p>
 <ul>
 <li><strong><code>GET /channels</code> adds a derived <code>crons</code> field</strong> — the agent's schedules, for
  the ⏰ on its tab. It is computed, never stored.
+</li>
+<li><strong><code>GET /channels/glance</code> is read from the transcripts, not from the agents</strong> —
+ each visible row's last-message time and context percentage, so the list fills
+ at boot instead of waiting for the agents to resume. <span class="badge">alpha</span>
 </li>
 <li><strong>The instance-wide writes are admin-only, and browser-only.</strong> The
  auto-update and channel switches, the permission mode, a bare restart-all, the

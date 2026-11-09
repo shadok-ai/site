@@ -75,7 +75,8 @@ space has no credential of its own (it carries that space's `user`), and
 ## HTTP
 
 Behind the same auth as the socket. The read side: `/usage`, `/live`,
-`/sessions`, `/recover`, `/diff`, `/channels`, `/groups`, `/groups/ssh`,
+`/sessions`, `/recover`, `/diff`, `/channels`, `/channels/glance`, `/groups`,
+`/groups/ssh`,
 `/crons`, `/profiles`,
 `/secrets`, `/defaults`, `/version`, `/auth`, `/first-agent`. The write side
 adds `/channel` (DELETE), `/timezone`, `/title`, `/theme`, `/telegram`,
@@ -87,6 +88,9 @@ Two shapes to know about:
 
 - **`GET /channels` adds a derived `crons` field** — the agent's schedules, for
   the ⏰ on its tab. It is computed, never stored.
+- **`GET /channels/glance` is read from the transcripts, not from the agents** —
+  each visible row's last-message time and context percentage, so the list fills
+  at boot instead of waiting for the agents to resume. [[alpha]]
 - **The instance-wide writes are admin-only, and browser-only.** The
   auto-update and channel switches, the permission mode, a bare restart-all, the
   Claude sign-in routes, the title, the theme and deleting a profile all require
