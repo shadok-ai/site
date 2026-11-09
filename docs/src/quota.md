@@ -22,6 +22,23 @@ Beside them, each agent carries a **context** bar — how full its conversation
 is, measured against the window the model actually asked for, so an agent on a
 long-context model is metered against that.
 
+## Which agent is spending it [[alpha]]
+
+The gauges above are the whole subscription. For one agent's share, open its ⋯
+menu and pick **📊 Stats**: its token use over the last hour, 24 hours, 7 days
+and 30 days, each window split in a tooltip into input, output, cache-write and
+cache-read. The same view shows how long the agent has been **up** — the
+session's age, which survives a restart — and when it **last respawned**, which
+is the running process.
+
+Beside each window sits a **notional cost**, and *notional* is the word that
+carries the meaning: shadok drives your Claude **subscription**, not the API, so
+nothing is billed per token. The figure prices those tokens at Anthropic's API
+list rates, which makes it a fair way to compare two agents and not an invoice.
+
+The numbers are read from the agent's current session transcript, once, when you
+open the view.
+
 ## The pace guard
 
 Turn it on and a prompt is refused when usage has run ahead of the ideal pace.
