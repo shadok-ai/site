@@ -52,6 +52,13 @@ Only names that look like a credential or a connection setting get one
 (`…_TOKEN`, `…_KEY`, `…_URL`, `…_ID`…), never `NODE_ENV` and never shadok's own
 `SHADOK_*`.
 
+## Connected accounts
+
+A LinkedIn account is not a value in the vault: the same panel holds
+[connected accounts](/docs/connected-accounts), where the server keeps the
+credential and an agent only ever names the account it wants to post from.
+[[alpha]]
+
 ## Who touched what
 
 The vault keeps an audit log — *Audit log* in the panel, and 🕘 on each secret.

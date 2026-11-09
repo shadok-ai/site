@@ -28,7 +28,7 @@ const NAV = [
     "index", "getting-started", "key-concepts", "install", "first-agent", "telegram",
   ]},
   { group: "Core concepts", pages: [
-    "agents", "profiles", "worktrees", "secrets", "schedules",
+    "agents", "profiles", "worktrees", "secrets", "connected-accounts", "schedules",
     "groups", "accounts", "skills", "quota", "peers", "files",
   ]},
   { group: "Deploy and operate", pages: [

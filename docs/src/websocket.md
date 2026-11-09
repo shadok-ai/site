@@ -60,6 +60,7 @@ text.
 | `{type:"screen", text, working}` | the rendered TUI screen, whenever it changes |
 | `{type:"prompt-echo", text, origin?, from?}` | a prompt sent by another client. `from` is resolved server-side; a frame's own `from` is believed only from the Telegram bridge |
 | `{type:"parent", parent}` | the channel's parent changed, broadcast so every tab follows |
+| `{type:"social-draft", draft}` | a [post waiting for approval](/docs/connected-accounts), or its new state — published with its URL, discarded, expired, failed. Replayed inside `history` on reload, and never carrying a token [[alpha]] |
 | `{type:"pace-blocked"}` / `{type:"pace-hold"}` / `{type:"pace-resumed"}` | the quota guardrail |
 | `{type:"auto-retry"}` / `-cancelled` / `-gave-up` | a transient API error being retried |
 | `{type:"version", …}` / `{type:"server-reload", version}` | an update is available / the server updated, reload |

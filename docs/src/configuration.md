@@ -57,6 +57,7 @@ machine, which silently shifts every daily prompt on a server running in UTC.
 | `SHADOK_WHISPER_MODEL` · `SHADOK_WHISPER_MODEL_SHA256` · `SHADOK_WHISPER_DIR` | the local transcription model, its pinned hash [[alpha]], and a shared install directory |
 | `SHADOK_SSH_IDENTITY=0` · `SHADOK_FORCE_SSH_IDENTITY=1` | disable / force the container SSH identity |
 | `SHADOK_HOME_BASE` | where a dropped agent's home is created (`/home`) [[alpha]] |
+| `SHADOK_CONNECT_BROKER` | the broker that holds the LinkedIn client secret for [connected accounts](/docs/connected-accounts) (`https://connect.shadok.ai`) [[alpha]] |
 | `TELEGRAM_BOT_TOKEN` · `TELEGRAM_ALLOWED_CHATS` | override the stored Telegram config |
 | `ANTHROPIC_BASE_URL` · `ANTHROPIC_AUTH_TOKEN` · `ANTHROPIC_MODEL` · `SHADOK_CONTEXT_WINDOW` | run on [another model](/docs/model-backend) |
 | `CLAUDE_CODE_OAUTH_TOKEN` | the usage gauges only; `claude` itself uses the keychain |

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Connected accounts — shadok-ai docs</title>
+<meta name="description" content="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">
+<link rel="canonical" href="https://shadok.ai/docs/connected-accounts">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shadok.ai/docs/connected-accounts">
+<meta property="og:title" content="Connected accounts — shadok-ai docs">
+<meta property="og:description" content="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">
+<meta property="og:image" content="https://shadok.ai/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/docs/docs.css?v=1">
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#4b4fc0" stroke="#4b4fc0" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#4b4fc0"/><circle cx="19.2" cy="8.1" r="1.3" fill="#4b4fc0"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </a>
+    <nav class="topnav">
+      <a class="prod" href="/">The product</a>
+      <a class="here" href="/docs">Docs</a>
+      <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap docs">
+  <details class="side-sheet">
+    <summary>All pages</summary>
+    <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/connected-accounts" aria-current="page" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+  </details>
+  <nav class="side" aria-label="Documentation">
+<p class="side-group">Start here</p><ul>
+<li><a href="/docs" title="What shadok-ai is, and where to start depending on what you want from it.">Documentation</a></li>
+<li><a href="/docs/getting-started" title="Three places to run the cockpit — your own machine, a container, a server — and what each one gives you.">Getting started</a></li>
+<li><a href="/docs/key-concepts" title="The vocabulary — agent, session, group, profile, worktree — in one page.">Key concepts</a></li>
+<li><a href="/docs/install" title="One command, what it needs, what it installs for you, and the one-time Claude sign-in.">Install</a></li>
+<li><a href="/docs/first-agent" title="The whole loop once — start an agent, answer the question it asks, read the diff it wrote.">Your first agent</a></li>
+<li><a href="/docs/telegram" title="Mirror an agent into a Telegram topic and drive it from your phone — pairing, commands, operators.">Telegram</a></li>
+</ul>
+<p class="side-group">Core concepts</p><ul>
+<li><a href="/docs/agents" title="One agent is one claude process — how it lives, who can see it, and what happens when agents launch agents.">Agents</a></li>
+<li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
+<li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
+<li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
+<li><a href="/docs/connected-accounts" aria-current="page" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
+<li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
+<li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
+<li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
+<li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
+</ul>
+<p class="side-group">Deploy and operate</p><ul>
+<li><a href="/docs/docker" title="The official image, the three volumes that must survive a recreate, and the pid-1 flag an older image needs.">Docker</a></li>
+<li><a href="/docs/expose" title="The bind, the password, TLS behind a proxy, and the two guards that keep a visited web page from driving your agents.">Beyond this machine</a></li>
+<li><a href="/docs/model-backend" title="Point agents at Ollama, llama.cpp, vLLM or a proxy — no Claude sign-in, and never held by the quota guard.">Another model</a></li>
+<li><a href="/docs/update" title="Two channels, what the version numbers mean, and how an instance updates itself without losing a turn.">Updating</a></li>
+</ul>
+<p class="side-group">Reference</p><ul>
+<li><a href="/docs/configuration" title="Where settings live, which ones are per launch directory, and every environment variable.">Configuration</a></li>
+<li><a href="/docs/cli" title="Run one prompt from a shell, drive agents from another agent, or embed the pilot in your own code.">CLI and library</a></li>
+<li><a href="/docs/websocket" title="The page is replaceable — all the intelligence is server-side. Here is the protocol to speak to it.">WebSocket protocol</a></li>
+<li><a href="/docs/limits" title="What this does not do, written down rather than discovered.">Known limits</a></li>
+</ul>
+</nav>
+
+  <article>
+    <p class="crumb"><a href="/docs">Docs</a> <span>/</span> Core concepts <span>/</span> Connected accounts</p>
+    <p class="alpha-line"><span class="badge">alpha</span> Everything on this page needs the alpha channel — <code>npx shadok-ai@alpha</code>, or the version menu. It is not in the default install yet.</p>
+<h1>Connected accounts</h1>
+<p>An agent that can write a release note cannot publish it. A connected account closes that gap for <strong>LinkedIn</strong>: a person connects the account once, and from then on <em>"write a post about the release and publish it on our LinkedIn"</em> is a thing you can ask for.</p>
+<p>The agent <strong>never sees the token</strong>. It names an account; the server holds the credential and makes the call.</p>
+<h2 id="connect-one"><a class="anchor" href="#connect-one">Connect one</a></h2>
+<p>In <em>Secrets → Connected accounts</em>, click <strong>Connect LinkedIn</strong>, consent on LinkedIn, and the account appears in the list. Nothing else to set up: an instance reaches the shared broker at <code>connect.shadok.ai</code> by default, so the LinkedIn client secret lives there and never on your instance.</p>
+<h2 id="nothing-goes-out-without-a-person"><a class="anchor" href="#nothing-goes-out-without-a-person">Nothing goes out without a person</a></h2>
+<p>By default a post is a <strong>draft</strong>. An approval card appears in the agent's chat with the account, the <strong>exact text</strong> and the image, and nothing is published until someone clicks <em>Publish</em> — or <em>Discard</em>.</p>
+<p>Two details that matter more than they look:</p>
+<ul>
+<li><strong>The image published is the one on the card.</strong> The server takes its own copy
+ the moment the agent drafts, so editing or deleting the file afterwards
+ changes nothing about what goes out.
+</li>
+<li><strong>A pending draft counts as waiting for you</strong>, exactly like a dialog: favicon
+ badge, blinking tab. An unapproved draft expires after <strong>7 days</strong>.
+</li>
+</ul>
+<h2 id="owner-share-policy"><a class="anchor" href="#owner-share-policy">Owner, share, policy</a></h2>
+<div class="scroll"><table><thead><tr>
+<th></th>
+<th></th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Owner</strong></td>
+<td>the person who connected it. Only they can loosen the policy.</td>
+</tr>
+<tr>
+<td><strong>Share</strong></td>
+<td>any combination of the owner's <em>Personal</em> group (the default), chosen restricted groups, and <em>Public</em> — <code>Main</code> and every public group. Optionally narrowed to agents running given <strong>profiles</strong>.</td>
+</tr>
+<tr>
+<td><strong>Policy</strong></td>
+<td><code>approve</code> (the default) or <code>autonomous</code>, which publishes at once. Only the <strong>owner</strong> can switch an account to <code>autonomous</code>.</td>
+</tr>
+</tbody></table></div>
+<h2 id="every-attempt-is-logged"><a class="anchor" href="#every-attempt-is-logged">Every attempt is logged</a></h2>
+<p>Published, refused, expired, failed — each attempt is written to a <strong>publication log</strong>: who triggered it, who approved it, the text, and the post URL or LinkedIn's own error. The row's <strong>Log</strong> button shows the last 50 entries, to anyone who can use that account.</p>
+<h2 id="when-the-token-expires"><a class="anchor" href="#when-the-token-expires">When the token expires</a></h2>
+<p>A LinkedIn token lasts about <strong>60 days</strong>. Seven days before it lapses the owner gets a dismissible banner at the top of the cockpit — and again once it has expired — plus a Telegram DM if they are the DM owner. An expired account refuses to publish with a sentence the agent can relay to you, rather than failing silently.</p>
+<h2 id="how-much-of-a-wall-this-is"><a class="anchor" href="#how-much-of-a-wall-this-is">How much of a wall this is</a></h2>
+<p>On a <strong>single-tenant</strong> instance — a laptop, any macOS cockpit — agents run as your own OS user. This is then a <strong>soft layer</strong>: it stops accidents and prompt injection, an agent posting because a web page told it to, but not an agent determined to read <code>~/.shadok-ai/connected-accounts/</code> itself. It also means every agent on such an instance can use every connected account: there is no wall between agents to scope by, so <em>share</em> decides which <strong>people</strong> see an account. The profile filter applies either way.</p>
+<p>On an instance where <a href="/docs/groups">groups isolate</a> the agents run as other OS users, and the same setting is a real boundary: <em>share</em> then also decides which groups' <strong>agents</strong> may use the account.</p>
+<h2 id="not-yet"><a class="anchor" href="#not-yet">Not yet</a></h2>
+<p>Posting to a LinkedIn <strong>Company Page</strong> needs a second LinkedIn app — LinkedIn requires the Community Management API to stand alone — and is planned for a later version. Today's accounts post as the <strong>member</strong> who connected them.</p>
+<h2 id="for-whoever-runs-the-broker"><a class="anchor" href="#for-whoever-runs-the-broker">For whoever runs the broker</a></h2>
+<p>Only relevant if you host your own instead of using <code>connect.shadok.ai</code>. It is a small <strong>stateless Cloudflare Worker</strong> (<code>broker/</code> in the repository) whose only job is to hold the LinkedIn client secret, so no instance ever has it. It needs two LinkedIn apps — <strong>A</strong>: <em>Sign in with LinkedIn</em> (OIDC) plus <em>Share on LinkedIn</em>, for member posts; <strong>B</strong>: the <em>Community Management API</em> alone, for Pages later — both with the redirect URL <code>https://connect.shadok.ai/linkedin/callback</code>. Point instances at yours with <code>SHADOK_CONNECT_BROKER</code>.</p>
+<p>LinkedIn sunsets its API versions, so the version an instance sends has to be raised about once a year or posting stops working.</p>
+    <nav class="updown">
+      <a class="prev" href="/docs/secrets"><span>Previous</span>The secret vault</a>
+      <a class="next" href="/docs/schedules"><span>Next</span>Scheduled prompts</a>
+    </nav>
+  </article>
+</div>
+
+<footer class="wrap">
+  <p><a href="/">shadok-ai</a> — the cockpit for a company that runs on agents.
+  <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">Source</a>,
+  AGPL-3.0-only.</p>
+  <p>These pages describe the <b>beta</b> channel, which is what <code>npx shadok-ai</code>
+  installs. Anything marked <span class="badge">alpha</span> ships on <code>@alpha</code> first.</p>
+</footer>
+
+</body>
+</html>
