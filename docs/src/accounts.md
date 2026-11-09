@@ -115,6 +115,15 @@ every browser-only route — guardrails, shell mode, uploads — which now requi
 signed-in person rather than an `Origin` header. Agents are no longer handed the
 admin's cookie or the instance password.
 
+**And on an isolated instance it cannot rewrite a role.** Profiles are global
+and any agent can be started on any of them, so an agent editing "its own"
+prompt would plant instructions that another group's agents — private ones
+included — load with their own secrets. That write is refused outright wherever
+groups isolate; it stays open on a single-tenant instance, where an agent could
+edit the profile file directly anyway. Picking a role at spawn is unaffected:
+without the write, a role only lends its guardrails, and its secrets resolve
+against the spawning agent's own group.
+
 > **Upgrading to this.** The first start of that version signs out whoever is
 > signed in with the instance password, once. Agents spawned **before** it still
 > hold the password in their environment: change the password and reload those
