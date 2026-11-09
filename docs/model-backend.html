@@ -129,7 +129,7 @@
 <p>Agents on such a backend need <strong>no Claude sign-in</strong> and are <strong>never held by the pace guard</strong> — they are not spending your subscription.</p>
 <h2 id="three-ways-to-do-it"><a class="anchor" href="#three-ways-to-do-it">Three ways to do it</a></h2>
 <h3 id="from-the-cockpit"><a class="anchor" href="#from-the-cockpit">From the cockpit</a></h3>
-<p>The sign-in card a fresh instance opens has a second side, <strong>Another model</strong>: pick a provider (Ollama, a llama.cpp server, DeepSeek, Z.ai/GLM, Moonshot/Kimi, or any Anthropic-compatible server), and the address and model come pre-filled. The models a local server serves are listed for you, and <strong>Test</strong> sends one real request before anything is saved.</p>
+<p>The <strong>Connect Claude</strong> card a fresh instance opens carries a <strong>Use another model</strong> link: pick a provider (Ollama, a llama.cpp server, DeepSeek, Z.ai/GLM, Moonshot/Kimi, or any Anthropic-compatible server), and the address and model come pre-filled. The models a local server serves are listed for you, and <strong>Test</strong> sends one real request before anything is saved.</p>
 <p>The lead agent starts as soon as you save. Change it later from the version menu, <strong>⚙ Model backend…</strong>, which also offers to go back to the subscription. The choice is stored per launch directory and takes precedence over the environment; running agents keep the model they were started with until they are reloaded.</p>
 <h3 id="the-whole-instance-from-the-environment"><a class="anchor" href="#the-whole-instance-from-the-environment">The whole instance, from the environment</a></h3>
 <pre class="lang-bash"><code>ANTHROPIC_BASE_URL=http://localhost:11434 ANTHROPIC_AUTH_TOKEN=ollama \

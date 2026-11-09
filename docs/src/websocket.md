@@ -68,13 +68,15 @@ text.
 
 `error.code` saves a machine client from matching on message text: `"busy"` for
 a prompt refused mid-turn, `"logged-out"` for a spawn refused because the
-instance is not signed in to Claude, `"resume-refused"` for a shortened id that
-matches no agent or several.
+instance is not signed in to Claude, `"space-not-connected"` for a spawn whose
+space has no credential of its own (it carries that space's `user`), and
+`"resume-refused"` for a shortened id that matches no agent or several.
 
 ## HTTP
 
 Behind the same auth as the socket. The read side: `/usage`, `/live`,
-`/sessions`, `/recover`, `/diff`, `/channels`, `/groups`, `/crons`, `/profiles`,
+`/sessions`, `/recover`, `/diff`, `/channels`, `/groups`, `/groups/ssh`,
+`/crons`, `/profiles`,
 `/secrets`, `/defaults`, `/version`, `/auth`, `/first-agent`. The write side
 adds `/channel` (DELETE), `/timezone`, `/title`, `/theme`, `/telegram`,
 `/autoupdate`, `/update-channel`, `/permission-mode`, `/secrets/audit`,

@@ -51,8 +51,9 @@ Enter to skip — you can add it later from the cockpit.
 Agents run on your Claude account, so there is one step nobody can skip — and
 you never need a shell on the host for it.
 
-When the instance is not signed in, a card takes over the page with the OAuth
-link and a field for the code you get back. Agents **refuse to start** until it
+When the instance is not connected, the **Connect Claude** card takes over the
+page: an **Open claude.ai** link and a field for the code you get back. *I
+already have a token* takes one you minted elsewhere with `claude setup-token`. Agents **refuse to start** until it
 is done, so you cannot accidentally manufacture an agent with no credentials.
 The card exists only while it is needed: there is no button that opens it when
 everything is fine.

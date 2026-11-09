@@ -172,7 +172,7 @@
 </tbody></table></div>
 <h2 id="sign-in-to-claude"><a class="anchor" href="#sign-in-to-claude">Sign in to Claude</a></h2>
 <p>Agents run on your Claude account, so there is one step nobody can skip — and you never need a shell on the host for it.</p>
-<p>When the instance is not signed in, a card takes over the page with the OAuth link and a field for the code you get back. Agents <strong>refuse to start</strong> until it is done, so you cannot accidentally manufacture an agent with no credentials. The card exists only while it is needed: there is no button that opens it when everything is fine.</p>
+<p>When the instance is not connected, the <strong>Connect Claude</strong> card takes over the page: an <strong>Open claude.ai</strong> link and a field for the code you get back. <em>I already have a token</em> takes one you minted elsewhere with <code>claude setup-token</code>. Agents <strong>refuse to start</strong> until it is done, so you cannot accidentally manufacture an agent with no credentials. The card exists only while it is needed: there is no button that opens it when everything is fine.</p>
 <p>From Telegram, which is where you usually are when a session expires mid-afternoon:</p>
 <pre><code>/login          → replies with the link
 /code &lt;code&gt;    → finishes the sign-in (your message is deleted afterwards)</code></pre>

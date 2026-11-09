@@ -64,35 +64,64 @@ brand-new instance one step (seeding the shared Claude credential) can only run
 once you have signed in to Claude, so the banner stays up until then and the
 migration finishes on its own the moment you do. No restart needed.
 
-## The subscription token [[alpha]]
+## Connecting Claude [[alpha]]
 
-Agents in isolated groups authenticate with a **subscription token** injected
-into their environment, not with a shared credential file. Until it is set,
-group spawns are refused with a message naming this step and the cockpit shows a
-red banner.
+Agents in isolated groups authenticate with a credential of their **own**,
+injected into their environment, not with a shared file. A space that has none
+refuses its spawns — the socket answers `code: "space-not-connected"` and names
+the space — and an admin is handed the card that connects it. A member is told
+to ask an admin, and never sees an authorisation flow.
 
-You provide it from the cockpit, with **no shell**: as an admin, click **Provide
-token** on that banner — or *Replace subscription token…* in the version menu to
-rotate it — authorise on your Claude subscription in the browser, and paste the
-code back. From Telegram, `/mttoken` then `/mtcode <code>`. The token is minted
-and vaulted server-side and is never shown. It lasts about a year; re-run the
-card before it expires.
+The **Connect Claude** card opens by itself on a fresh instance, after the
+welcome tour, and asks one question: how long the connection should last.
 
-## Connectors: token or login [[alpha]]
+| Choice | Lasts | What its agents get |
+|---|---|---|
+| **1 month** | about a month, per space | model access **and** your claude.ai connectors |
+| **1 year** | about a year, one token for the instance | model access only |
 
-That token can only make model requests. It does **not** carry your claude.ai
-**Connectors** — Slack, Google Workspace, Microsoft 365, Atlassian.
+Pick one, click **Open claude.ai**, authorise, paste the code back. No shell at
+any point. *I already have a token* takes one minted elsewhere with `claude
+setup-token`, and *Replace subscription token…* in the version menu rotates it
+later. From Telegram, `/mttoken` then `/mtcode <code>` do the same. Nothing is
+shown back to you: the credential is captured and vaulted server-side.
 
-If you want agents to use your connectors, switch the instance's agent auth mode
-to **login**: each OS user (the shared commons user, plus each private group's
-user) does a one-time `claude auth login` from the cockpit, into its own home,
-and its agents then see the connectors. The trade-off is lifetime — a login
-lasts about a **month** against a year for the token, and it is **per user**, so
-the cockpit shows a status row per user and reminds you before each lapses. A
-login is never shared across OS users, which is why each one signs in
-separately.
+The one-month choice is **per space**, because a login belongs to an OS user and
+is never shared between them — the cockpit shows a row per space and reminds you
+before each lapses. The year-long token is one credential for the whole
+instance.
 
-The default stays **token**. Nothing changes until an admin switches.
+## Connectors: what the month buys [[alpha]]
+
+The year-long token can only make model requests. It does **not** carry your
+claude.ai **Connectors** — Slack, Google Workspace, Microsoft 365, Atlassian.
+
+The one-month choice is a real `claude auth login` into each space's own home,
+so its agents see your connectors. That is the whole trade-off: a month against
+a year, and one sign-in per space against one token for the instance. The
+default is the token; nothing changes until an admin picks otherwise.
+
+## Git over SSH, per group [[alpha]]
+
+Each group has its own SSH identity. Every public group shares the cockpit's
+historical container key — the one already registered on your forge — and each
+**walled** group (restricted or private) gets a keypair of its own, minted when
+the group is provisioned. The keypairs live on the data volume, so they survive a
+recreate even though the agent homes do not, and the private half never leaves
+the server's own home.
+
+A key is an identity only once a remote accepts it, so read a group's public key
+and register it wherever its agents must clone or push. `GET /groups/ssh` returns
+one row per group you can see — `{group, name, osUser, publicKey, shared}` —
+filtered exactly like `GET /groups`, so a private group stays invisible even to
+an admin. `shared: true` marks the historical key, which you register once for
+every public group; `publicKey: null` means no keypair has been minted yet, not
+an error. Until a group's key is registered, its agents cannot reach that remote
+over SSH.
+
+> **Separate keys are separate authority only if the remote treats them as
+> separate accounts.** Paste every public key into the same forge account and the
+> separation is bookkeeping, not a wall.
 
 ## In Docker, persist the group homes [[alpha]]
 

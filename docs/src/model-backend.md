@@ -17,7 +17,8 @@ pace guard** — they are not spending your subscription.
 
 ### From the cockpit
 
-The sign-in card a fresh instance opens has a second side, **Another model**:
+The **Connect Claude** card a fresh instance opens carries a **Use another
+model** link:
 pick a provider (Ollama, a llama.cpp server, DeepSeek, Z.ai/GLM, Moonshot/Kimi,
 or any Anthropic-compatible server), and the address and model come pre-filled.
 The models a local server serves are listed for you, and **Test** sends one real
