@@ -24,7 +24,9 @@ and on/off switch.
 
 Run the server from another repository and you get a different cockpit, with a
 different bot. Light or dark **mode**, by contrast, is per browser — the accent
-is the instance's shared identity, the mode is personal.
+is the instance's shared identity, the mode is personal. The cockpit opens
+light; the header's ⋯ menu has the switch, under **Appearance**, and the
+browser you flipped remembers it.
 
 ## Time zone
 

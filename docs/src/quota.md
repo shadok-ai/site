@@ -44,7 +44,7 @@ list rates, which makes it a fair way to compare two agents and not an invoice.
 A delegating agent is not billed as if it worked alone: the children it hands
 work to write transcripts of their own, and their tokens are counted back onto
 the parent. Without that, a lead that mostly delegates would look implausibly
-cheap. [[alpha]]
+cheap.
 
 The scope is each agent's **current** session, so work done before a resume is
 not in the window. The numbers are read once when you open the view; the
