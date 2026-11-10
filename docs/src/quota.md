@@ -35,15 +35,22 @@ The header's own ⋯ menu totals those windows across **every agent you can
 see** — your groups if you are a member, the whole instance if you are an admin
 — so the fleet figure never shows you work you are not allowed to look at.
 
-Beside each window sits a **notional cost**, and *notional* is the word that
+The token counts are **real** — the per-message figures the API itself reported.
+Only the **cost** beside them is notional, and *notional* is the word that
 carries the meaning: shadok drives your Claude **subscription**, not the API, so
-nothing is billed per token. The figure prices those tokens at Anthropic's API
+nothing is billed per token. That figure prices those tokens at Anthropic's API
 list rates, which makes it a fair way to compare two agents and not an invoice.
 
-The numbers are read from the agent's current session transcript, once, when you
-open the view. The instance total sums the running agents from memory and reads a
-dormant one's transcript a single time, then keeps it, so neither view stalls the
-cockpit.
+A delegating agent is not billed as if it worked alone: the children it hands
+work to write transcripts of their own, and their tokens are counted back onto
+the parent. Without that, a lead that mostly delegates would look implausibly
+cheap. [[alpha]]
+
+The scope is each agent's **current** session, so work done before a resume is
+not in the window. The numbers are read once when you open the view; the
+instance total sums the live agents from memory and reads a dormant one's
+transcript — and its children's — a single time, keeping it until the file
+changes, so neither view stalls the cockpit.
 
 ## The pace guard
 
