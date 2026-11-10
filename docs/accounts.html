@@ -63,11 +63,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" aria-current="page" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -100,11 +100,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" aria-current="page" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -164,7 +164,7 @@
 <p><strong>Break-glass</strong>, if every admin loses everything at once: on the machine, remove the instance's entry under <code>twoFactor</code> in <code>~/.shadok-ai/config.json</code> and restart. Whoever has that shell could read every secret anyway.</p>
 <h3 id="what-it-protects-and-what-it-does-not"><a class="anchor" href="#what-it-protects-and-what-it-does-not">What it protects, and what it does not</a></h3>
 <p>It stops a leaked password used over the network, and it invalidates every session issued before it was switched on. It does nothing about anything already running as the machine's user — the same soft boundary as <a href="/docs/profiles">profiles</a>.</p>
-<h2 id="an-agent-is-not-the-admin"><a class="anchor" href="#an-agent-is-not-the-admin">An agent is not the admin <span class="badge">alpha</span></a></h2>
+<h2 id="an-agent-is-not-the-admin"><a class="anchor" href="#an-agent-is-not-the-admin">An agent is not the admin</a></h2>
 <p>An agent authenticates to its own cockpit with <code>SHADOK_SESSION_KEY</code>, and that key makes it <strong>that agent</strong>: a member of its own group, never an admin.</p>
 <p>It can drive its siblings, schedule prompts on its own channel, store a secret it obtained, record in the shared ledger, send you files and reload itself. It is refused (<code>403</code>) on the account, peer, Telegram and backend routes, and on every browser-only route — guardrails, shell mode, uploads — which now require a signed-in person rather than an <code>Origin</code> header. Agents are no longer handed the admin's cookie or the instance password.</p>
 <p><strong>And on an isolated instance it cannot rewrite a role.</strong> Profiles are global and any agent can be started on any of them, so an agent editing "its own" prompt would plant instructions that another group's agents — private ones included — load with their own secrets. That write is refused outright wherever groups isolate; it stays open on a single-tenant instance, where an agent could edit the profile file directly anyway. Picking a role at spawn is unaffected: without the write, a role only lends its guardrails, and its secrets resolve against the spawning agent's own group.</p>

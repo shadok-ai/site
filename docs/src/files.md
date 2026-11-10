@@ -78,9 +78,8 @@ for several minutes: a static ffmpeg, whisper.cpp, and a 181 MB model.
 - Every download is checked against a **SHA-256 pinned in the source** — ffmpeg
   per platform, the whisper.cpp source, the model at a fixed Hugging Face commit.
   A mismatch is refused, and transcription stays off until the next restart.
-  [[alpha]]
 - Only two models carry a pinned hash; any other needs
-  `SHADOK_WHISPER_MODEL_SHA256=<hex>`, or it is refused. [[alpha]]
+  `SHADOK_WHISPER_MODEL_SHA256=<hex>`, or it is refused.
 - `SHADOK_WHISPER_DIR` can point at a directory shared between containers, and
   one copy then serves them all.
 

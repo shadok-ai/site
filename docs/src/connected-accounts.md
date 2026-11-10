@@ -2,7 +2,6 @@
 title: Connected accounts
 nav: Connected accounts
 summary: Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.
-alpha: true
 ---
 
 # Connected accounts

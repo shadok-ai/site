@@ -63,11 +63,11 @@
 <li><a href="/docs/profiles" aria-current="page" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -100,11 +100,11 @@
 <li><a href="/docs/profiles" aria-current="page" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -143,13 +143,13 @@
 <h2 id="the-eight-that-ship"><a class="anchor" href="#the-eight-that-ship">The eight that ship</a></h2>
 <p>A lead that reads everything and delegates; a dev with full access; a <strong>QA agent that writes the failing test and may not fix the code it covers</strong>; a release agent that prepares a deployment and leaves the trigger to you; a product agent that writes the spec instead of the change; and three go-to-market roles (paid, organic, support).</p>
 <p>Each one is yours to edit, and a role you delete stays deleted.</p>
-<h2 id="instance-context"><a class="anchor" href="#instance-context">Instance context <span class="badge">alpha</span></a></h2>
+<h2 id="instance-context"><a class="anchor" href="#instance-context">Instance context</a></h2>
 <p>A profile says what one agent is for. The <strong>instance context</strong> says what this whole cockpit is for — a handful of lines (2,000 characters at most) that every agent here receives at spawn, <strong>ahead of</strong> its role: what the instance is for, who works on it, which language to answer in. General before specific, so a role can still override the general case.</p>
 <p>On a fresh instance the lead agent asks two or three questions in its first message and writes it <strong>once</strong>. After that it is a human's to edit, from the version menu → <strong>🧭 Instance context…</strong>; the lead's door reopens only if you clear the text again. If it is still empty, <em>Ask general to draft it</em> runs the same short interview.</p>
 <p>Saving it does <strong>not</strong> mark the fleet stale: running agents pick up the new text at their next reload, and nothing is interrupted to deliver it.</p>
 <h2 id="the-guardrails-are-soft"><a class="anchor" href="#the-guardrails-are-soft">The guardrails are soft</a></h2>
 <p>This is the sentence to read twice. Profile guardrails stop an agent from <strong>misfiring</strong>. They are not a sandbox: on a single-tenant instance every agent runs as the same OS user as you, with your files and your keys.</p>
-<p>What makes that a real boundary instead of a convention is a deployment that can isolate — one OS user per group, each with its own home. That is <a href="/docs/groups">Groups</a>. <span class="badge">alpha</span></p>
+<p>What makes that a real boundary instead of a convention is a deployment that can isolate — one OS user per group, each with its own home. That is <a href="/docs/groups">Groups</a>.</p>
 <h2 id="a-model-per-agent"><a class="anchor" href="#a-model-per-agent">A model per agent</a></h2>
 <p>The creation form picks the model <strong>this one agent</strong> runs on, overriding its profile's, with a <strong>long context (1M)</strong> tick beside it. Pick a family — Opus, Sonnet, Haiku, Fable — and it follows Claude Code's releases, or fold out <em>Pin an exact version</em>: that list is read from the installed <code>claude</code> binary, so a model Anthropic ships appears on its own at the next Claude Code update, with nothing to maintain here.</p>
 <p>Leave it on <em>profile default</em> and no flag is sent at all. The choice is stored on the agent, so a resume or a restart keeps it, and the quota gauge meters it against the window it actually asked for.</p>

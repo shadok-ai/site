@@ -15,7 +15,7 @@ creates a new agent straight into it.
 
 On a deployment that can isolate, the same group is also a **wall**.
 
-## The three natures [[alpha]]
+## The three natures
 
 - **Private** — only you. One per person, sealed, invisible even to an admin.
 - **Restricted** — your team: a member list, and any member can invite.
@@ -30,7 +30,7 @@ public groups and `Main`, which all share one OS user. Into or out of a walled
 group it is refused, and the drop tells you so at once rather than sliding the
 tab back on the next sync — the agent's process, its home and its transcripts
 belong to the user it was born as. On a single-tenant instance groups are
-cosmetic, so every move is allowed. [[alpha]]
+cosmetic, so every move is allowed.
 
 Private and restricted groups are real walls: each agent runs as **its own OS
 user**, with its own home and its own secrets, never as root. Crossing a wall is
@@ -39,7 +39,7 @@ ledger line as public, push a branch, or send a letter to another agent (freely
 to a public group, to a restricted one only with a handle they gave you; a
 private group cannot be written to at all).
 
-## What it takes [[alpha]]
+## What it takes
 
 Real isolation needs two things, checked once at boot:
 
@@ -60,7 +60,7 @@ not configure this; it follows from how you ran it, and the boot log prints
 > cockpit tells you that, the answer is a deployment that meets the two
 > conditions above — not a setting.
 
-## Migrating an existing instance [[alpha]]
+## Migrating an existing instance
 
 An instance that comes up capable is migrated for you: what you have becomes the
 public `Main` group, each account gets a private group, and agents restart one
@@ -72,7 +72,7 @@ brand-new instance one step (seeding the shared Claude credential) can only run
 once you have signed in to Claude, so the banner stays up until then and the
 migration finishes on its own the moment you do. No restart needed.
 
-## Connecting Claude [[alpha]]
+## Connecting Claude
 
 Agents in isolated groups authenticate with a credential of their **own**,
 injected into their environment, not with a shared file. A space that has none
@@ -99,7 +99,7 @@ is never shared between them — the cockpit shows a row per space and reminds y
 before each lapses. The year-long token is one credential for the whole
 instance.
 
-## Connectors: what the month buys [[alpha]]
+## Connectors: what the month buys
 
 The year-long token can only make model requests. It does **not** carry your
 claude.ai **Connectors** — Slack, Google Workspace, Microsoft 365, Atlassian.
@@ -109,7 +109,7 @@ so its agents see your connectors. That is the whole trade-off: a month against
 a year, and one sign-in per space against one token for the instance. The
 default is the token; nothing changes until an admin picks otherwise.
 
-## Git over SSH, per group [[alpha]]
+## Git over SSH, per group
 
 Each group has its own SSH identity. Every public group shares the cockpit's
 historical container key — the one already registered on your forge — and each
@@ -131,7 +131,7 @@ over SSH.
 > separate accounts.** Paste every public key into the same forge account and the
 > separation is bookkeeping, not a wall.
 
-## In Docker, persist the group homes [[alpha]]
+## In Docker, persist the group homes
 
 Each dropped agent's home sits under `SHADOK_HOME_BASE` (default `/home`), which
 is **not** on the data volume. A `docker rm` and recreate therefore wipes those
@@ -142,7 +142,7 @@ shadok re-seeds the trust robustly at boot, but to avoid the churn entirely,
 mount the home base: add `-v shadok-homes:/home` to your `docker run`. A plain
 `docker restart` never needed this; only a recreate does.
 
-## What isolation is not [[alpha]]
+## What isolation is not
 
 Isolation is **per group, never per agent**: two agents in the same group share
 a user. Telegram stays single-owner. There are no disk quotas. And with no GUI

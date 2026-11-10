@@ -2,7 +2,6 @@
 title: The Skill Factory
 nav: Skill Factory
 summary: Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.
-alpha: true
 ---
 
 # The Skill Factory

@@ -28,7 +28,7 @@ organic, support).
 
 Each one is yours to edit, and a role you delete stays deleted.
 
-## Instance context [[alpha]]
+## Instance context
 
 A profile says what one agent is for. The **instance context** says what this
 whole cockpit is for — a handful of lines (2,000 characters at most) that every
@@ -53,7 +53,7 @@ runs as the same OS user as you, with your files and your keys.
 
 What makes that a real boundary instead of a convention is a deployment that can
 isolate — one OS user per group, each with its own home. That is
-[Groups](/docs/groups). [[alpha]]
+[Groups](/docs/groups).
 
 ## A model per agent
 

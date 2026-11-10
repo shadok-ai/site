@@ -50,7 +50,7 @@ group to move it, drag groups to reorder them, double-click a name to rename.
 
 On a deployment that can isolate, a group is also a wall: its agents run as
 their own OS user, with their own home and secrets.
-[Groups](/docs/groups) is the page for that. [[alpha]]
+[Groups](/docs/groups) is the page for that.
 
 ## A profile
 

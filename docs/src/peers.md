@@ -68,4 +68,4 @@ its files back; you learn only that the letter was delivered.
 
 There is no automatic reply channel, so if you want an answer, put your own
 handle in the message. On a single-team cockpit everything is one public
-commons, and letters are simply unrestricted. [[alpha]]
+commons, and letters are simply unrestricted.

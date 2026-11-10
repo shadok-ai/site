@@ -60,7 +60,7 @@ text.
 | `{type:"screen", text, working}` | the rendered TUI screen, whenever it changes |
 | `{type:"prompt-echo", text, origin?, from?}` | a prompt sent by another client. `from` is resolved server-side; a frame's own `from` is believed only from the Telegram bridge |
 | `{type:"parent", parent}` | the channel's parent changed, broadcast so every tab follows |
-| `{type:"social-draft", draft}` | a [post waiting for approval](/docs/connected-accounts), or its new state — published with its URL, discarded, expired, failed. Replayed inside `history` on reload, and never carrying a token [[alpha]] |
+| `{type:"social-draft", draft}` | a [post waiting for approval](/docs/connected-accounts), or its new state — published with its URL, discarded, expired, failed. Replayed inside `history` on reload, and never carrying a token |
 | `{type:"pace-blocked"}` / `{type:"pace-hold"}` / `{type:"pace-resumed"}` | the quota guardrail |
 | `{type:"auto-retry"}` / `-cancelled` / `-gave-up` | a transient API error being retried |
 | `{type:"version", …}` / `{type:"server-reload", version}` | an update is available / the server updated, reload |
@@ -91,10 +91,10 @@ Two shapes to know about:
   the ⏰ on its tab. It is computed, never stored.
 - **`GET /channels/glance` is read from the transcripts, not from the agents** —
   each visible row's last-message time and context percentage, so the list fills
-  at boot instead of waiting for the agents to resume. [[alpha]]
+  at boot instead of waiting for the agents to resume.
 - **The instance-wide writes are admin-only, and browser-only.** The
   auto-update and channel switches, the permission mode, a bare restart-all, the
   Claude sign-in routes, the title, the theme and deleting a profile all require
   a signed-in person; a member sees those controls disabled. An agent's session
   key is refused there, deliberately — see [an agent is not the
-  admin](/docs/accounts#an-agent-is-not-the-admin). [[alpha]]
+  admin](/docs/accounts#an-agent-is-not-the-admin).

@@ -52,7 +52,7 @@ Three on every instance. They are what survives `docker restart` **and**
 | `/workspace` | the agents' own files |
 
 Two more exist only where groups isolate for real, and neither sits on the data
-volume — so a recreate wipes both: [[alpha]]
+volume — so a recreate wipes both:
 
 | Volume | Holds |
 |---|---|

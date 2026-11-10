@@ -53,7 +53,7 @@ A **Linux** deploy where the server can create OS users — the official image, 
 a VPS where it runs as root or with passwordless `sudo` — and where a GUI
 password is set, unlocks the part a laptop cannot do: **groups that actually isolate**. Each
 agent then runs as its own OS user, with its own home and its own secrets, and a
-private group is invisible even to an admin. [[alpha]]
+private group is invisible even to an admin.
 
 You do not configure this. It follows from how you ran it, it is checked once at
 boot, and the boot log prints which mode you got. Anything short of those two

@@ -63,11 +63,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -100,11 +100,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -137,7 +137,7 @@
 <p>A WebSocket ignores the same-origin policy, so without a check, <strong>any page you happen to visit</strong> could drive your agents. The server refuses a browser whose <code>Origin</code> is not the request's own <code>Host</code>.</p>
 <p>Behind a reverse proxy that rewrites <code>Host</code>, list the public origin in <code>SHADOK_ORIGINS</code>.</p>
 <aside class="note"><strong>Origin-less clients are let through on purpose.</strong> The Telegram bridge, the CLI, the scheduler and agents' own tooling open loopback connections with no <code>Origin</code> header at all; tightening that branch to a deny would cut Telegram off from its own sessions. The bind and the password are what stop a network attacker — this guard only ever addresses browsers.</aside>
-<h2 id="which-host-names-it-answers"><a class="anchor" href="#which-host-names-it-answers">Which host names it answers <span class="badge">alpha</span></a></h2>
+<h2 id="which-host-names-it-answers"><a class="anchor" href="#which-host-names-it-answers">Which host names it answers</a></h2>
 <p>A page on <code>evil.com</code> can re-point its own name at <code>127.0.0.1</code>. Its requests then carry <code>Origin</code> <strong>and</strong> <code>Host</code> as <code>evil.com:3789</code> and look same-origin. So the server also checks the <code>Host</code> header, on every request and on the WebSocket upgrade:</p>
 <ul>
 <li><strong>No password</strong> — the local default: only <code>localhost</code>, <code>*.localhost</code>, any IP

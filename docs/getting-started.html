@@ -63,11 +63,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -100,11 +100,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -139,7 +139,7 @@
 <p>A container is also the honest boundary for anything you expose. The cockpit runs arbitrary commands on its host by design — that is what an agent <strong>is</strong> — so running it in a container you can throw away is the real isolation, not a setting.</p>
 <p><a href="/docs/docker">Docker</a> has the full <code>docker run</code>, the volumes, and the one flag an older image needs.</p>
 <h2 id="on-a-server-for-a-team"><a class="anchor" href="#on-a-server-for-a-team">On a server, for a team</a></h2>
-<p>A <strong>Linux</strong> deploy where the server can create OS users — the official image, or a VPS where it runs as root or with passwordless <code>sudo</code> — and where a GUI password is set, unlocks the part a laptop cannot do: <strong>groups that actually isolate</strong>. Each agent then runs as its own OS user, with its own home and its own secrets, and a private group is invisible even to an admin. <span class="badge">alpha</span></p>
+<p>A <strong>Linux</strong> deploy where the server can create OS users — the official image, or a VPS where it runs as root or with passwordless <code>sudo</code> — and where a GUI password is set, unlocks the part a laptop cannot do: <strong>groups that actually isolate</strong>. Each agent then runs as its own OS user, with its own home and its own secrets, and a private group is invisible even to an admin.</p>
 <p>You do not configure this. It follows from how you ran it, it is checked once at boot, and the boot log prints which mode you got. Anything short of those two conditions stays single-tenant and says so, rather than drawing a wall that protects nothing.</p>
 <p><a href="/docs/groups">Groups</a> covers what a group isolates, and <a href="/docs/expose">Beyond this machine</a> covers the password, the accounts and TLS.</p>
 <h2 id="what-you-need-either-way"><a class="anchor" href="#what-you-need-either-way">What you need either way</a></h2>

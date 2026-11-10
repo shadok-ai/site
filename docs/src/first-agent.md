@@ -22,7 +22,7 @@ exactly the same. `SHADOK_GREETING=0` turns it off.
 On a brand-new instance that first message also asks you two or three questions
 — what this cockpit is for, who works on it, which language — and writes the
 answers once as the [instance context](/docs/profiles#instance-context), which
-every agent here then receives at spawn. [[alpha]]
+every agent here then receives at spawn.
 
 ## Start one of your own
 

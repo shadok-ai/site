@@ -103,7 +103,7 @@ session issued before it was switched on. It does nothing about anything already
 running as the machine's user — the same soft boundary as
 [profiles](/docs/profiles).
 
-## An agent is not the admin [[alpha]]
+## An agent is not the admin
 
 An agent authenticates to its own cockpit with `SHADOK_SESSION_KEY`, and that
 key makes it **that agent**: a member of its own group, never an admin.

@@ -22,7 +22,7 @@ Beside them, each agent carries a **context** bar — how full its conversation
 is, measured against the window the model actually asked for, so an agent on a
 long-context model is metered against that.
 
-## Which agent is spending it [[alpha]]
+## Which agent is spending it
 
 The gauges above are the whole subscription. For one agent's share, open its ⋯
 menu and pick **📊 Stats**: its token use over the last hour, 24 hours, 7 days

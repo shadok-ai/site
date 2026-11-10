@@ -63,11 +63,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" aria-current="page" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -100,11 +100,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" aria-current="page" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -131,7 +131,7 @@
 <h2 id="the-gauges"><a class="anchor" href="#the-gauges">The gauges</a></h2>
 <p>Both subscription windows, live: the <strong>5-hour</strong> one and the <strong>7-day</strong> one. The bar's centre is the pace that would spend the window exactly as it elapses, so the question it answers is not "how much is left" but "am I ahead of the clock".</p>
 <p>Beside them, each agent carries a <strong>context</strong> bar — how full its conversation is, measured against the window the model actually asked for, so an agent on a long-context model is metered against that.</p>
-<h2 id="which-agent-is-spending-it"><a class="anchor" href="#which-agent-is-spending-it">Which agent is spending it <span class="badge">alpha</span></a></h2>
+<h2 id="which-agent-is-spending-it"><a class="anchor" href="#which-agent-is-spending-it">Which agent is spending it</a></h2>
 <p>The gauges above are the whole subscription. For one agent's share, open its ⋯ menu and pick <strong>📊 Stats</strong>: its token use over the last hour, 24 hours, 7 days and 30 days, each window split in a tooltip into input, output, cache-write and cache-read. The same view shows how long the agent has been <strong>up</strong> — the session's age, which survives a restart — and when it <strong>last respawned</strong>, which is the running process.</p>
 <p>The header's own ⋯ menu totals those windows across <strong>every agent you can see</strong> — your groups if you are a member, the whole instance if you are an admin — so the fleet figure never shows you work you are not allowed to look at.</p>
 <p>Beside each window sits a <strong>notional cost</strong>, and <em>notional</em> is the word that carries the meaning: shadok drives your Claude <strong>subscription</strong>, not the API, so nothing is billed per token. The figure prices those tokens at Anthropic's API list rates, which makes it a fair way to compare two agents and not an invoice.</p>

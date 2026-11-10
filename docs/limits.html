@@ -63,11 +63,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -100,11 +100,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -131,7 +131,7 @@
 <h2 id="it-spends-your-subscription"><a class="anchor" href="#it-spends-your-subscription">It spends your subscription</a></h2>
 <p>Every agent consumes your Claude quota like a normal session. There is no API billing mode and no pooled capacity — five agents is five sessions' worth. The <a href="/docs/quota">gauges and the pace guard</a> are there to make that visible, not to make it cheaper. An agent on <a href="/docs/model-backend">a model you host</a> is the exception.</p>
 <h2 id="profile-guardrails-are-soft"><a class="anchor" href="#profile-guardrails-are-soft">Profile guardrails are soft</a></h2>
-<p>Agents run as the same OS user as you, on a single-tenant instance. A profile prevents <strong>misfires</strong> — it is not a sandbox. A deployment with <a href="/docs/groups">isolated groups</a> is what turns that into a real boundary, and even there isolation is per group, never per agent. <span class="badge">alpha</span></p>
+<p>Agents run as the same OS user as you, on a single-tenant instance. A profile prevents <strong>misfires</strong> — it is not a sandbox. A deployment with <a href="/docs/groups">isolated groups</a> is what turns that into a real boundary, and even there isolation is per group, never per agent.</p>
 <h2 id="the-tui-is-not-an-api"><a class="anchor" href="#the-tui-is-not-an-api">The TUI is not an API</a></h2>
 <p>shadok drives the interactive <code>claude</code> CLI and reads its transcript. A Claude Code update can change the markers the detection relies on — <code>❯</code>, <code>⏺</code>, <code>esc to interrupt</code> — and break it. For a production pipeline, use the <a href="https://www.npmjs.com/package/@anthropic-ai/claude-agent-sdk" target="_blank" rel="noopener">Claude Agent SDK</a> or <code>claude -p --output-format stream-json</code> instead.</p>
 <h2 id="worktrees-drift"><a class="anchor" href="#worktrees-drift">Worktrees drift</a></h2>
@@ -144,9 +144,9 @@
 <h2 id="agents-survive-a-server-restart-not-a-reboot"><a class="anchor" href="#agents-survive-a-server-restart-not-a-reboot">Agents survive a server restart, not a reboot</a></h2>
 <p>With tmux, an agent lives through the server restarting — including every auto-update. It does not live through the machine rebooting.</p>
 <h2 id="telegram-is-single-owner"><a class="anchor" href="#telegram-is-single-owner">Telegram is single-owner</a></h2>
-<p>One board group per instance, and the bot's direct messages belong to one person. There is no per-person Telegram identity, and on an isolated-group deployment Telegram stays single-owner. <span class="badge">alpha</span></p>
+<p>One board group per instance, and the bot's direct messages belong to one person. There is no per-person Telegram identity, and on an isolated-group deployment Telegram stays single-owner.</p>
 <h2 id="there-are-no-disk-quotas"><a class="anchor" href="#there-are-no-disk-quotas">There are no disk quotas</a></h2>
-<p>Nothing caps what an agent writes. On a shared deployment, that is a per-group home directory with no ceiling on it. <span class="badge">alpha</span></p>
+<p>Nothing caps what an agent writes. On a shared deployment, that is a per-group home directory with no ceiling on it.</p>
     <nav class="updown">
       <a class="prev" href="/docs/websocket"><span>Previous</span>The WebSocket protocol</a>
       <span></span>

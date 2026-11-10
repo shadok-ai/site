@@ -63,11 +63,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" aria-current="page" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -100,11 +100,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" aria-current="page" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -129,7 +129,7 @@
 <h1>Groups and isolation</h1>
 <p>Every agent lives in a <strong>group</strong>. On a laptop that is organisation: a left column of groups, pick one to narrow the agent list to it, drag an agent onto a group to file it there, drag groups to reorder them, double-click a name to rename it. A group's icon opens a picker — choose from the grid, type any emoji, or type a word (<code>rocket</code>, <code>bug</code>, <code>money</code>) to search for one — and its <strong>＋</strong> creates a new agent straight into it.</p>
 <p>On a deployment that can isolate, the same group is also a <strong>wall</strong>.</p>
-<h2 id="the-three-natures"><a class="anchor" href="#the-three-natures">The three natures <span class="badge">alpha</span></a></h2>
+<h2 id="the-three-natures"><a class="anchor" href="#the-three-natures">The three natures</a></h2>
 <ul>
 <li><strong>Private</strong> — only you. One per person, sealed, invisible even to an admin.
 </li>
@@ -139,9 +139,9 @@
 </li>
 </ul>
 <p>You see and drive your own groups plus the public ones. That covers the agent list, the secrets, the shared ledger and messaging between agents.</p>
-<p>A wall also decides where an agent can be dragged. On an isolating deployment a move is allowed only where it changes nothing about the running process: between public groups and <code>Main</code>, which all share one OS user. Into or out of a walled group it is refused, and the drop tells you so at once rather than sliding the tab back on the next sync — the agent's process, its home and its transcripts belong to the user it was born as. On a single-tenant instance groups are cosmetic, so every move is allowed. <span class="badge">alpha</span></p>
+<p>A wall also decides where an agent can be dragged. On an isolating deployment a move is allowed only where it changes nothing about the running process: between public groups and <code>Main</code>, which all share one OS user. Into or out of a walled group it is refused, and the drop tells you so at once rather than sliding the tab back on the next sync — the agent's process, its home and its transcripts belong to the user it was born as. On a single-tenant instance groups are cosmetic, so every move is allowed.</p>
 <p>Private and restricted groups are real walls: each agent runs as <strong>its own OS user</strong>, with its own home and its own secrets, never as root. Crossing a wall is always a deliberate act — drop a file in the shared <code>~/shared/</code> folder, record a ledger line as public, push a branch, or send a letter to another agent (freely to a public group, to a restricted one only with a handle they gave you; a private group cannot be written to at all).</p>
-<h2 id="what-it-takes"><a class="anchor" href="#what-it-takes">What it takes <span class="badge">alpha</span></a></h2>
+<h2 id="what-it-takes"><a class="anchor" href="#what-it-takes">What it takes</a></h2>
 <p>Real isolation needs two things, checked once at boot:</p>
 <ol>
 <li>the server runs on <strong>Linux</strong> and can <strong>create OS users</strong> — as root or with
@@ -154,10 +154,10 @@
 </ol>
 <p>Both → <strong>multi-tenant</strong>. Anything else — <code>npx shadok-ai</code> on your own machine, a Mac with a password, Docker without a password — stays <strong>single-tenant</strong>, exactly as it was. You do not configure this; it follows from how you ran it, and the boot log prints <code>deployment mode: …</code>.</p>
 <aside class="note"><strong>A single-tenant instance refuses to pretend.</strong> It will not create a private or restricted group rather than draw a wall that protects nothing. If the cockpit tells you that, the answer is a deployment that meets the two conditions above — not a setting.</aside>
-<h2 id="migrating-an-existing-instance"><a class="anchor" href="#migrating-an-existing-instance">Migrating an existing instance <span class="badge">alpha</span></a></h2>
+<h2 id="migrating-an-existing-instance"><a class="anchor" href="#migrating-an-existing-instance">Migrating an existing instance</a></h2>
 <p>An instance that comes up capable is migrated for you: what you have becomes the public <code>Main</code> group, each account gets a private group, and agents restart one at a time. A banner shows the progress.</p>
 <p>Until the migration completes — or if it fails — agents keep running exactly as before, which means the non-root guarantee does not hold for them yet. On a brand-new instance one step (seeding the shared Claude credential) can only run once you have signed in to Claude, so the banner stays up until then and the migration finishes on its own the moment you do. No restart needed.</p>
-<h2 id="connecting-claude"><a class="anchor" href="#connecting-claude">Connecting Claude <span class="badge">alpha</span></a></h2>
+<h2 id="connecting-claude"><a class="anchor" href="#connecting-claude">Connecting Claude</a></h2>
 <p>Agents in isolated groups authenticate with a credential of their <strong>own</strong>, injected into their environment, not with a shared file. A space that has none refuses its spawns — the socket answers <code>code: "space-not-connected"</code> and names the space — and an admin is handed the card that connects it. A member is told to ask an admin, and never sees an authorisation flow.</p>
 <p>The <strong>Connect Claude</strong> card opens by itself on a fresh instance, after the welcome tour, and asks one question: how long the connection should last.</p>
 <div class="scroll"><table><thead><tr>
@@ -178,17 +178,17 @@
 </tbody></table></div>
 <p>Pick one, click <strong>Open claude.ai</strong>, authorise, paste the code back. No shell at any point. <em>I already have a token</em> takes one minted elsewhere with <code>claude setup-token</code>, and <em>Replace subscription token…</em> in the version menu rotates it later. From Telegram, <code>/mttoken</code> then <code>/mtcode &lt;code&gt;</code> do the same. Nothing is shown back to you: the credential is captured and vaulted server-side.</p>
 <p>The one-month choice is <strong>per space</strong>, because a login belongs to an OS user and is never shared between them — the cockpit shows a row per space and reminds you before each lapses. The year-long token is one credential for the whole instance.</p>
-<h2 id="connectors-what-the-month-buys"><a class="anchor" href="#connectors-what-the-month-buys">Connectors: what the month buys <span class="badge">alpha</span></a></h2>
+<h2 id="connectors-what-the-month-buys"><a class="anchor" href="#connectors-what-the-month-buys">Connectors: what the month buys</a></h2>
 <p>The year-long token can only make model requests. It does <strong>not</strong> carry your claude.ai <strong>Connectors</strong> — Slack, Google Workspace, Microsoft 365, Atlassian.</p>
 <p>The one-month choice is a real <code>claude auth login</code> into each space's own home, so its agents see your connectors. That is the whole trade-off: a month against a year, and one sign-in per space against one token for the instance. The default is the token; nothing changes until an admin picks otherwise.</p>
-<h2 id="git-over-ssh-per-group"><a class="anchor" href="#git-over-ssh-per-group">Git over SSH, per group <span class="badge">alpha</span></a></h2>
+<h2 id="git-over-ssh-per-group"><a class="anchor" href="#git-over-ssh-per-group">Git over SSH, per group</a></h2>
 <p>Each group has its own SSH identity. Every public group shares the cockpit's historical container key — the one already registered on your forge — and each <strong>walled</strong> group (restricted or private) gets a keypair of its own, minted when the group is provisioned. The keypairs live on the data volume, so they survive a recreate even though the agent homes do not, and the private half never leaves the server's own home.</p>
 <p>A key is an identity only once a remote accepts it, so read a group's public key and register it wherever its agents must clone or push. <code>GET /groups/ssh</code> returns one row per group you can see — <code>{group, name, osUser, publicKey, shared}</code> — filtered exactly like <code>GET /groups</code>, so a private group stays invisible even to an admin. <code>shared: true</code> marks the historical key, which you register once for every public group; <code>publicKey: null</code> means no keypair has been minted yet, not an error. Until a group's key is registered, its agents cannot reach that remote over SSH.</p>
 <aside class="note"><strong>Separate keys are separate authority only if the remote treats them as separate accounts.</strong> Paste every public key into the same forge account and the separation is bookkeeping, not a wall.</aside>
-<h2 id="in-docker-persist-the-group-homes"><a class="anchor" href="#in-docker-persist-the-group-homes">In Docker, persist the group homes <span class="badge">alpha</span></a></h2>
+<h2 id="in-docker-persist-the-group-homes"><a class="anchor" href="#in-docker-persist-the-group-homes">In Docker, persist the group homes</a></h2>
 <p>Each dropped agent's home sits under <code>SHADOK_HOME_BASE</code> (default <code>/home</code>), which is <strong>not</strong> on the data volume. A <code>docker rm</code> and recreate therefore wipes those homes — taking Claude's first-run and trust state with them, and in <strong>login</strong> mode the per-user credentials, so everyone has to sign in again.</p>
 <p>shadok re-seeds the trust robustly at boot, but to avoid the churn entirely, mount the home base: add <code>-v shadok-homes:/home</code> to your <code>docker run</code>. A plain <code>docker restart</code> never needed this; only a recreate does.</p>
-<h2 id="what-isolation-is-not"><a class="anchor" href="#what-isolation-is-not">What isolation is not <span class="badge">alpha</span></a></h2>
+<h2 id="what-isolation-is-not"><a class="anchor" href="#what-isolation-is-not">What isolation is not</a></h2>
 <p>Isolation is <strong>per group, never per agent</strong>: two agents in the same group share a user. Telegram stays single-owner. There are no disk quotas. And with no GUI password there is no boundary at all, because there are no accounts for a wall to protect.</p>
     <nav class="updown">
       <a class="prev" href="/docs/schedules"><span>Previous</span>Scheduled prompts</a>

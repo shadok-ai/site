@@ -21,7 +21,7 @@ exception.
 Agents run as the same OS user as you, on a single-tenant instance. A profile
 prevents **misfires** — it is not a sandbox. A deployment with [isolated
 groups](/docs/groups) is what turns that into a real boundary, and even there
-isolation is per group, never per agent. [[alpha]]
+isolation is per group, never per agent.
 
 ## The TUI is not an API
 
@@ -62,9 +62,9 @@ auto-update. It does not live through the machine rebooting.
 
 One board group per instance, and the bot's direct messages belong to one
 person. There is no per-person Telegram identity, and on an isolated-group
-deployment Telegram stays single-owner. [[alpha]]
+deployment Telegram stays single-owner.
 
 ## There are no disk quotas
 
 Nothing caps what an agent writes. On a shared deployment, that is a
-per-group home directory with no ceiling on it. [[alpha]]
+per-group home directory with no ceiling on it.

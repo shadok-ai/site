@@ -63,11 +63,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -100,11 +100,11 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts<span class="badge">alpha</span></a></li>
+<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
-<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory<span class="badge">alpha</span></a></li>
+<li><a href="/docs/skills" title="Write a Claude Code skill with an agent, share it with the groups that need it, and every agent there has it.">Skill Factory</a></li>
 <li><a href="/docs/quota" title="Agents spend your subscription. The gauges show both windows, and the guard can hold one back.">Quota and pace</a></li>
 <li><a href="/docs/peers" title="An agent can spawn and drive agents on another instance — opt-in, scoped, and revocable.">Peers</a></li>
 <li><a href="/docs/files" title="Hand an agent a file, get one back, view what it made — and talk to it instead of typing.">Files and voice</a></li>
@@ -148,7 +148,7 @@
 <h2 id="reload-to-apply"><a class="anchor" href="#reload-to-apply">Reload to apply</a></h2>
 <p>An agent's context is fixed <strong>at spawn</strong>, so a long-lived one drifts: the role prompt changed, its guardrails changed, a new skill was seeded, Claude Code itself updated. The cockpit notices by comparing what the running process actually got against what a fresh spawn would give it — a content comparison, not a version number, so a release that changed nothing relevant raises nothing.</p>
 <p>A <code>↻</code> lights up on the agent, with the reasons on hover, and the version menu offers to reload the lot. A reload respawns the agent in place and keeps its history.</p>
-<p>You do not have to click it. The cockpit applies it by itself as soon as the agent has nothing to lose — no turn running, no question waiting, nothing typed in its box, no background shell or monitor, no child notification queued — and has been quiet for two minutes. One agent at a time, at most once every 30 minutes each, so a change that will not stick cannot loop. <code>SHADOK_AUTO_RELOAD=0</code> turns the automatic half off. <span class="badge">alpha</span></p>
+<p>You do not have to click it. The cockpit applies it by itself as soon as the agent has nothing to lose — no turn running, no question waiting, nothing typed in its box, no background shell or monitor, no child notification queued — and has been quiet for two minutes. One agent at a time, at most once every 30 minutes each, so a change that will not stick cannot loop. <code>SHADOK_AUTO_RELOAD=0</code> turns the automatic half off.</p>
 <h2 id="what-shadok-sent-it"><a class="anchor" href="#what-shadok-sent-it">What shadok sent it</a></h2>
 <p>A collapsed block at the head of every conversation shows what the cockpit added to <strong>that</strong> agent: its role, its guardrails and permission mode, the <strong>names</strong> of the variables injected (never the values), the cockpit prompt, and the capabilities shadok installs — the skills that let an agent start other agents, schedule its own prompts or store a credential.</p>
 <p>It is captured at spawn, so it is what the running process was actually given, not a recomputation that would quietly show today's profile. It also says plainly that it is only shadok's half: Claude Code adds its own context, which shadok never sees.</p>

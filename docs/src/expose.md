@@ -39,7 +39,7 @@ Behind a reverse proxy that rewrites `Host`, list the public origin in
 > from its own sessions. The bind and the password are what stop a network
 > attacker — this guard only ever addresses browsers.
 
-## Which host names it answers [[alpha]]
+## Which host names it answers
 
 A page on `evil.com` can re-point its own name at `127.0.0.1`. Its requests then
 carry `Origin` **and** `Host` as `evil.com:3789` and look same-origin. So the

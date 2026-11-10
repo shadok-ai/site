@@ -57,7 +57,6 @@ Only names that look like a credential or a connection setting get one
 A LinkedIn account is not a value in the vault: the same panel holds
 [connected accounts](/docs/connected-accounts), where the server keeps the
 credential and an agent only ever names the account it wants to post from.
-[[alpha]]
 
 ## Who touched what
 

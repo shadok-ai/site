@@ -94,7 +94,7 @@ agent has nothing to lose — no turn running, no question waiting, nothing type
 in its box, no background shell or monitor, no child notification queued — and
 has been quiet for two minutes. One agent at a time, at most once every 30
 minutes each, so a change that will not stick cannot loop.
-`SHADOK_AUTO_RELOAD=0` turns the automatic half off. [[alpha]]
+`SHADOK_AUTO_RELOAD=0` turns the automatic half off.
 
 ## What shadok sent it
 
