@@ -18,7 +18,10 @@ exactly that in one click.
 ## Add, update, rotate
 
 The Secrets panel takes a name and a value, and lets you tick the **profiles**
-it should feed right there. Updating a value is the same gesture; the panel then
+it should feed right there. The name has to be one an environment variable can
+carry — letters, digits and `_`, never starting with a digit — because that is
+what it becomes: `my api key` reaches no agent, `MY_API_KEY` does. A name you
+already have keeps working; the rule applies when you create one. Updating a value is the same gesture; the panel then
 offers to reload the running agents on those profiles so the new value takes
 effect now rather than at their next restart.
 
