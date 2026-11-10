@@ -19,6 +19,20 @@ a log.
 The same thing is in the cockpit, on each agent. `/cron list` prints them with
 an 8-character id, and `on`, `off` and `del` take that prefix.
 
+A `daily` prompt can also run on **chosen days only** — a triage that would be
+pointless on a Sunday, a weekly report. [[alpha]] Name them after the time:
+
+```
+/cron daily 09:00 mon-fri triage whatever came in overnight
+/cron daily 18:00 fri      write the week up for the team
+```
+
+`mon,wed,fri`, a range like `mon-fri`, `weekdays` and `weekend` all read, and so
+do the French names. The cockpit shows the seven days as chips beside the time,
+all ticked; untick the ones you do not want. Ticking none is refused rather than
+guessed at, and a `daily` with no days named still means every day — which is
+what every schedule you already have keeps meaning.
+
 > **Set a time zone.** `daily` is read in the instance's zone (`/timezone`, an
 > IANA name like `Europe/Paris`). Without one it follows the machine — and a
 > server running in UTC silently shifts every daily prompt.

@@ -132,6 +132,10 @@
 /cron daily 09:00 summarise what the team's agents did yesterday
 /cron once 2026-08-25T08:42 run the migration</code></pre>
 <p>The same thing is in the cockpit, on each agent. <code>/cron list</code> prints them with an 8-character id, and <code>on</code>, <code>off</code> and <code>del</code> take that prefix.</p>
+<p>A <code>daily</code> prompt can also run on <strong>chosen days only</strong> — a triage that would be pointless on a Sunday, a weekly report. <span class="badge">alpha</span> Name them after the time:</p>
+<pre><code>/cron daily 09:00 mon-fri triage whatever came in overnight
+/cron daily 18:00 fri      write the week up for the team</code></pre>
+<p><code>mon,wed,fri</code>, a range like <code>mon-fri</code>, <code>weekdays</code> and <code>weekend</code> all read, and so do the French names. The cockpit shows the seven days as chips beside the time, all ticked; untick the ones you do not want. Ticking none is refused rather than guessed at, and a <code>daily</code> with no days named still means every day — which is what every schedule you already have keeps meaning.</p>
 <aside class="note"><strong>Set a time zone.</strong> <code>daily</code> is read in the instance's zone (<code>/timezone</code>, an IANA name like <code>Europe/Paris</code>). Without one it follows the machine — and a server running in UTC silently shifts every daily prompt.</aside>
 <h2 id="the-guard-that-costs-nothing"><a class="anchor" href="#the-guard-that-costs-nothing">The guard that costs nothing</a></h2>
 <p>This is the feature the project is named after. Les Shadoks were cartoon birds whose entire joke was that they pumped: relentlessly, exhaustingly, and for no result anyone could identify. An agent woken every hour to report that nothing happened is pumping. You pay a model call to be told there was nothing to do, and it will tell you that twenty-three more times today.</p>
