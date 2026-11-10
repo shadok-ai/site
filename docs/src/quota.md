@@ -22,6 +22,22 @@ Beside them, each agent carries a **context** bar — how full its conversation
 is, measured against the window the model actually asked for, so an agent on a
 long-context model is metered against that.
 
+### When the gauges stay blank [[alpha]]
+
+An instance whose agents run on a token minted with `claude setup-token` cannot
+read usage: that token carries the right to run the agents and nothing else, so
+the endpoint behind the gauges answers without any window and the bars stay
+empty. The remedy is a second sign-in used **only** for the gauges — the version
+menu's **📊 Set up usage gauge login…**, then the usual claude.ai code. The agents
+never touch it: it lives in a credentials store of its own.
+
+Sign in with the account the agents actually run on, or the gauges — and the
+pace guard reading them — will measure somebody else's week. Anthropic fixes
+that sign-in at about a month and refreshing it never extends it, so you renew
+it roughly monthly; the version menu carries the date and a banner reminds you
+five days ahead. The row is hidden on macOS, where Claude Code keeps its
+credentials in the keychain rather than in the file this reads.
+
 ## Which agent is spending it
 
 The gauges above are the whole subscription. For one agent's share, open its ⋯

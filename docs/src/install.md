@@ -55,6 +55,8 @@ When the instance is not connected, the **Connect Claude** card takes over the
 page: an **Open claude.ai** link and a field for the code you get back. *I
 already have a token* takes one you minted elsewhere with `claude setup-token`. Agents **refuse to start** until it
 is done, so you cannot accidentally manufacture an agent with no credentials.
+A token minted that way runs the agents but cannot read usage, so the quota
+gauges stay empty — see [when the gauges stay blank](/docs/quota#when-the-gauges-stay-blank).
 The card exists only while it is needed: there is no button that opens it when
 everything is fine.
 
