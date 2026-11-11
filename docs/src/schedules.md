@@ -98,9 +98,9 @@ curl -X POST https://<cockpit>/hooks/<id> \
 The call is answered immediately, before the agent has said anything — it
 starts the work, it does not wait for it. Your own prompt runs first, then the
 body of the call, so the agent reads the event with its instructions already in
-hand. Create one in the ⏰ Schedule popin, under **⚡ Webhooks**: the token is
-shown **once**, with a `curl` ready to paste, and you can pause it, rotate the
-token or delete it later.
+hand. Create one from the **⚡** button in the agent's bar, beside the ⏰: the
+token is shown **once**, with a `curl` ready to paste, and you can pause it,
+rotate the token or delete it later.
 
 Two things are worth knowing before you point the internet at an agent. The
 token **is** the credential — the hook answers before the cockpit's password,
