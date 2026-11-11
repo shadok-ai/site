@@ -141,6 +141,31 @@
 <p>Run the server from another repository and you get a different cockpit, with a different bot. Light or dark <strong>mode</strong>, by contrast, is per browser — the accent is the instance's shared identity, the mode is personal. The cockpit opens light; the header's ⋯ menu has the switch, under <strong>Appearance</strong>, and the browser you flipped remembers it.</p>
 <h2 id="time-zone"><a class="anchor" href="#time-zone">Time zone</a></h2>
 <p><code>timezone</code>, an IANA name like <code>Europe/Paris</code>, settable with <code>/timezone</code>, is the default zone for reading a <code>daily</code> schedule. Without it the hour follows the machine, which silently shifts every daily prompt on a server running in UTC.</p>
+<h2 id="how-much-an-agent-may-do-without-asking"><a class="anchor" href="#how-much-an-agent-may-do-without-asking">How much an agent may do without asking</a></h2>
+<p>New agents start in one of four modes, from the one that stops at every action to the one that stops at none:</p>
+<div class="scroll"><table><thead><tr>
+<th>Mode</th>
+<th>What it does</th>
+</tr></thead><tbody>
+<tr>
+<td>Ask before each action</td>
+<td>every command and edit waits for you</td>
+</tr>
+<tr>
+<td>Auto-apply edits</td>
+<td>file edits go through, commands still ask — the default</td>
+</tr>
+<tr>
+<td>Auto mode</td>
+<td>no prompts for the usual work</td>
+</tr>
+<tr>
+<td>Bypass</td>
+<td>zero prompts, ever</td>
+</tr>
+</tbody></table></div>
+<p>The version menu has the dropdown. <span class="badge">alpha</span> <code>SHADOK_PERMISSION_MODE</code> sets the same thing at launch, and the choice applies to agents <strong>spawned afterwards</strong>, not to the ones already running.</p>
+<p>Bypass deserves its own sentence, and the cockpit asks you to confirm it. An agent is not sandboxed: it runs as the same user as the cockpit and it reads things it did not write — web pages, cloned repositories, messages. With every prompt removed, text that arrives from outside and text you wrote carry the same weight. It is the right mode for a machine you keep for that, and the wrong one for the laptop your keys live on.</p>
 <h2 id="environment-variables"><a class="anchor" href="#environment-variables">Environment variables</a></h2>
 <div class="scroll"><table><thead><tr>
 <th>Variable</th>

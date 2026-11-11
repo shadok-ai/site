@@ -34,6 +34,29 @@ browser you flipped remembers it.
 default zone for reading a `daily` schedule. Without it the hour follows the
 machine, which silently shifts every daily prompt on a server running in UTC.
 
+## How much an agent may do without asking
+
+New agents start in one of four modes, from the one that stops at every action
+to the one that stops at none:
+
+| Mode | What it does |
+|---|---|
+| Ask before each action | every command and edit waits for you |
+| Auto-apply edits | file edits go through, commands still ask — the default |
+| Auto mode | no prompts for the usual work |
+| Bypass | zero prompts, ever |
+
+The version menu has the dropdown. [[alpha]] `SHADOK_PERMISSION_MODE` sets the
+same thing at launch, and the choice applies to agents **spawned afterwards**,
+not to the ones already running.
+
+Bypass deserves its own sentence, and the cockpit asks you to confirm it.
+An agent is not sandboxed: it runs as the same user as the cockpit and it reads
+things it did not write — web pages, cloned repositories, messages. With every
+prompt removed, text that arrives from outside and text you wrote carry the
+same weight. It is the right mode for a machine you keep for that, and the
+wrong one for the laptop your keys live on.
+
 ## Environment variables
 
 | Variable | |

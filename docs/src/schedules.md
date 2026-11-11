@@ -82,3 +82,30 @@ prompts on one agent.
 An agent that has nothing to report can answer exactly `NOTHING TO SHOW` and
 the cockpit drops the message instead of posting it. A monitor that runs every
 five minutes should be silent in the chat too, not just free.
+
+## Woken by an event instead of the clock [[alpha]]
+
+Some things do not happen on a schedule: a build fails, a form is submitted, a
+monitor trips. For those, an agent can carry a **webhook** — the same delivery
+as a scheduled prompt, fired by an HTTP call instead of the hour.
+
+```bash
+curl -X POST https://<cockpit>/hooks/<id> \
+  -H 'Authorization: Bearer whk_…' \
+  -H 'Content-Type: application/json' -d '{"status":"failed"}'
+```
+
+The call is answered immediately, before the agent has said anything — it
+starts the work, it does not wait for it. Your own prompt runs first, then the
+body of the call, so the agent reads the event with its instructions already in
+hand. Create one in the ⏰ Schedule popin, under **⚡ Webhooks**: the token is
+shown **once**, with a `curl` ready to paste, and you can pause it, rotate the
+token or delete it later.
+
+Two things are worth knowing before you point the internet at an agent. The
+token **is** the credential — the hook answers before the cockpit's password,
+and an unknown id, a paused hook and a wrong token all answer the same `404`,
+so nothing can be probed. And the body arrives as untrusted text: it is fenced,
+capped, and labelled as something never to take instructions from. Creating or
+changing a webhook is a person's act from a browser, never an agent's — an
+agent must not be able to open a door from the internet into itself.

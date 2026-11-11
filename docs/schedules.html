@@ -155,6 +155,13 @@
 <p>A fire that was <strong>lost on delivery</strong> — the quota guard blocked it, the agent was mid-turn, the socket dropped — is rescheduled about ten minutes out, at most three times, and never past the next normal slot. A fire that timed out is <strong>not</strong> replayed: the turn is still running, and replaying would stack two prompts on one agent.</p>
 <h2 id="keeping-it-quiet-on-purpose"><a class="anchor" href="#keeping-it-quiet-on-purpose">Keeping it quiet on purpose</a></h2>
 <p>An agent that has nothing to report can answer exactly <code>NOTHING TO SHOW</code> and the cockpit drops the message instead of posting it. A monitor that runs every five minutes should be silent in the chat too, not just free.</p>
+<h2 id="woken-by-an-event-instead-of-the-clock"><a class="anchor" href="#woken-by-an-event-instead-of-the-clock">Woken by an event instead of the clock <span class="badge">alpha</span></a></h2>
+<p>Some things do not happen on a schedule: a build fails, a form is submitted, a monitor trips. For those, an agent can carry a <strong>webhook</strong> — the same delivery as a scheduled prompt, fired by an HTTP call instead of the hour.</p>
+<pre class="lang-bash"><code>curl -X POST https://&lt;cockpit&gt;/hooks/&lt;id&gt; \
+  -H 'Authorization: Bearer whk_…' \
+  -H 'Content-Type: application/json' -d '{"status":"failed"}'</code></pre>
+<p>The call is answered immediately, before the agent has said anything — it starts the work, it does not wait for it. Your own prompt runs first, then the body of the call, so the agent reads the event with its instructions already in hand. Create one in the ⏰ Schedule popin, under <strong>⚡ Webhooks</strong>: the token is shown <strong>once</strong>, with a <code>curl</code> ready to paste, and you can pause it, rotate the token or delete it later.</p>
+<p>Two things are worth knowing before you point the internet at an agent. The token <strong>is</strong> the credential — the hook answers before the cockpit's password, and an unknown id, a paused hook and a wrong token all answer the same <code>404</code>, so nothing can be probed. And the body arrives as untrusted text: it is fenced, capped, and labelled as something never to take instructions from. Creating or changing a webhook is a person's act from a browser, never an agent's — an agent must not be able to open a door from the internet into itself.</p>
     <nav class="updown">
       <a class="prev" href="/docs/connected-accounts"><span>Previous</span>Connected accounts</a>
       <a class="next" href="/docs/groups"><span>Next</span>Groups and isolation</a>
