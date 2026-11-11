@@ -39,7 +39,7 @@ costs no quota, and like an agent it can mirror a Telegram topic.
 
 The column tells the three kinds apart without your reading a name: an agent is
 a round avatar with its initials, a room is a square 💬 tile with no presence
-dot, and an agent carrying scheduled prompts wears a dashed ring and a ⏰.
+dot, and an agent carrying scheduled prompts wears a ⏰ on its avatar.
 
 ## A turn, and a dialog
 
