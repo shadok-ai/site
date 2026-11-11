@@ -31,6 +31,16 @@ browsers can follow it at the same time. With `tmux` present (the default) it
 also survives the server restarting, which includes every auto-update. An agent
 ends when you end it, or after an hour with nobody watching.
 
+## A room [[alpha]]
+
+A room is a channel with **no agent behind it** — a place for people to talk,
+in the same column and the same groups as the agents. Nothing runs there, so it
+costs no quota, and like an agent it can mirror a Telegram topic.
+
+The column tells the three kinds apart without your reading a name: an agent is
+a round avatar with its initials, a room is a square 💬 tile with no presence
+dot, and an agent carrying scheduled prompts wears a dashed ring and a ⏰.
+
 ## A turn, and a dialog
 
 You send a prompt; the agent works; the turn ends. While it works you see its

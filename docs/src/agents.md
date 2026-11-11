@@ -96,6 +96,21 @@ has been quiet for two minutes. One agent at a time, at most once every 30
 minutes each, so a change that will not stick cannot loop.
 `SHADOK_AUTO_RELOAD=0` turns the automatic half off.
 
+## When it needs a person [[alpha]]
+
+An agent blocked on something only a human can fix — an expired token, a key
+answering 401, an access it was never given — had nowhere to say so but its own
+chat, and nobody reads that when nobody is watching. A scheduled agent on a
+dead credential fails every run, silently, for days.
+
+It can file a **report** instead. The 🚩 button in the header collects them,
+with a badge and a Telegram message to the instance's owner. A report names the
+variable that is missing, never a value, and the card carries the shortcut that
+saves the trip: *Set `LINEAR_API_KEY`* opens the vault on that name with the
+agent's profile already ticked. The same agent repeating itself merges into one
+card rather than a pile. Only admins see the panel — a report can describe a
+credential problem, which is not everyone's business.
+
 ## What shadok sent it
 
 A collapsed block at the head of every conversation shows what the cockpit

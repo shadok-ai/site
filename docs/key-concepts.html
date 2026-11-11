@@ -134,6 +134,9 @@
 <h2 id="an-agent"><a class="anchor" href="#an-agent">An agent</a></h2>
 <p>One agent is <strong>one <code>claude</code> process</strong>, with its own conversation, its own directory and its own state. Several run at once and do not interfere.</p>
 <p>An agent outlives its viewers. Close the tab, open the cockpit on your phone, and you are back in the same session — it is the same process, and several browsers can follow it at the same time. With <code>tmux</code> present (the default) it also survives the server restarting, which includes every auto-update. An agent ends when you end it, or after an hour with nobody watching.</p>
+<h2 id="a-room"><a class="anchor" href="#a-room">A room <span class="badge">alpha</span></a></h2>
+<p>A room is a channel with <strong>no agent behind it</strong> — a place for people to talk, in the same column and the same groups as the agents. Nothing runs there, so it costs no quota, and like an agent it can mirror a Telegram topic.</p>
+<p>The column tells the three kinds apart without your reading a name: an agent is a round avatar with its initials, a room is a square 💬 tile with no presence dot, and an agent carrying scheduled prompts wears a dashed ring and a ⏰.</p>
 <h2 id="a-turn-and-a-dialog"><a class="anchor" href="#a-turn-and-a-dialog">A turn, and a dialog</a></h2>
 <p>You send a prompt; the agent works; the turn ends. While it works you see its text arrive, the tools it calls and the results.</p>
 <p>When Claude Code needs a decision — a permission prompt, a multiple-choice question — it does not stall in a terminal nobody is looking at. The question becomes <strong>buttons in the chat</strong>, and an inline keyboard in Telegram. The card carries the prompt's own text, including Claude Code's warnings, so you approve what the terminal would have shown you.</p>
