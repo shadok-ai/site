@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy policy — shadok-ai</title>
+<meta name="description" content="How shadok-ai and its connector (connect.shadok.ai) handle your data, including the Google, LinkedIn and X data your agents use on your behalf.">
+<link rel="canonical" href="https://shadok.ai/privacy">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shadok.ai/privacy">
+<meta property="og:title" content="Privacy policy — shadok-ai">
+<meta property="og:description" content="How shadok-ai and its connector (connect.shadok.ai) handle your data, including the Google, LinkedIn and X data your agents use on your behalf.">
+<meta property="og:image" content="https://shadok.ai/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/docs/docs.css?v=1">
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <g fill="#4b4fc0" stroke="#4b4fc0" stroke-width="1.5" stroke-linecap="round">
+          <line x1="13" y1="23" x2="12.6" y2="30.6"/><line x1="11" y1="30.7" x2="14.1" y2="30.7"/>
+          <line x1="18.6" y1="23" x2="19" y2="30.6"/><line x1="17.6" y1="30.7" x2="20.7" y2="30.7"/>
+          <line x1="21.6" y1="17.2" x2="26" y2="20.4"/>
+          <g stroke-width="1"><line x1="13.8" y1="5.4" x2="11.8" y2="2.8"/><circle cx="11.8" cy="2.8" r="1.1" stroke="none"/>
+          <line x1="18.2" y1="5.4" x2="20.2" y2="2.8"/><circle cx="20.2" cy="2.8" r="1.1" stroke="none"/></g>
+          <circle cx="16" cy="16.2" r="8.4" stroke="none"/>
+          <g stroke="none"><circle cx="13.1" cy="7.8" r="2.6" fill="#fff"/><circle cx="18.9" cy="7.8" r="2.6" fill="#fff"/>
+          <circle cx="13.4" cy="8.1" r="1.3" fill="#4b4fc0"/><circle cx="19.2" cy="8.1" r="1.3" fill="#4b4fc0"/></g>
+        </g>
+      </svg>
+      shadok-ai
+    </a>
+    <nav class="topnav">
+      <a class="prod" href="/">The product</a>
+      <a href="/docs">Docs</a>
+      <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap docs" style="display:block;max-width:46rem">
+<article>
+<h1>Privacy policy</h1>
+<p><i>Last updated: 13 November 2026</i></p>
+
+<p>This policy covers <b>shadok-ai</b> (the open-source cockpit you run yourself), the
+<b>shadok connector</b> at <code>connect.shadok.ai</code> (the service that lets your cockpit
+connect Google, LinkedIn and X accounts), and this website. It is published by
+<b>COMEY SAS</b>, 59 rue de Ponthieu, 75008 Paris, France ("we"). Contact: <a href="mailto:admin@comey.pro">admin@comey.pro</a>.</p>
+
+<h2>The short version</h2>
+<ul>
+<li>The cockpit runs <b>on your own machine or server</b>. The data your agents work with stays there; we do not host it and cannot see it.</li>
+<li>The connector only carries out the sign-in with Google, LinkedIn or X. It hands the resulting access back <b>encrypted for your cockpit alone</b>, and stores nothing.</li>
+<li>We do not sell your data, show you ads, or use it to train AI models.</li>
+</ul>
+
+<h2>What the connector does</h2>
+<p>When you click <i>Connect</i> in your cockpit, your browser goes through the provider's own consent
+screen (Google, LinkedIn or X). The provider sends the connector a one-time code; the connector
+exchanges it for access tokens using the app's secret, encrypts them with a key that only your
+cockpit holds, and returns them to your cockpit through your browser. For Google, your cockpit also
+asks the connector to renew its hourly access token; the connector adds the app's secret, returns the
+new token to your cockpit and keeps nothing.</p>
+<p>The connector keeps <b>no database of tokens, accounts or content</b>. Its hosting provider
+(Cloudflare) keeps standard technical request logs (IP address, time, URL path) for security and
+operations; tokens never appear in URLs that are logged.</p>
+
+<h2>Google user data</h2>
+<p>If you connect a Google account, you choose which areas to grant. Depending on your choice, your
+cockpit can access:</p>
+<ul>
+<li><b>Basic profile</b> (<code>openid</code>, <code>email</code>, <code>profile</code>): your Google account id, email address and name, to show which account is connected.</li>
+<li><b>Calendar</b> (<code>calendar.events</code>): read your events, and create, change or delete events when your agents are asked to.</li>
+<li><b>Drive files</b> (<code>drive.file</code>): only the Docs, Sheets and files created by shadok-ai or that you open with it — never the rest of your Drive.</li>
+<li><b>Gmail</b> (<code>gmail.compose</code>): create drafts and send email on your behalf.</li>
+<li><b>Read Gmail</b> (<code>gmail.readonly</code>): search and read your email when your agents are asked to.</li>
+</ul>
+<p><b>How it is used.</b> This data is used only to perform the tasks you, or the agents you run,
+request in your cockpit: checking your agenda, drafting or sending an email, filling a Doc, finding a
+message. By default, sending an email and changing your calendar require your explicit approval in
+the cockpit before anything happens.</p>
+<p><b>Where it goes.</b> Google data is fetched by <b>your</b> cockpit, on your machine or server, and
+is not sent to us. To carry out a task, your cockpit passes the relevant content to the AI model you
+have configured for your agents (by default Anthropic's Claude, under your own Anthropic account).
+Your cockpit keeps the tokens and a log of actions (who did what, with email subjects but never email
+bodies) on your machine or server.</p>
+<p><b>Sharing.</b> We do not sell Google user data, do not use it for advertising, and do not transfer
+it to anyone except as needed to provide the features you use (as described above), to comply with
+the law, or with your consent.</p>
+<p><b>Limited Use.</b> shadok-ai's use and transfer of information received from Google APIs to any
+other app will adhere to the
+<a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>,
+including the Limited Use requirements. Google user data is not used to develop, improve or train
+generalized AI or machine-learning models.</p>
+
+<h2>LinkedIn and X</h2>
+<p>For LinkedIn (and X, when available) the connector works the same way: it completes the sign-in and
+returns the access encrypted to your cockpit. Your cockpit uses it to publish the posts you approve,
+and keeps the token and a publication log locally.</p>
+
+<h2>Deleting your data and revoking access</h2>
+<ul>
+<li><b>Disconnect</b> an account in your cockpit (Secrets → Connected accounts): the token is deleted from your cockpit and, for Google, revoked at Google.</li>
+<li>You can also revoke access at any time from your <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">Google account permissions</a> or your LinkedIn / X settings.</li>
+<li>Since we hold no copy of your tokens or content, there is nothing for us to delete on our side; ask us at the address above if you have any doubt.</li>
+</ul>
+
+<h2>This website and the Shadok Connect waitlist</h2>
+<p>This website sets no cookies and runs no analytics or trackers. It is hosted by Vercel, and its pages load fonts from Google Fonts, so those two providers see your IP address when you visit. If you join the waitlist on
+<code>connect.shadok.ai</code>, we keep the email address you give (and the optional text about your
+use case and your country, derived from your connection) only to contact you about Shadok Connect.
+Ask us to remove it at any time.</p>
+
+<h2>Security</h2>
+<p>Tokens are encrypted in transit (TLS, plus end-to-end encryption between the connector and your
+cockpit) and stored by your cockpit in files only its own user can read. The connector's app secrets
+are held as encrypted secrets by its hosting provider.</p>
+
+<h2>Your rights</h2>
+<p>Under the GDPR you have the right to access, correct, delete and object to the processing of
+personal data we hold about you, and to complain to your data-protection authority (in France, the
+CNIL). Write to <a href="mailto:admin@comey.pro">admin@comey.pro</a>.</p>
+
+<h2>Changes</h2>
+<p>We will update this page when what we do changes, and change the date at the top.</p>
+</article>
+</main>
+
+<footer class="wrap">
+  <p><a href="/">shadok-ai</a> — the cockpit for a company that runs on agents.
+  <a href="https://github.com/shadok-ai/shadok-ai" target="_blank" rel="noopener">Source</a>, AGPL-3.0-only.</p>
+</footer>
+
+</body>
+</html>
