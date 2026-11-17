@@ -96,7 +96,7 @@ has been quiet for two minutes. One agent at a time, at most once every 30
 minutes each, so a change that will not stick cannot loop.
 `SHADOK_AUTO_RELOAD=0` turns the automatic half off.
 
-## When it needs a person [[alpha]]
+## When it needs a person
 
 An agent blocked on something only a human can fix — an expired token, a key
 answering 401, an access it was never given — had nowhere to say so but its own

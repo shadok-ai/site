@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Connected accounts — shadok-ai docs</title>
-<meta name="description" content="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">
+<meta name="description" content="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">
 <link rel="canonical" href="https://shadok.ai/docs/connected-accounts">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://shadok.ai/docs/connected-accounts">
 <meta property="og:title" content="Connected accounts — shadok-ai docs">
-<meta property="og:description" content="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">
+<meta property="og:description" content="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">
 <meta property="og:image" content="https://shadok.ai/og-card.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://shadok.ai/og-card.jpg">
@@ -63,7 +63,7 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" aria-current="page" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
+<li><a href="/docs/connected-accounts" aria-current="page" title="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
@@ -100,7 +100,7 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" aria-current="page" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
+<li><a href="/docs/connected-accounts" aria-current="page" title="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
@@ -127,22 +127,29 @@
     <p class="crumb"><a href="/docs">Docs</a> <span>/</span> Core concepts <span>/</span> Connected accounts</p>
     
 <h1>Connected accounts</h1>
-<p>An agent that can write a release note cannot publish it. A connected account closes that gap for <strong>LinkedIn</strong>: a person connects the account once, and from then on <em>"write a post about the release and publish it on our LinkedIn"</em> is a thing you can ask for.</p>
-<p>The agent <strong>never sees the token</strong>. It names an account; the server holds the credential and makes the call.</p>
-<h2 id="connect-one"><a class="anchor" href="#connect-one">Connect one</a></h2>
-<p>In <em>Secrets → Connected accounts</em>, click <strong>Connect LinkedIn</strong>, consent on LinkedIn, and the account appears in the list. Nothing else to set up: an instance reaches the shared broker at <code>connect.shadok.ai</code> by default, so the LinkedIn client secret lives there and never on your instance.</p>
-<h2 id="nothing-goes-out-without-a-person"><a class="anchor" href="#nothing-goes-out-without-a-person">Nothing goes out without a person</a></h2>
-<p>By default a post is a <strong>draft</strong>. An approval card appears in the agent's chat with the account, the <strong>exact text</strong> and the image, and nothing is published until someone clicks <em>Publish</em> — or <em>Discard</em>.</p>
-<p>Two details that matter more than they look:</p>
+<p>An agent that can draft an email cannot send it, and one that can write code cannot push it — unless you hand it a token, which you should not. A connected account closes that gap: a person connects <strong>Google</strong>, <strong>GitHub</strong> or <strong>LinkedIn</strong> once, and from then on <em>"reply to that thread"</em>, <em>"open the pull request"</em> or <em>"post about the release"</em> is a thing you can ask for.</p>
+<p>The agent <strong>never sees the token</strong>. It names an account; the server holds the credential and makes the call. On every provider, <strong>reading is free and anything that leaves waits for a person</strong> — the shape of that approval differs per provider, below.</p>
+<h2 id="your-google"><a class="anchor" href="#your-google">Your Google</a></h2>
+<p>Connect a Google account and an agent can work inside it:</p>
 <ul>
-<li><strong>The image published is the one on the card.</strong> The server takes its own copy
- the moment the agent drafts, so editing or deleting the file afterwards
- changes nothing about what goes out.
+<li><strong>Calendar</strong> — read the agenda, and create, move or recolour an event.
 </li>
-<li><strong>A pending draft counts as waiting for you</strong>, exactly like a dialog: favicon
- badge, blinking tab. An unapproved draft expires after <strong>7 days</strong>.
+<li><strong>Drive</strong> — search, read and download any file; rename, move or bin one.
+</li>
+<li><strong>Docs, Sheets and Slides</strong> — edit the <em>content</em>: replace text, add slides,
+ style, build tables and tabs, write formulas.
+</li>
+<li><strong>Gmail</strong> — search and read mail, write a draft, send it, or reply in a
+ thread.
 </li>
 </ul>
+<p>Every <strong>write</strong> — a sent email, a moved file, an edited document — goes through an <strong>approval card</strong>, one operation at a time: the agent proposes, you see the exact change, and nothing happens until you click <em>Approve</em>. Reads need no approval.</p>
+<h2 id="your-github"><a class="anchor" href="#your-github">Your GitHub</a></h2>
+<p>Connect a GitHub account and <code>git</code> and <code>gh</code> act on the <strong>repositories that person picked</strong> — nothing else. A private clone, a branch, a commit, a pull request, an issue, a check: the agent works the repo directly, and <strong>no token is ever pasted</strong> into a prompt, a profile or the repository itself. Pick the repositories an account exposes when you connect it; an agent reaches only those.</p>
+<h2 id="linkedin-to-post"><a class="anchor" href="#linkedin-to-post">LinkedIn, to post</a></h2>
+<p>Connect LinkedIn and <em>"write a post about the release and publish it"</em> becomes a request. By default a post is a <strong>draft</strong>: an approval card appears with the account, the <strong>exact text</strong> and the image, and nothing is published until someone clicks <em>Publish</em> — or <em>Discard</em>. The image that goes out is the one on the card (the server copies it the moment the agent drafts, so editing the file afterwards changes nothing), and a pending draft <strong>counts as waiting for you</strong>, exactly like a dialog — favicon badge, blinking tab. An unapproved draft expires after <strong>7 days</strong>.</p>
+<h2 id="connect-one"><a class="anchor" href="#connect-one">Connect one</a></h2>
+<p>In <em>Secrets → Connected accounts</em>, click <strong>Connect Google</strong>, <strong>Connect GitHub</strong> or <strong>Connect LinkedIn</strong>, consent with the provider, and the account appears in the list. Nothing else to set up: an instance reaches the shared broker at <code>connect.shadok.ai</code> by default, so each provider's client secret lives there and never on your instance.</p>
 <h2 id="owner-share-policy"><a class="anchor" href="#owner-share-policy">Owner, share, policy</a></h2>
 <div class="scroll"><table><thead><tr>
 <th></th>
@@ -158,20 +165,20 @@
 </tr>
 <tr>
 <td><strong>Policy</strong></td>
-<td><code>approve</code> (the default) or <code>autonomous</code>, which publishes at once. Only the <strong>owner</strong> can switch an account to <code>autonomous</code>.</td>
+<td><code>approve</code> (the default) or <code>autonomous</code>, which acts without a card. Only the <strong>owner</strong> can switch an account to <code>autonomous</code>.</td>
 </tr>
 </tbody></table></div>
 <h2 id="every-attempt-is-logged"><a class="anchor" href="#every-attempt-is-logged">Every attempt is logged</a></h2>
-<p>Published, refused, expired, failed — each attempt is written to a <strong>publication log</strong>: who triggered it, who approved it, the text, and the post URL or LinkedIn's own error. The row's <strong>Log</strong> button shows the last 50 entries, to anyone who can use that account.</p>
-<h2 id="when-the-token-expires"><a class="anchor" href="#when-the-token-expires">When the token expires</a></h2>
-<p>A LinkedIn token lasts about <strong>60 days</strong>. Seven days before it lapses the owner gets a dismissible banner at the top of the cockpit — and again once it has expired — plus a Telegram DM if they are the DM owner. An expired account refuses to publish with a sentence the agent can relay to you, rather than failing silently.</p>
+<p>For a published post, each attempt — published, refused, expired, failed — is written to a <strong>publication log</strong>: who triggered it, who approved it, the text, and the post URL or the provider's own error. The row's <strong>Log</strong> button shows the last 50 entries, to anyone who can use that account.</p>
+<h2 id="when-the-credential-expires"><a class="anchor" href="#when-the-credential-expires">When the credential expires</a></h2>
+<p>A LinkedIn token lasts about <strong>60 days</strong>. Seven days before it lapses the owner gets a dismissible banner at the top of the cockpit — and again once it has expired — plus a Telegram DM if they are the DM owner. On a multi-tenant instance the version menu shows and renews the agents' credential. An expired account refuses with a sentence the agent can relay to you, rather than failing silently.</p>
 <h2 id="how-much-of-a-wall-this-is"><a class="anchor" href="#how-much-of-a-wall-this-is">How much of a wall this is</a></h2>
-<p>On a <strong>single-tenant</strong> instance — a laptop, any macOS cockpit — agents run as your own OS user. This is then a <strong>soft layer</strong>: it stops accidents and prompt injection, an agent posting because a web page told it to, but not an agent determined to read <code>~/.shadok-ai/connected-accounts/</code> itself. It also means every agent on such an instance can use every connected account: there is no wall between agents to scope by, so <em>share</em> decides which <strong>people</strong> see an account. The profile filter applies either way.</p>
+<p>On a <strong>single-tenant</strong> instance — a laptop, any macOS cockpit — agents run as your own OS user. This is then a <strong>soft layer</strong>: it stops accidents and prompt injection, an agent acting because a web page told it to, but not an agent determined to read <code>~/.shadok-ai/connected-accounts/</code> itself. It also means every agent on such an instance can use every connected account: there is no wall between agents to scope by, so <em>share</em> decides which <strong>people</strong> see an account. The profile filter applies either way.</p>
 <p>On an instance where <a href="/docs/groups">groups isolate</a> the agents run as other OS users, and the same setting is a real boundary: <em>share</em> then also decides which groups' <strong>agents</strong> may use the account.</p>
 <h2 id="not-yet"><a class="anchor" href="#not-yet">Not yet</a></h2>
-<p>Posting to a LinkedIn <strong>Company Page</strong> needs a second LinkedIn app — LinkedIn requires the Community Management API to stand alone — and is planned for a later version. Today's accounts post as the <strong>member</strong> who connected them.</p>
+<p>Posting to a LinkedIn <strong>Company Page</strong> needs a second LinkedIn app — LinkedIn requires the Community Management API to stand alone — and is planned for a later version. Today's LinkedIn accounts post as the <strong>member</strong> who connected them.</p>
 <h2 id="for-whoever-runs-the-broker"><a class="anchor" href="#for-whoever-runs-the-broker">For whoever runs the broker</a></h2>
-<p>Only relevant if you host your own instead of using <code>connect.shadok.ai</code>. It is a small <strong>stateless Cloudflare Worker</strong> (<code>broker/</code> in the repository) whose only job is to hold the LinkedIn client secret, so no instance ever has it. It needs two LinkedIn apps — <strong>A</strong>: <em>Sign in with LinkedIn</em> (OIDC) plus <em>Share on LinkedIn</em>, for member posts; <strong>B</strong>: the <em>Community Management API</em> alone, for Pages later — both with the redirect URL <code>https://connect.shadok.ai/linkedin/callback</code>. Point instances at yours with <code>SHADOK_CONNECT_BROKER</code>.</p>
+<p>Only relevant if you host your own instead of using <code>connect.shadok.ai</code>. It is a small <strong>stateless Cloudflare Worker</strong> (<code>broker/</code> in the repository) whose only job is to hold each provider's client secret, so no instance ever has it. Each provider is registered there as an app — Google and GitHub as their own OAuth / GitHub App, LinkedIn as <em>Sign in with LinkedIn</em> (OIDC) plus <em>Share on LinkedIn</em> — each with its callback under <code>https://connect.shadok.ai/</code>. Point instances at yours with <code>SHADOK_CONNECT_BROKER</code>.</p>
 <p>LinkedIn sunsets its API versions, so the version an instance sends has to be raised about once a year or posting stops working.</p>
     <nav class="updown">
       <a class="prev" href="/docs/secrets"><span>Previous</span>The secret vault</a>

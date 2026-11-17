@@ -63,7 +63,7 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
+<li><a href="/docs/connected-accounts" title="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
@@ -100,7 +100,7 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
+<li><a href="/docs/connected-accounts" title="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
@@ -134,7 +134,7 @@
 <h2 id="an-agent"><a class="anchor" href="#an-agent">An agent</a></h2>
 <p>One agent is <strong>one <code>claude</code> process</strong>, with its own conversation, its own directory and its own state. Several run at once and do not interfere.</p>
 <p>An agent outlives its viewers. Close the tab, open the cockpit on your phone, and you are back in the same session — it is the same process, and several browsers can follow it at the same time. With <code>tmux</code> present (the default) it also survives the server restarting, which includes every auto-update. An agent ends when you end it, or after an hour with nobody watching.</p>
-<h2 id="a-room"><a class="anchor" href="#a-room">A room <span class="badge">alpha</span></a></h2>
+<h2 id="a-room"><a class="anchor" href="#a-room">A room</a></h2>
 <p>A room is a channel with <strong>no agent behind it</strong> — a place for people to talk, in the same column and the same groups as the agents. Nothing runs there, so it costs no quota, and like an agent it can mirror a Telegram topic.</p>
 <p>The column tells the three kinds apart without your reading a name: an agent is a round avatar with its initials, a room is a square 💬 tile with no presence dot, and an agent carrying scheduled prompts wears a ⏰ on its avatar.</p>
 <h2 id="a-turn-and-a-dialog"><a class="anchor" href="#a-turn-and-a-dialog">A turn, and a dialog</a></h2>

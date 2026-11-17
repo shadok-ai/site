@@ -20,7 +20,7 @@ The same thing is in the cockpit, on each agent. `/cron list` prints them with
 an 8-character id, and `on`, `off` and `del` take that prefix.
 
 A `daily` prompt can also run on **chosen days only** — a triage that would be
-pointless on a Sunday, a weekly report. [[alpha]] Name them after the time:
+pointless on a Sunday, a weekly report. Name them after the time:
 
 ```
 /cron daily 09:00 mon-fri triage whatever came in overnight
@@ -83,7 +83,7 @@ An agent that has nothing to report can answer exactly `NOTHING TO SHOW` and
 the cockpit drops the message instead of posting it. A monitor that runs every
 five minutes should be silent in the chat too, not just free.
 
-## Woken by an event instead of the clock [[alpha]]
+## Woken by an event instead of the clock
 
 Some things do not happen on a schedule: a build fails, a form is submitted, a
 monitor trips. For those, an agent can carry a **webhook** — the same delivery

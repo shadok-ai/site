@@ -31,7 +31,7 @@ browsers can follow it at the same time. With `tmux` present (the default) it
 also survives the server restarting, which includes every auto-update. An agent
 ends when you end it, or after an hour with nobody watching.
 
-## A room [[alpha]]
+## A room
 
 A room is a channel with **no agent behind it** — a place for people to talk,
 in the same column and the same groups as the agents. Nothing runs there, so it

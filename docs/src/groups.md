@@ -14,7 +14,7 @@ or type a word (`rocket`, `bug`, `money`) to search for one — and its **＋**
 creates a new agent straight into it.
 
 Inside a group, agents can also sit in **folders**, nested up to eight
-deep. [[alpha]] *📁 new folder* sits under *＋ new agent*; drag an agent onto a
+deep. *📁 new folder* sits under *＋ new agent*; drag an agent onto a
 folder's header to file it there, and click the header to fold it — folded, it
 still shows how many agents it holds and how they are doing. Removing a folder
 moves what it held up one level, so nothing disappears with it. Folders are

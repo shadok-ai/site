@@ -22,7 +22,7 @@ Beside them, each agent carries a **context** bar — how full its conversation
 is, measured against the window the model actually asked for, so an agent on a
 long-context model is metered against that.
 
-### When the gauges stay blank [[alpha]]
+### When the gauges stay blank
 
 An instance whose agents run on a token minted with `claude setup-token` cannot
 read usage: that token carries the right to run the agents and nothing else, so

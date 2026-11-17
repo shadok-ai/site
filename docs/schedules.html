@@ -63,7 +63,7 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
+<li><a href="/docs/connected-accounts" title="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">Connected accounts</a></li>
 <li><a href="/docs/schedules" aria-current="page" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
@@ -100,7 +100,7 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
+<li><a href="/docs/connected-accounts" title="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">Connected accounts</a></li>
 <li><a href="/docs/schedules" aria-current="page" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
@@ -132,7 +132,7 @@
 /cron daily 09:00 summarise what the team's agents did yesterday
 /cron once 2026-08-25T08:42 run the migration</code></pre>
 <p>The same thing is in the cockpit, on each agent. <code>/cron list</code> prints them with an 8-character id, and <code>on</code>, <code>off</code> and <code>del</code> take that prefix.</p>
-<p>A <code>daily</code> prompt can also run on <strong>chosen days only</strong> — a triage that would be pointless on a Sunday, a weekly report. <span class="badge">alpha</span> Name them after the time:</p>
+<p>A <code>daily</code> prompt can also run on <strong>chosen days only</strong> — a triage that would be pointless on a Sunday, a weekly report. Name them after the time:</p>
 <pre><code>/cron daily 09:00 mon-fri triage whatever came in overnight
 /cron daily 18:00 fri      write the week up for the team</code></pre>
 <p><code>mon,wed,fri</code>, a range like <code>mon-fri</code>, <code>weekdays</code> and <code>weekend</code> all read, and so do the French names. The cockpit shows the seven days as chips beside the time, all ticked; untick the ones you do not want. Ticking none is refused rather than guessed at, and a <code>daily</code> with no days named still means every day — which is what every schedule you already have keeps meaning.</p>
@@ -155,7 +155,7 @@
 <p>A fire that was <strong>lost on delivery</strong> — the quota guard blocked it, the agent was mid-turn, the socket dropped — is rescheduled about ten minutes out, at most three times, and never past the next normal slot. A fire that timed out is <strong>not</strong> replayed: the turn is still running, and replaying would stack two prompts on one agent.</p>
 <h2 id="keeping-it-quiet-on-purpose"><a class="anchor" href="#keeping-it-quiet-on-purpose">Keeping it quiet on purpose</a></h2>
 <p>An agent that has nothing to report can answer exactly <code>NOTHING TO SHOW</code> and the cockpit drops the message instead of posting it. A monitor that runs every five minutes should be silent in the chat too, not just free.</p>
-<h2 id="woken-by-an-event-instead-of-the-clock"><a class="anchor" href="#woken-by-an-event-instead-of-the-clock">Woken by an event instead of the clock <span class="badge">alpha</span></a></h2>
+<h2 id="woken-by-an-event-instead-of-the-clock"><a class="anchor" href="#woken-by-an-event-instead-of-the-clock">Woken by an event instead of the clock</a></h2>
 <p>Some things do not happen on a schedule: a build fails, a form is submitted, a monitor trips. For those, an agent can carry a <strong>webhook</strong> — the same delivery as a scheduled prompt, fired by an HTTP call instead of the hour.</p>
 <pre class="lang-bash"><code>curl -X POST https://&lt;cockpit&gt;/hooks/&lt;id&gt; \
   -H 'Authorization: Bearer whk_…' \

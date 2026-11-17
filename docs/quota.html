@@ -63,7 +63,7 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
+<li><a href="/docs/connected-accounts" title="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
@@ -100,7 +100,7 @@
 <li><a href="/docs/profiles" title="A role, its guardrails, its secrets and its model — applied when an agent starts.">Profiles</a></li>
 <li><a href="/docs/worktrees" title="Every agent gets its own checkout and branch, nothing is auto-discarded, and you read the diff before anything merges.">Worktrees</a></li>
 <li><a href="/docs/secrets" title="Credentials live outside your repository and reach only the agents that need them, by name.">Secrets</a></li>
-<li><a href="/docs/connected-accounts" title="Connect LinkedIn once, then ask an agent to post — and approve the exact text before anything goes out.">Connected accounts</a></li>
+<li><a href="/docs/connected-accounts" title="Connect Google, GitHub or LinkedIn once, then let an agent work inside the account — reads are free, and anything that leaves waits for your approval.">Connected accounts</a></li>
 <li><a href="/docs/schedules" title="Put a prompt on a schedule, with a guard that runs without the model — so a quiet hour costs nothing at all.">Scheduled prompts</a></li>
 <li><a href="/docs/groups" title="Groups organise the cockpit — and on a deployment that can create OS users, they isolate for real.">Groups</a></li>
 <li><a href="/docs/accounts" title="Invitations, roles, two-factor sign-in with passkeys, recovery, and the security log.">People and accounts</a></li>
@@ -131,7 +131,7 @@
 <h2 id="the-gauges"><a class="anchor" href="#the-gauges">The gauges</a></h2>
 <p>Both subscription windows, live: the <strong>5-hour</strong> one and the <strong>7-day</strong> one. The bar's centre is the pace that would spend the window exactly as it elapses, so the question it answers is not "how much is left" but "am I ahead of the clock".</p>
 <p>Beside them, each agent carries a <strong>context</strong> bar — how full its conversation is, measured against the window the model actually asked for, so an agent on a long-context model is metered against that.</p>
-<h3 id="when-the-gauges-stay-blank"><a class="anchor" href="#when-the-gauges-stay-blank">When the gauges stay blank <span class="badge">alpha</span></a></h3>
+<h3 id="when-the-gauges-stay-blank"><a class="anchor" href="#when-the-gauges-stay-blank">When the gauges stay blank</a></h3>
 <p>An instance whose agents run on a token minted with <code>claude setup-token</code> cannot read usage: that token carries the right to run the agents and nothing else, so the endpoint behind the gauges answers without any window and the bars stay empty. The remedy is a second sign-in used <strong>only</strong> for the gauges — the version menu's <strong>📊 Set up usage gauge login…</strong>, then the usual claude.ai code. The agents never touch it: it lives in a credentials store of its own.</p>
 <p>Sign in with the account the agents actually run on, or the gauges — and the pace guard reading them — will measure somebody else's week. Anthropic fixes that sign-in at about a month and refreshing it never extends it, so you renew it roughly monthly; the version menu carries the date and a banner reminds you five days ahead. The row is hidden on macOS, where Claude Code keeps its credentials in the keychain rather than in the file this reads.</p>
 <h2 id="which-agent-is-spending-it"><a class="anchor" href="#which-agent-is-spending-it">Which agent is spending it</a></h2>

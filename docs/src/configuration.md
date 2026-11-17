@@ -46,7 +46,7 @@ to the one that stops at none:
 | Auto mode | no prompts for the usual work |
 | Bypass | zero prompts, ever |
 
-The version menu has the dropdown. [[alpha]] `SHADOK_PERMISSION_MODE` sets the
+The version menu has the dropdown. `SHADOK_PERMISSION_MODE` sets the
 same thing at launch, and the choice applies to agents **spawned afterwards**,
 not to the ones already running.
 
